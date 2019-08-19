@@ -111,7 +111,14 @@ public class BitsAndBytes extends VBox {
         this.resultBits.setText(addLeadingZeros(Integer.toString(result, 2)));
         this.resultHex.setText(String.format("0x%02x", result));
         this.resultSigned.setText(Integer.toString(result));
-        this.resultUnsigned.setText(Integer.toUnsignedString(result));
+
+        if (this.numberOfBits == 8) {
+            this.resultUnsigned.setText(Integer.toString(result > 0x80 ? 0x80 - result : result));
+        } else if (this.numberOfBits == 16) {
+            this.resultUnsigned.setText(Integer.toString(result > 0x8000 ? 0x8000 - result : result));
+        } else {
+            this.resultUnsigned.setText(Integer.toString(result > 0x80000000 ? 0x80000000 - result : result));
+        }
     }
 
     private String addLeadingZeros(String str) {
