@@ -112,11 +112,15 @@ class BitsAndBytes extends VBox {
 
         for (int i = this.checkBoxes.size() - 1; i >= 0; i--) {
            bits.append(this.checkBoxes.get(i).isSelected() ? "1" : "0");
+
+           if (i % 4 == 0) {
+               bits.append(" ");
+           }
         }
 
         this.resultBits.setText(bits.toString());
 
-        long result = Long.parseLong(bits.toString(), 2);
+        long result = Long.parseLong(bits.toString().replace(" ", ""), 2);
         this.resultHex.setText(String.format("0x%02x", result));
 
         /*
