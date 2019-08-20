@@ -3,14 +3,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
     @Override
     public void start(Stage stage) {
-        // The scene which is the "root" of our application
-        Scene scene = new Scene(new BitsAndBytes(), 400, 300);
+        Scene scene = new Scene(new BitsAndBytes(), 1600, 300);
 
-        // The top level JavaJX container
-        stage.setTitle("Minimal JavaFX 11 application");
+        stage.setTitle("Bits and bytes - comparing signed and unsigned");
         stage.setScene(scene);
         stage.show();
     }
