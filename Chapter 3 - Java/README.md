@@ -8,7 +8,7 @@ To check the installed java version run this command in the terminal:
 $ java -version
 ```
 
-To install version 12.0.2, make sure it can be executed:
+To install version 12.0.2, make sure it can be executed and run it also in terminal:
 ```
 $ cd scripts/
 $ chmod +x install_liberica_12.0.2.sh
