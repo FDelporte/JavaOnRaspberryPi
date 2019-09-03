@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - HexIntegerToString",
+            "request": "launch",
+            "mainClass": "HexIntegerToString"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - PrintLimits",
+            "request": "launch",
+            "mainClass": "PrintLimits"
+        }
+    ]
+}

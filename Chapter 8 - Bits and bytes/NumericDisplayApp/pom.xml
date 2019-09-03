@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--
+    Detailed info about the POM.
+    https://maven.apache.org/guides/introduction/introduction-to-the-pom.html
+
+    A Project Object Model or POM is the fundamental unit of work in Maven.
+    It is an XML file that contains information about the project and configuration details used by Maven to build the project.
+    -->
+
+    <!--
+    The version of the POM file, version 4.0.0 is the one we are using which is compliant with Maven 3.
+    This is required.
+    -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+    Minimum required info about this project
+    -->
+    <groupId>be.webtechie</groupId>
+    <artifactId>NumericDisplayApplication</artifactId>
+    <version>0.1-SNAPSHOT</version>
+
+    <!--
+    Avoid the following error during build:
+    [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+    -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!--
+    Define extra dependencies needed in the application.
+    In this example we are only using JavaFX Controls.
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+    </dependencies>
+
+    <!--
+    Build configuration to be able to generate a minimal JAR (using modularization introduced in Java 9).
+    https://steveperkins.com/using-java-9-modularization-to-ship-zero-dependency-native-apps/
+    -->
+    <build>
+        <plugins>
+            <!--
+            The Compiler Plugin is used to compile the sources of your project.
+            https://maven.apache.org/plugins/maven-compiler-plugin/index.html
+
+            It provides two maven goals "compiler:compile" and "compiler:testCompile"
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.11</source>
+                    <target>1.11</target>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+            <!--
+            This plugin provides the capability to build jars.
+            https://maven.apache.org/plugins/maven-jar-plugin/
+
+            It provides two maven goals "jar:jar" and "jar:test-jar"
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <outputDirectory>out/</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>Launcher</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!--
+            The plugin helps to execute system and Java programs.
+            https://www.mojohaus.org/exec-maven-plugin/
+
+            It provides two maven goals "exec:exec" and "exec:java"
+
+            Allows us to run this test application from our IDE by first using "compiler:compile" and then "exec:java"
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

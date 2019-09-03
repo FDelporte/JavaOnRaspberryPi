@@ -2,8 +2,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -13,28 +11,28 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-class BitsAndBytes extends VBox {
+class NumericDisplay extends VBox {
 
     private List<CheckBox> checkBoxes = new ArrayList<>();
 
     private Label resultBits = new Label();
     private Label resultHex = new Label();
-    private Label resultSigned = new Label();
     private Label resultUnsigned = new Label();
+    private Label resultSigned = new Label();
 
     private GridPane gridPane = new GridPane();
     
     private int numberOfBits = 8;
 
-    BitsAndBytes() {
+    NumericDisplay() {
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setSpacing(10);
 
         String fontCourier = "-fx-font-family: 'Courier New';";
         this.resultBits.setStyle(fontCourier);
         this.resultHex.setStyle(fontCourier);
+        this.resultUnsigned.setStyle(fontCourier + " -fx-font-weight: bold;");
         this.resultSigned.setStyle(fontCourier);
-        this.resultUnsigned.setStyle(fontCourier);
 
         this.gridPane.setHgap(5);
         this.gridPane.setVgap(10);
@@ -105,47 +103,5 @@ class BitsAndBytes extends VBox {
         }
 
         this.calculate(null);
-    }
-
-    private void calculate(ActionEvent actionEvent) {
-        StringBuilder bits = new StringBuilder();
-
-        for (int i = this.checkBoxes.size() - 1; i >= 0; i--) {
-           bits.append(this.checkBoxes.get(i).isSelected() ? "1" : "0");
-
-           if (i % 4 == 0) {
-               bits.append(" ");
-           }
-        }
-
-        this.resultBits.setText(bits.toString());
-
-        long result = Long.parseLong(bits.toString().replace(" ", ""), 2);
-        this.resultHex.setText(String.format("0x%02x", result));
-
-        /*
-                  width                     minimum                         maximum
-        SIGNED
-        byte:     8 bit                        -127                            +127
-        short:   16 bit                     -32 767                         +32 767
-        int:     32 bit              -2 147 483 647                  +2 147 483 647
-         */
-
-        if (this.numberOfBits == 8) {
-            this.resultUnsigned.setText(result + " - Min: 0 - Max: 255");
-            this.resultSigned.setText((result >= 0x80 ? 0x80 - result : result) + " - Min: -127 - Max: 127");
-        } else if (this.numberOfBits == 16) {
-            this.resultUnsigned.setText(this.formatNumber(result) + " - Min: 0 - Max: 65.535");
-            this.resultSigned.setText(this.formatNumber(result >= 0x8000 ? 0x8000 - result : result) + " - Min: -32.768 - Max: 32.767");
-        } else {
-            this.resultUnsigned.setText(this.formatNumber(result) + " - Min: 0 - Max: " + this.formatNumber(4294967295L));
-            this.resultSigned.setText(this.formatNumber(result >= 0x80000000L ? 0x80000000L - result : result) + " - Min: " + this.formatNumber(-2147483647L) + " - Max: " + this.formatNumber(2147483647L));
-        }
-    }
-
-    private String formatNumber(long value) {
-        DecimalFormat df = new DecimalFormat("#,##0");
-        df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.getDefault()));
-        return df.format(value);
     }
 }
