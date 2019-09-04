@@ -1,13 +1,18 @@
+package be.webtechie.lednumberdisplaycontroller;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+/**
+ * JavaFX App
+ */
+public class App extends Application {
+
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new NumericDisplay(), 1600, 300);
-
-        stage.setTitle("Bits and bytes - comparing signed and unsigned");
+        var scene = new Scene(new LedNumberDisplay(200, 400, 30, Color.DARKGRAY, Color.RED), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -15,4 +20,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
+
 }

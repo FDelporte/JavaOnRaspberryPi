@@ -10,9 +10,14 @@ The scripts directory contains the scripts as described in the book
 
 ```
 $ cd scripts/
-$ chmod +x install_liberica_12.0.2.sh
-$ ./install_liberica_12.0.2.sh
+$ chmod +x {SCRIPT_NAME}.sh
+$ ./{SCRIPT_NAME}.sh
 ```
 
 ### Java projects
+
+#### javapirecipes-javafx-minimal
+Automatically generated minimal JavaFX application
+
+#### 
 

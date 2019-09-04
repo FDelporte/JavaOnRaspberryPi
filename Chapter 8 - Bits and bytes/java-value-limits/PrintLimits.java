@@ -15,5 +15,13 @@ class PrintLimits {
         System.out.println("Long");
         System.out.println("    Min: " + Long.MIN_VALUE);
         System.out.println("    Max: " + Long.MAX_VALUE);
+
+        System.out.println("Double");
+        System.out.println("    Min: " + Double.MIN_VALUE);
+        System.out.println("    Max: " + Double.MAX_VALUE);
+
+        System.out.println("Float");
+        System.out.println("    Min: " + Float.MIN_VALUE);
+        System.out.println("    Max: " + Float.MAX_VALUE);
     }
 }
