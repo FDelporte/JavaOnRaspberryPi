@@ -1,10 +1,6 @@
 package be.webtechie.timeline;
 
-import static java.util.Map.entry;
-
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
