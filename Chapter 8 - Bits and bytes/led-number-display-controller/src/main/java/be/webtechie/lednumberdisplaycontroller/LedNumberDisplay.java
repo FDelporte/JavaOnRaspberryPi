@@ -1,69 +1,63 @@
 package be.webtechie.lednumberdisplaycontroller;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class LedNumberDisplay extends Pane {
 
-    private final List<LedSegmentDefinition> segments = new ArrayList<>();
+    private final LedSegment segmentA;
+    private final LedSegment segmentB;
+    private final LedSegment segmentC;
+    private final LedSegment segmentD;
+    private final LedSegment segmentE;
+    private final LedSegment segmentF;
+    private final LedSegment segmentG;
+    private final DotSegment segmentDot;
 
-    final LedSegment segmentA;
-    final LedSegment segmentB;
-    final LedSegment segmentC;
-    final LedSegment segmentD;
-    final LedSegment segmentE;
-    final LedSegment segmentF;
-    final LedSegment segmentG;
-    final DotSegment segmentDot;
+    private final Color idleColor;
+    private final Color selectedColor;
 
-    final LedType ledType;
-    final Color idleColor;
-    final Color selectedColor;
+    public LedNumberDisplay(DisplaySkin displaySkin, Color backgroundColor, Color idleColor, Color selectedColor) {
+        this(displaySkin, backgroundColor, idleColor, selectedColor, true);
+    }
 
-    /*
-     A
-    F B
-     G
-    E C
-     D
-     */
-
-    public LedNumberDisplay(LedType ledType, Color idleColor, Color selectedColor) {
-        this.ledType = ledType;
+    public LedNumberDisplay(DisplaySkin displaySkin, Color backgroundColor, Color idleColor, Color selectedColor, boolean showDot) {
         this.idleColor = idleColor;
         this.selectedColor = selectedColor;
 
         // Set the background color
-        this.setStyle("-fx-background-color: #ffffff");
+        this.setStyle("-fx-background-color: #" + ColorUtil.colorToHex(backgroundColor, false));
 
         // Horizontal segments
-        this.segmentA = new LedSegment(ledType.getSegmentDefinition("A"), idleColor, ledType.getWidth(), ledType.getHeight());
-        this.segmentB = new LedSegment(ledType.getSegmentDefinition("B"), idleColor, ledType.getWidth(), ledType.getHeight());
-        this.segmentC = new LedSegment(ledType.getSegmentDefinition("C"), idleColor, ledType.getWidth(), ledType.getHeight());
-        this.segmentD = new LedSegment(ledType.getSegmentDefinition("D"), idleColor, ledType.getWidth(), ledType.getHeight());
-        this.segmentE = new LedSegment(ledType.getSegmentDefinition("E"), idleColor, ledType.getWidth(), ledType.getHeight());
-        this.segmentF = new LedSegment(ledType.getSegmentDefinition("F"), idleColor, ledType.getWidth(), ledType.getHeight());
-        this.segmentG = new LedSegment(ledType.getSegmentDefinition("G"), idleColor, ledType.getWidth(), ledType.getHeight());
-        this.segmentDot = new DotSegment(
-                ledType.getDotDiameter(),
-                ledType.getWidth() - ledType.getDotDiameter(),
-                ledType.getHeight() - ledType.getDotDiameter(),
-                idleColor,
-                ledType.getWidth(),
-                ledType.getHeight());
+        this.segmentA = new LedSegment(displaySkin.getSegmentDefinition("A"), idleColor, displaySkin.getWidth(showDot), displaySkin.getHeight());
+        this.segmentB = new LedSegment(displaySkin.getSegmentDefinition("B"), idleColor, displaySkin.getWidth(showDot), displaySkin.getHeight());
+        this.segmentC = new LedSegment(displaySkin.getSegmentDefinition("C"), idleColor, displaySkin.getWidth(showDot), displaySkin.getHeight());
+        this.segmentD = new LedSegment(displaySkin.getSegmentDefinition("D"), idleColor, displaySkin.getWidth(showDot), displaySkin.getHeight());
+        this.segmentE = new LedSegment(displaySkin.getSegmentDefinition("E"), idleColor, displaySkin.getWidth(showDot), displaySkin.getHeight());
+        this.segmentF = new LedSegment(displaySkin.getSegmentDefinition("F"), idleColor, displaySkin.getWidth(showDot), displaySkin.getHeight());
+        this.segmentG = new LedSegment(displaySkin.getSegmentDefinition("G"), idleColor, displaySkin.getWidth(showDot), displaySkin.getHeight());
+        this.getChildren().addAll(this.segmentA, this.segmentB, this.segmentC, this.segmentD, this.segmentE, this.segmentF, this.segmentG);
 
-        this.getChildren().addAll(this.segmentA, this.segmentB, this.segmentC, this.segmentD, this.segmentE, this.segmentF, this.segmentG, this.segmentDot);
+        this.segmentDot = new DotSegment(
+                displaySkin.getDotDiameter(),
+                displaySkin.getWidth(showDot) - displaySkin.getDotSpacing() - displaySkin.getDotDiameter(),
+                displaySkin.getHeight() - displaySkin.getDotDiameter(),
+                idleColor,
+                displaySkin.getWidth(showDot),
+                displaySkin.getHeight());
+
+        if (showDot) {
+            this.getChildren().add(this.segmentDot);
+        }
     }
 
-    public void highlight(HighlightTypes type) {
+    public void highlight(HighlightType type) {
         this.highlight(type, false);
     }
 
-    public void highlight(HighlightTypes type, boolean dot) {
+    public void highlight(HighlightType type, boolean dot) {
         if (type == null) {
-            type = HighlightTypes.CLEAR;
+            type = HighlightType.CLEAR;
         }
 
         this.highlight(type.isA(), type.isB(), type.isC(), type.isD(), type.isE(), type.isF(), type.isG(), dot);

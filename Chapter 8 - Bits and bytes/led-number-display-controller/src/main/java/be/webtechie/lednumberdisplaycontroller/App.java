@@ -1,90 +1,21 @@
 package be.webtechie.lednumberdisplaycontroller;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
-
-    private LedNumberDisplay ledNumberDisplay;
-    private ComboBox<HighlightTypes> selectHighLightType;
-   private CheckBox enableDot;
-
     @Override
     public void start(Stage stage) {
-        LedType ledtype = new LedType(75, 100, 10);
-
-        ledtype.addSegmentDefinition(new LedSegmentDefinition("A",
-                new double[] {0, 10, 50, 60, 50, 10, 0},
-                new double[] {5, 0, 0, 5, 10, 10, 5}
-        ));
-        ledtype.addSegmentDefinition(new LedSegmentDefinition("B",
-                new double[] {60, 60, 50, 50, 60},
-                new double[] {7, 48, 43, 12, 7}
-        ));
-        ledtype.addSegmentDefinition(new LedSegmentDefinition("C",
-                new double[] {60, 60, 50, 50, 60},
-                new double[] {52, 93, 88, 57, 52}
-        ));
-        ledtype.addSegmentDefinition(new LedSegmentDefinition("D",
-                new double[] {0, 10, 50, 60, 50, 10, 0},
-                new double[] {95, 90, 90, 95, 100, 100, 95}
-        ));
-        ledtype.addSegmentDefinition(new LedSegmentDefinition("E",
-                new double[] {0, 10, 10, 0, 0},
-                new double[] {52, 57, 88, 93, 52}
-        ));
-        ledtype.addSegmentDefinition(new LedSegmentDefinition("F",
-                new double[] {0, 10, 10, 0, 0},
-                new double[] {7, 12, 43, 48, 7}
-        ));
-        ledtype.addSegmentDefinition(new LedSegmentDefinition("G",
-                new double[] {0, 10, 50, 60, 50, 10, 0},
-                new double[] {50, 45, 45, 50, 55, 55, 50}
-        ));
-
-        this.ledNumberDisplay = new LedNumberDisplay(ledtype, Color.DARKGRAY, Color.RED);
-
-        VBox holder = new VBox();
-        holder.getChildren().add(this.ledNumberDisplay);
-
-        HBox selections = new HBox();
-        holder.getChildren().add(selections);
-
-        this.selectHighLightType = new ComboBox<>();
-        this.selectHighLightType.getItems().setAll(HighlightTypes.values());
-        this.selectHighLightType.setOnAction(this::updateHighlights);
-        /*cbxHighLightTypes.getSelectionModel()
-                .selectedItemProperty()
-                .addListener(
-                        (ChangeListener<HighlightTypes>) (observable, oldValue, newValue) -> ledNumberDisplay.highlight(newValue));*/
-        selections.getChildren().add(this.selectHighLightType);
-
-        this.enableDot = new CheckBox("Dot");
-        this.enableDot.setOnAction(this::updateHighlights);
-        selections.getChildren().add(this.enableDot);
-
-        var scene = new Scene(holder, 640, 480);
+        var scene = new Scene(new Examples(), 640, 480);
         stage.setScene(scene);
         stage.show();
-
-    }
-
-    private void updateHighlights(ActionEvent actionEvent) {
-        this.ledNumberDisplay.highlight(this.selectHighLightType.getValue(), this.enableDot.isSelected());
     }
 
     public static void main(String[] args) {
         launch();
     }
-
 }
