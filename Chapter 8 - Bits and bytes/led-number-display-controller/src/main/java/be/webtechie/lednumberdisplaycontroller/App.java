@@ -1,7 +1,12 @@
 package be.webtechie.lednumberdisplaycontroller;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -9,6 +14,10 @@ import javafx.stage.Stage;
  * JavaFX App
  */
 public class App extends Application {
+
+    private LedNumberDisplay ledNumberDisplay;
+    private ComboBox<HighlightTypes> selectHighLightType;
+   private CheckBox enableDot;
 
     @Override
     public void start(Stage stage) {
@@ -42,11 +51,36 @@ public class App extends Application {
                 new double[] {0, 10, 50, 60, 50, 10, 0},
                 new double[] {50, 45, 45, 50, 55, 55, 50}
         ));
-        
-        
-        var scene = new Scene(new LedNumberDisplay(ledtype, Color.DARKGRAY, Color.RED), 640, 480);
+
+        this.ledNumberDisplay = new LedNumberDisplay(ledtype, Color.DARKGRAY, Color.RED);
+
+        VBox holder = new VBox();
+        holder.getChildren().add(this.ledNumberDisplay);
+
+        HBox selections = new HBox();
+        holder.getChildren().add(selections);
+
+        this.selectHighLightType = new ComboBox<>();
+        this.selectHighLightType.getItems().setAll(HighlightTypes.values());
+        this.selectHighLightType.setOnAction(this::updateHighlights);
+        /*cbxHighLightTypes.getSelectionModel()
+                .selectedItemProperty()
+                .addListener(
+                        (ChangeListener<HighlightTypes>) (observable, oldValue, newValue) -> ledNumberDisplay.highlight(newValue));*/
+        selections.getChildren().add(this.selectHighLightType);
+
+        this.enableDot = new CheckBox("Dot");
+        this.enableDot.setOnAction(this::updateHighlights);
+        selections.getChildren().add(this.enableDot);
+
+        var scene = new Scene(holder, 640, 480);
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    private void updateHighlights(ActionEvent actionEvent) {
+        this.ledNumberDisplay.highlight(this.selectHighLightType.getValue(), this.enableDot.isSelected());
     }
 
     public static void main(String[] args) {
