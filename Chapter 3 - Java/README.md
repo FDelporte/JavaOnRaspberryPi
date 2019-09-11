@@ -1,6 +1,11 @@
 # Chapter 3 - Java
+Chapter describing the history and current state of Java and how to install on a Pi.
 
-## Content
+## Links
+* [AdoptOpenJDK](https://adoptopenjdk.net/)
+* [BellSoft Liberica JDK](https://bell-sw.com/)
+
+## Scripts
 See the scripts directory to install specific Liberica SDK versions on the Pi.
 
 To check the installed java version run this command in the terminal:
