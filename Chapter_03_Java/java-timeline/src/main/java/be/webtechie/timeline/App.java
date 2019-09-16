@@ -16,7 +16,7 @@ public class App extends Application {
         int width = 900;
         int height = 500;
 
-        var scene = new Scene(new JavaTimeline(width, height, 1990, 2024, 10, DataSets.JAVA_HISTORY), width, height);
+        var scene = new Scene(new JavaTimeline(width, height, 1990, 2024, 10, DataSets.JAVA_RELEASES), width, height);
         stage.setScene(scene);
         stage.show();
     }

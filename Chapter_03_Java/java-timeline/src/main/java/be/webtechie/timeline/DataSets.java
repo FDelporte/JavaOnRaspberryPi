@@ -6,11 +6,20 @@ import java.util.Map;
 
 public class DataSets {
 
+    public static final Map<Integer, String> LANGUAGE_BIRTDATES = Map.ofEntries(
+            entry(1990, "Ruby\n "),
+            entry(1991, "Python\n "),
+            entry(1995, "Java, JavaScript, PHP, Qt"),
+            entry(2000, "C#"),
+            entry(2014, "Swift")
+    );
+
     public static final Map<Integer, String> JAVA_HISTORY = Map.ofEntries(
-            entry(1995, "Sun Microsystems\n "),
-            entry(2007, "GNU General Public License\n "),
+            entry(1995, "Initial Java platform released by\nSun Microsystems"),
+            entry(2007, "Sun relinces under the\nGNU General Public License"),
+            entry(2010, "Oracle acquires the Java ecosystem\nas part of Sun Microsystems deal"),
             entry(2014, "Oracle releases Java 8 LTS,\nthe latest free public update"),
-            entry(2018, "First stable fully open JDK available\nthrough multiple providers")
+            entry(2018, "Latest free public release\nof Java 8 by Oracle")
     );
 
     public static final Map<Integer, String> JAVA_RELEASES = Map.ofEntries(
