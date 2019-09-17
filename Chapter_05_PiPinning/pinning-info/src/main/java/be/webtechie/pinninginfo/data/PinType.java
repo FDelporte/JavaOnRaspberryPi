@@ -9,8 +9,8 @@ public enum PinType {
     POWER("Power", Color.RED),
     GROUND("Ground", Color.BLACK),
     DIGITAL("Digital", Color.GREEN),
-    DIGITAL_AND_PWM("DigitalAndPwm", Color.ORANGE),
-    DIGITAL_NO_PULL_DOWN("DigitalNoPullDown",Color.PURPLE);
+    DIGITAL_AND_PWM("Digital and PWM", Color.ORANGE),
+    DIGITAL_NO_PULL_DOWN("Digital without pulldown",Color.PURPLE);
 
     private final String label;
     private final Color color;

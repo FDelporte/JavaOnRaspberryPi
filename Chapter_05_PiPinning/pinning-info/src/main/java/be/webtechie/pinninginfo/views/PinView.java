@@ -9,6 +9,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,93 +25,51 @@ class PinView extends HBox {
      * Constructor to create the visualization of a {@link RaspberryPiHeader}.
      *
      * @param pin The {@link HeaderPin} to be visualized.
-     * @param extended True for extended view, false for compact view.
      * @param rightToLeft True/False to switch between RL and LR visualization.
      */
-    PinView(final HeaderPin pin, final boolean extended, final boolean rightToLeft) {
+    PinView(final HeaderPin pin, final boolean rightToLeft) {
         this.setNodeOrientation(rightToLeft ? NodeOrientation.RIGHT_TO_LEFT : NodeOrientation.LEFT_TO_RIGHT);
         this.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-border-style: solid;");
         this.setPadding(new Insets(1, 1, 1, 1));
         this.setSpacing(1);
-        this.setPrefHeight(extended ? 30 : 15);
+        this.setPrefHeight(20);
+        this.setAlignment(Pos.CENTER);
 
         // GPIO number
         Label gpioNumber = new Label();
-        gpioNumber.setPrefWidth(50);
-        gpioNumber.setTextFill(Color.BLUE);
-        gpioNumber.setStyle("-fx-font: 20px Tahoma; -fx-alignment: TOP-CENTER;");
-/*
-        if (pin.get != null && pin.getPin().toString().contains("GPIO")) {
-            final String lbl = pin.getPin().toString().replace("GPIO ", "");
-            gpioNumber.setText(lbl);
-        }
-*/
+        gpioNumber.setPrefWidth(20);
+        gpioNumber.setStyle("-fx-font: 16px Tahoma; -fx-alignment: TOP-CENTER;");
         this.getChildren().add(gpioNumber);
+
+        if (pin.getWiringPiNumber() != null) {
+            gpioNumber.setText(String.valueOf(pin.getWiringPiNumber()));
+        }
 
         // Tooltip
         final Tooltip tooltip = new Tooltip();
-
-        StringBuilder sbToolTip = new StringBuilder();
-/*
-        if (pin.getPin() != null) {
-            sbToolTip.append(pin.getPin().getName()).append("\n");
-
-            if (!pin.getPin().getSupportedPinModes().isEmpty()) {
-                sbToolTip
-                        .append("Supported pin modes:")
-                        .append("\n")
-                        .append(pin.getPin().getSupportedPinModes()
-                            .stream()
-                            .map(Enum::name)
-                            .collect(Collectors.joining(", ")))
-                        .append("\n");
-            }
-        } else {
-            sbToolTip.append(pin.getName());
+        if (pin.getRemark() != null) {
+            tooltip.setText(pin.getRemark());
         }
-*/
-        tooltip.setText(sbToolTip.toString());
 
         // Name and info
-        VBox textBoxes = new VBox();
-        textBoxes.setPrefWidth(120);
-        textBoxes.setAlignment(Pos.CENTER_LEFT);
-
         Label name = new Label(pin.getName());
         name.setStyle("-fx-font: 12px Tahoma; -fx-font-weight: bold;");
         name.setTooltip(tooltip);
-
-        textBoxes.getChildren().add(name);
-
-        if (extended) {
-            Label info = new Label(pin.getRemark());
-            info.setStyle("-fx-font: 12px Tahoma; -fx-font-weight: normal;");
-
-            textBoxes.getChildren().add(info);
-        }
-
-        this.getChildren().add(textBoxes);
-
+        name.setMinWidth(180);
+        this.getChildren().add(name);
 
         // Pin number
         Label pinNumber = new Label();
-        pinNumber.setPrefWidth(25);
-        pinNumber.setStyle("-fx-font: 8px Tahoma; -fx-rotate: -90;");
+        pinNumber.setPrefWidth(20);
+        pinNumber.setStyle("-fx-font: 16px Tahoma; -fx-alignment: TOP-CENTER;");
         pinNumber.setText(String.valueOf(pin.getPinNumber()));
-
         this.getChildren().add(pinNumber);
 
-        // State visualization
-        VBox state = new VBox();
-        state.setPrefWidth(25);
-        state.setPrefHeight(25);
-        state.setAlignment(Pos.CENTER);
-
-       /* if (pin.getPinType()) {
-            CheckBox cb = new CheckBox();
-            state.getChildren().add(cb);
-        }*/
-
-        this.getChildren().add(state);
+        // Color pin
+        VBox color = new VBox();
+        color.setPrefWidth(25);
+        color.setPrefHeight(25);
+        color.setBackground(new Background(new BackgroundFill(pin.getPinType().getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+        this.getChildren().add(color);
     }
 }
