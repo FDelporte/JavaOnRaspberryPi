@@ -4,7 +4,14 @@ In this project you can find all the sources and scripts described in the book [
 ## Content
 Everything is organized according to the chapters in the book.
 
-To make it easy to follow each chapter directory contains a README file like this on, with more info about the content of the chapter itself.
+Within each chapter you will find (but not always all of them):
+* A README file like this on, with more info about the content of the chapter itself.
+* One "scripts" directory with scripts e.g. to install Java on the Pi.
+* One "schemes" directory with Fritzing files with the wiring of the projects in this chapter.
+* One or more "java-..." directories, depending on the content:
+	* Only .java-files: code you can run without the need to compile (with Java 11+).
+	* A new directory structure with a "pom.xml" in the root: a full Maven Java project.
+* One or more "javafx-..." directories: a full Mavan JavaFX project.
 
 ## Chapters
 * 1: Introduction

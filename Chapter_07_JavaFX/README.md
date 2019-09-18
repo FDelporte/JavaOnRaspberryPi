@@ -16,8 +16,5 @@ $ ./{SCRIPT_NAME}.sh
 
 ### Java projects
 
-#### javapirecipes-javafx-minimal
-Automatically generated minimal JavaFX application
-
-#### 
-
+#### javafx-minimal
+Automatically generated minimal JavaFX application with the tools provided by GluonHQ.
