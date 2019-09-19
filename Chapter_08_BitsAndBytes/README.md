@@ -1,4 +1,4 @@
-# Chapter 7 - JavaFX
+# Chapter 8: Bits and bytes
 
 ## Content
 

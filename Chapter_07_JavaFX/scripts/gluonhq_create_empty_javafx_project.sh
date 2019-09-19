@@ -3,5 +3,5 @@ mvn archetype:generate \
         -DarchetypeArtifactId=javafx-archetype-simple \
         -DarchetypeVersion=0.0.1 \
         -DgroupId=be.webtechie \
-        -DartifactId=javapirecipes-javafx-minimal \
+        -DartifactId=javafx-minimal \
         -Dversion=0.0.1

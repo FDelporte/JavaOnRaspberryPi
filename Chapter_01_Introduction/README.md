@@ -1,4 +1,4 @@
-# Chapter 1 - Java
+# Chapter 1: Java
 Introduction for the book and sources
 
 ## README interesting links
