@@ -6,15 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
- * Helper function to create our GUI.
+ * Helper function to create our graphical user interface.
  */
 public class FxScreen extends HBox {
 
@@ -71,8 +72,6 @@ public class FxScreen extends HBox {
 
     /**
      * Build the screen.
-     *
-     * @return
      */
     private void buildScreen() {
         // Get the Java version info
@@ -222,6 +221,6 @@ public class FxScreen extends HBox {
     private void endApplication() {
         this.running = false;
 
-        // ((Stage) this.screen.getScene().getWindow()).close();
+        Platform.exit();
     }
 }

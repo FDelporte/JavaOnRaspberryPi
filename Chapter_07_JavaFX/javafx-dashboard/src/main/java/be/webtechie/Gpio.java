@@ -12,14 +12,16 @@ import java.io.InputStreamReader;
 public class Gpio {
 
     /**
-     * Hide the constructor
+     * Hide the constructor.
+     * This is not really needed, but a preferred way in a class 
+     * with only static functions.
      */
     private Gpio() {
         // NOP
     }
 
     /**
-     * Initialize the pin so it can be toggled.
+     * Initialize the pin so it can be toggled later.
      *
      * @param pin The pin number according to the WiringPi numbering scheme
      */
@@ -53,21 +55,24 @@ public class Gpio {
     }
 
     /**
-     * Execute the given command.
+     * Execute the given command, this is called by the public functions.
      *
      * @param cmd String command to be executed.
      */
     private static String execute(String cmd) {
         try {
+            // Get a process to be able to do native calls on the operating system.
+            // You can compare this to opening a terminal window and running a command.
             Process p = Runtime.getRuntime().exec(cmd);
 
-            // Get the error stream of the process and print it
+            // Get the error stream of the process and print it 
+            // so we will now if something goes wrong.
             InputStream error = p.getErrorStream();
             for (int i = 0; i < error.available(); i++) {
                 System.out.println("" + error.read());
             }
 
-            // Get the output stream
+            // Get the output stream, this is the result of the command we give.
             String line;
             StringBuilder output = new StringBuilder();
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -78,8 +83,10 @@ public class Gpio {
 
             System.out.println(cmd);
 
+            // We don't need the process anymore.
             p.destroy();
 
+            // Return the result of the command.
             return output.toString();
         } catch (IOException e) {
             System.err.println(e.getMessage());
