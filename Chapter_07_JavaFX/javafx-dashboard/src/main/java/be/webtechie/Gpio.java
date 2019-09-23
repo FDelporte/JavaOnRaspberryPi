@@ -14,7 +14,7 @@ public class Gpio {
     /**
      * Hide the constructor.
      * This is not really needed, but a preferred way in a class 
-     * with only static functions.
+     * with only static methods.
      */
     private Gpio() {
         // NOP
@@ -42,9 +42,10 @@ public class Gpio {
     }
 
     /**
-     * Set the state of the pin high or low.
+     * Get the state of the pin.
      *
      * @param pin The pin number according to the WiringPi numbering scheme
+	 * @return Flag if the pin is high (1 = true) or low (0 = false)
      */
     public static boolean getPinState(final int pin) {
         final String result = execute("gpio read " + pin);
@@ -55,7 +56,7 @@ public class Gpio {
     }
 
     /**
-     * Execute the given command, this is called by the public functions.
+     * Execute the given command, this is called by the public methods.
      *
      * @param cmd String command to be executed.
      */

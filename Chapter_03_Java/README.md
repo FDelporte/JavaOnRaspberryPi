@@ -37,3 +37,5 @@ $ ./install_liberica_12.0.2.sh
 * [Oracle to stop providing a free Java (JDK) with Long Term Support (LTS)](https://react-etc.net/entry/oracle-to-stop-providing-a-free-java-jdk-with-long-term-support-lts)
 * [Why Java is so hot right now](https://developers.redhat.com/blog/2019/09/05/why-java-is-so-hot-right-now/)
 * [Java will stay on the throne](https://jaxlondon.com/blog/java-core-languages/java-will-stay-on-the-throne)
+* [Java tutorial](http://tutorials.jenkov.com/java/index.html)
+* [How you could learn Java on your own and where to start](https://jaxenter.com/learning-java-159740.html)

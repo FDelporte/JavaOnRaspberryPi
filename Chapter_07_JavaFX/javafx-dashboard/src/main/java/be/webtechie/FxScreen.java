@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * Helper function to create our graphical user interface.
+ * Helper class to create our graphical user interface.
  */
 public class FxScreen extends HBox {
 
