@@ -14,7 +14,7 @@ public class RaspberryPiHeader {
         header.add(new HeaderPin(2, PinType.POWER, null, "5.0 VDC"));
         header.add(new HeaderPin(3, PinType.DIGITAL_NO_PULL_DOWN, 8, "SDA1 (I2C)", "SDA.1 pin has a physical pull-up resistor"));
         header.add(new HeaderPin(4, PinType.POWER, null, "5.0 VDC"));
-        header.add(new HeaderPin(5, PinType.DIGITAL_NO_PULL_DOWN, 9, "SCL1 (I2C)", "SDA.1 pin has a physical pull-up resistor"));
+        header.add(new HeaderPin(5, PinType.DIGITAL_NO_PULL_DOWN, 9, "SCL1 (I2C)", "SCL.1 pin has a physical pull-up resistor"));
         header.add(new HeaderPin(6, PinType.GROUND, null, "Ground"));
         header.add(new HeaderPin(7, PinType.DIGITAL, 7, "GPCLK0"));
         header.add(new HeaderPin(8, PinType.DIGITAL, 15,  "TxD (UART)"));
