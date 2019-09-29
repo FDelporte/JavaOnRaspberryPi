@@ -39,3 +39,4 @@ $ ./install_liberica_12.0.2.sh
 * [Java will stay on the throne](https://jaxlondon.com/blog/java-core-languages/java-will-stay-on-the-throne)
 * [Java tutorial](http://tutorials.jenkov.com/java/index.html)
 * [How you could learn Java on your own and where to start](https://jaxenter.com/learning-java-159740.html)
+* [Oracle Blog: The arrival of Java 13](https://blogs.oracle.com/java-platform-group/the-arrival-of-java-13)

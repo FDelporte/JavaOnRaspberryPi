@@ -37,7 +37,7 @@ public class Examples extends VBox {
         holder.setSpacing(10);
         this.getChildren().add(holder);
 
-        this.ledNumberDisplay = new LedNumberDisplay(DisplaySkin.CLASSIC, Color.BLACK, Color.DARKGRAY, Color.RED);
+        this.ledNumberDisplay = new LedNumber(DisplaySkin.CLASSIC, Color.BLACK, Color.DARKGRAY, Color.RED);
         holder.getChildren().add(this.ledNumberDisplay);
 
         VBox inputs = new VBox();
