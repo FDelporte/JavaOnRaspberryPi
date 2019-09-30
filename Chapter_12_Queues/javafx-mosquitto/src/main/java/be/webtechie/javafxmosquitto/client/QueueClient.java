@@ -1,5 +1,7 @@
 package be.webtechie.javafxmosquitto.client;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -10,23 +12,46 @@ public class QueueClient {
 
     private MqttClient client;
 
+    private ObservableList<String> queueItems = FXCollections.observableArrayList();
+
     public QueueClient() {
-        try {
-            this.client = new MqttClient("tcp://" + PI_ADDRESS + ":1883", MqttClient.generateClientId());
-        } catch (MqttException ex) {
-            System.err.println("MqttException: " + ex.getMessage());
+        this.initConnection();
+
+        if (!this.initConnection()) {
+            System.err.println("Initializing connection failed");
             return;
         }
 
-        this.client.setCallback(new ClientCallback());
+        this.connect();
+        this.subscribe();
+    }
 
+    private boolean initConnection() {
+        try {
+            this.client = new MqttClient("tcp://" + PI_ADDRESS + ":1883", MqttClient.generateClientId());
+            return true;
+        } catch (MqttException ex) {
+            System.err.println("MqttException: " + ex.getMessage());
+        }
+
+        return false;
+    }
+
+    private void connect() {
         try {
             this.client.connect();
         } catch (MqttException ex) {
             System.err.println("MqttException: " + ex.getMessage());
         }
+    }
 
-        this.sendMessage("testing/testTopic", "lalala");
+    private void subscribe() {
+        try {
+            this.client.setCallback(new ClientCallback(this.queueItems));
+            this.client.subscribe("testing/TestTopic");
+        } catch (MqttException ex) {
+            System.err.println("Error while subscribing: " + ex.getMessage());
+        }
     }
 
     public void sendMessage(String topic, String messageText) {
@@ -42,6 +67,10 @@ public class QueueClient {
         } catch (MqttException ex) {
             System.err.println("MqttException: " + ex.getMessage());
         }
+    }
+
+    public ObservableList<String> getQueueItems() {
+        return this.queueItems;
     }
 
     public void disconnect() {

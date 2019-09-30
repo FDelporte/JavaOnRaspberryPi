@@ -1,6 +1,7 @@
 package be.webtechie.javafxmosquitto;
 
 import be.webtechie.javafxmosquitto.client.QueueClient;
+import be.webtechie.javafxmosquitto.ui.QueueMonitor;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -18,10 +19,7 @@ public class App extends Application {
     public void start(Stage stage) {
         this.queueClient = new QueueClient();
 
-        System.out.println("Test");
-        
-        var label = new Label("Hello, JavaFX.");
-        var scene = new Scene(new StackPane(label), 640, 480);
+        var scene = new Scene(new QueueMonitor(this.queueClient), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
