@@ -2,10 +2,10 @@ package be.webtechie.javafxmosquitto.client;
 
 import java.util.UUID;
 
-import com.hivemq.client.mqtt.MqttClient;
-import com.hivemq.client.mqtt.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-public class Client {
+public class QueueClient {
 
     final static String PI_ADDRESS = "192.168.0.213";
 

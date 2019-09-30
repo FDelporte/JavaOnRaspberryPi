@@ -11,8 +11,12 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    private QueueClient queueClient;
+
     @Override
     public void start(Stage stage) {
+        this.queueClient = new QueueClient();
+        
         var label = new Label("Hello, JavaFX.");
         var scene = new Scene(new StackPane(label), 640, 480);
         stage.setScene(scene);
