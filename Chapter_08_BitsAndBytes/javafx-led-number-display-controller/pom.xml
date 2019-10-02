@@ -4,18 +4,27 @@
     <groupId>be.webtechie</groupId>
     <artifactId>led-number-display-controller</artifactId>
     <version>0.0.1</version>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>11.0.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>be.webtechie</groupId>
+            <artifactId>javafx-led-number-display</artifactId>
+            <version>0.0.3</version>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

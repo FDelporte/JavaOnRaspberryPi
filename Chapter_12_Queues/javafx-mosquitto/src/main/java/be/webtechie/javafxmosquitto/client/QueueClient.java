@@ -8,17 +8,14 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class QueueClient {
 
-    final static String PI_ADDRESS = "192.168.0.213";
-
     private MqttClient client;
 
     private ObservableList<String> queueItems = FXCollections.observableArrayList();
 
-    public QueueClient() {
-        this.initConnection();
-
-        if (!this.initConnection()) {
+    public QueueClient(String ipAddress) {
+        if (!this.initConnection(ipAddress)) {
             System.err.println("Initializing connection failed");
+
             return;
         }
 
@@ -26,9 +23,9 @@ public class QueueClient {
         this.subscribe();
     }
 
-    private boolean initConnection() {
+    private boolean initConnection(String ipAddress) {
         try {
-            this.client = new MqttClient("tcp://" + PI_ADDRESS + ":1883", MqttClient.generateClientId());
+            this.client = new MqttClient("tcp://" + ipAddress + ":1883", MqttClient.generateClientId());
             return true;
         } catch (MqttException ex) {
             System.err.println("MqttException: " + ex.getMessage());

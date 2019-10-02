@@ -14,10 +14,12 @@ public class ClientCallback implements MqttCallback {
         this.queueItems = queueItems;
     }
 
+    @Override
     public void connectionLost(Throwable throwable) {
         System.out.println("Connection to MQTT broker lost!");
     }
 
+    @Override
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
         System.out.println("Message received:\n\t" + new String(mqttMessage.getPayload()));
 
@@ -26,7 +28,8 @@ public class ClientCallback implements MqttCallback {
         });
     }
 
+    @Override
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-        // not used in this example
+        System.out.println("Delivery complete");
     }
 }
