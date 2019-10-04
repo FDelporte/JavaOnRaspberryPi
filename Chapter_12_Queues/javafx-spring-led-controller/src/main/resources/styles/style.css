@@ -1,0 +1,35 @@
+.bg {
+  -fx-background-color: #133353;
+}
+
+.menuButton {
+  -fx-font: 20px "Sans";
+  -fx-padding: 10;
+  -fx-background-color: #041E37;
+  -fx-text-fill: #728CA6;
+  -fx-font-weight: bold;
+  -fx-min-width: 100;
+}
+
+.menuButton:hover {
+  -fx-text-fill: yellow;
+}
+
+.menuButton:armed {
+  -fx-text-fill: red;
+}
+
+.label {
+  -fx-font: 14px "Sans";
+  -fx-text-fill: #728CA6;
+}
+
+/*
+http://paletton.com/#uid=13-0u0kllllaFw0g0qFqFg0w0aF
+
+728CA6
+4A6B8A
+2A4D6E
+133353
+041E37
+*/
