@@ -1,10 +1,11 @@
 #include <FastLED.h>
-#define NUM_LEDS 5
-#define DATA_PIN 6
+#define NUM_LEDS 46
 
 // Test messages: 
 // 1:25:0:127:0
+// 2:500:255:0:0:0:0:250
 // 3:250:255:0:0:0:0:250
+// 4:50:255:0:0:0:0:250
 
 int currentAction = 0;
 
@@ -28,10 +29,12 @@ int incomingByte = 0; // for incoming serial data
 void setup() {
   Serial.begin(9600);  
   
-  FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+  FastLED.addLeds<NEOPIXEL, 6>(leds, NUM_LEDS);
+  FastLED.addLeds<NEOPIXEL, 7>(leds, NUM_LEDS);
+  FastLED.addLeds<NEOPIXEL, 8>(leds, NUM_LEDS);
   FastLED.clear();
   
-  String message = "3:250:255:0:0:0:0:250";
+  String message = "5:50:255:0:0:0:0:250";
   message.toCharArray(input, 50);
   input[50] = 0;
 }
@@ -44,11 +47,13 @@ void loop() {
     // FIXED color
     setStaticColor();
   } else if (commandId == 2) {
-    setBlinking(); 
+    setStaticFade();
   } else if (commandId == 3) {
-    setRunningLight(); 
+    setBlinking(); 
   } else if (commandId == 4) {
-    setRainbow();
+    setRunningLight(); 
+  } else if (commandId == 5) {
+    setColorRange(); 
   }
 
   delay(animationSpeed);
@@ -61,6 +66,11 @@ void setStaticColor() {
     leds[i].b = b1;
   }
   
+  FastLED.show(); 
+}
+
+void setStaticFade() {
+  fill_gradient_RGB(leds, NUM_LEDS, CRGB(r1, g1, b1), CRGB(r2, g2, b2));
   FastLED.show(); 
 }
 
@@ -99,8 +109,17 @@ void setRunningLight() {
   currentAction++;
 }
 
-void setRainbow() {
-  // TODO
+void setColorRange() {
+  currentAction++;
+
+  if (currentAction > 255) {
+    currentAction = 0;
+  }
+  
+  int pos = beatsin16(5, 35, 255); // generating the sinwave 
+  
+  fill_solid(leds, NUM_LEDS, CHSV(currentAction, 255, pos)); // CHSV (hue, saturation, value);
+  FastLED.show();
 }
 
 void checkSerial() {
