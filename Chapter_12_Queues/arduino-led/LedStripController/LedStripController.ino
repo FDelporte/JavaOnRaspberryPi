@@ -1,18 +1,33 @@
-#include <FastLED.h>
-#define NUM_LEDS 46
-
 // Test messages: 
 // 1:25:0:127:0
-// 2:500:255:0:0:0:0:250
-// 3:250:255:0:0:0:0:250
-// 4:50:255:0:0:0:0:250
+// 2:5:255:0:0:0:0:250
+// 3:25:255:0:0:0:0:250
+// 4:5:255:0:0:0:0:250
+// 5:5
+// 6
 
-int currentAction = 0;
+// Define the number of LEDS in your strip here
+const int numberOfLeds = 11;
 
+// Define the type of connections you want to enable
+bool useWireless = false; // to commmunicate via NRF24L01
+bool useWifiMosquitto = false; // to get messages from Mosquitto via Wifi
+
+// Define the Wifi settings if "useWifi=true"
+bool scanWifiNetworks = true;
+char ssid[] = "yourNetwork";    //  your network SSID (name)
+char pass[] = "12345678";       // your network password
+
+// Define the Mosquitto settings if "useMosquitto=true"
+const char* mqtt_server = "macman";
+
+// Variables used by the code to handle the incoming LED commands
+char input[50];
+int incomingByte = 0;
+
+// Variables defined by the incoming LED commands
 byte commandId = 0;
-
-int animationSpeed = 100;
-
+int animationSpeed = 10;
 byte r1 = 0;
 byte g1 = 0;
 byte b1 = 0;
@@ -20,175 +35,67 @@ byte r2 = 0;
 byte g2 = 0;
 byte b2 = 0;
 
-char input[50];
+int currentLoop = 0;
 
-CRGB leds[NUM_LEDS];
-
-int incomingByte = 0; // for incoming serial data
-    
+// Code executed at startup of the Arduino board
 void setup() {
+  // Configure serial speed and wait till it is available
+  // This is used to output logging info and can receive LED commands
   Serial.begin(9600);  
-  
-  FastLED.addLeds<NEOPIXEL, 6>(leds, NUM_LEDS);
-  FastLED.addLeds<NEOPIXEL, 7>(leds, NUM_LEDS);
-  FastLED.addLeds<NEOPIXEL, 8>(leds, NUM_LEDS);
-  FastLED.clear();
-  
-  String message = "5:50:255:0:0:0:0:250";
+  while(!Serial);
+
+  // Initialize the leds
+  initLeds();
+
+  // Initialize the configured connections
+  if (useWifiMosquitto) {
+    initWifi();
+    initMosquitto();
+  }
+
+  if (useWireless) {
+    initWireless();
+  }
+
+  // Set the initial LED effect
+  String message = "6:";
   message.toCharArray(input, 50);
-  input[50] = 0;
 }
 
 void loop() {
   checkSerial();
+
+  if (useWifiMosquitto) {
+    checkMosquitto();
+  }
+
+  if (useWireless) {
+    checkWireless();
+  }
+  
   handleMessage();
 
-  if (commandId == 1) {
-    // FIXED color
-    setStaticColor();
-  } else if (commandId == 2) {
-    setStaticFade();
-  } else if (commandId == 3) {
-    setBlinking(); 
-  } else if (commandId == 4) {
-    setRunningLight(); 
-  } else if (commandId == 5) {
-    setColorRange(); 
-  }
+  currentLoop++;
 
-  delay(animationSpeed);
-}
-
-void setStaticColor() {
-  for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i].r = r1;
-    leds[i].g = g1;
-    leds[i].b = b1;
-  }
-  
-  FastLED.show(); 
-}
-
-void setStaticFade() {
-  fill_gradient_RGB(leds, NUM_LEDS, CRGB(r1, g1, b1), CRGB(r2, g2, b2));
-  FastLED.show(); 
-}
-
-void setBlinking() {  
-  for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i].r = currentAction == 1 ? r1 : r2;
-    leds[i].g = currentAction == 1 ? g1 : g2;
-    leds[i].b = currentAction == 1 ? b1 : b2;
-  }
-  
-  FastLED.show(); 
-
-  currentAction++;
-
-  if (currentAction > 2) {
-    currentAction = 1;
-  }
-}
-
-void setRunningLight() {  
-  if (currentAction >= NUM_LEDS) {    
-    currentAction = 0;    
-  }
-  
-  // Show color 1
-  leds[currentAction].r = r1;
-  leds[currentAction].g = g1;
-  leds[currentAction].b = b1;
-  FastLED.show(); 
-
-  // Reset to color 2 for next loop
-  leds[currentAction].r = r2;
-  leds[currentAction].g = g2;
-  leds[currentAction].b = b2;
-  
-  currentAction++;
-}
-
-void setColorRange() {
-  currentAction++;
-
-  if (currentAction > 255) {
-    currentAction = 0;
-  }
-  
-  int pos = beatsin16(5, 35, 255); // generating the sinwave 
-  
-  fill_solid(leds, NUM_LEDS, CHSV(currentAction, 255, pos)); // CHSV (hue, saturation, value);
-  FastLED.show();
-}
-
-void checkSerial() {
-  if (Serial.available() > 0) {
-    String message = Serial.readString();
-
-    Serial.print("Received from serial: ");
-    Serial.println(message);
-
-    message.toCharArray(input, 50);
-    input[50] = 0;
-  }
-}
-
-void handleMessage() {
-  if (input[0] == 0) {
-    return;
-  }
-
-  Serial.print("New message received: ");
-  Serial.println(input);
-  
-  char* part = strtok(input, ":");
-  int position = 0;
-  
-  while (part != 0) {    
-    int value = atoi(part);
-    
-    if (position == 0) {
-      commandId = value;
-    } else if (position == 1) {
-      animationSpeed = value;
-    } else if (position == 2) {
-      r1 = value;
-    } else if (position == 3) {
-      g1 = value;
-    } else if (position == 4) {
-      b1 = value;
-    } else if (position == 5) {
-      r2 = value;
-    } else if (position == 6) {
-      g2 = value;
-    } else if (position == 7) {
-      b2 = value;
+  // Only do LED effect when loop exceeds the defined animationSpeed
+  if (currentLoop >= animationSpeed) {
+    // Depending on the commandId, call the correct LED effect
+    if (commandId == 1) {
+      setStaticColor();
+    } else if (commandId == 2) {
+      setStaticFade();
+    } else if (commandId == 3) {
+      setBlinking(); 
+    } else if (commandId == 4) {
+      setRunningLight(); 
+    } else if (commandId == 5) {
+      setFadingRainbow(); 
+    } else if (commandId == 6) {
+      setStaticRainbow(); 
+    } else if (commandId == 255) {
+      clearLeds();
     }
 
-    position++;
-    
-    // Find the next command in input string
-    part = strtok(0, ":");
+    currentLoop = 0;
   }
-
-  input[0] = 0;
-
-  Serial.print("Parsed values: command: ");
-  Serial.print(commandId);
-  Serial.print(", speed: ");
-  Serial.print(animationSpeed);
-  Serial.print(", color1: R: ");
-  Serial.print(r1);
-  Serial.print(", G: ");
-  Serial.print(g1);
-  Serial.print(", B: ");
-  Serial.print(b1);
-  Serial.print(", color2: R: ");
-  Serial.print(r2);
-  Serial.print(", G: ");
-  Serial.print(g2);
-  Serial.print(", B: ");
-  Serial.print(b2);
-  Serial.println("");
 }
