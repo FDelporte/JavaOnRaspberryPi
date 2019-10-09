@@ -16,7 +16,7 @@ public class LedCommandTest {
                 Color.rgb(0, 0, 255)
         );
 
-        assertEquals("3:5:255:0:0:0:0:255", ledCommand.toCommand());
+        assertEquals("3:5:255:0:0:0:0:255", ledCommand.toCommandString());
     }
 
     @Test

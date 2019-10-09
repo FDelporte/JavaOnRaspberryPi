@@ -30,7 +30,7 @@ public enum LedEffect {
         return id;
     }
 
-    public boolean isUseSpeed() {
+    public boolean useSpeed() {
         return useSpeed;
     }
 
@@ -42,11 +42,11 @@ public enum LedEffect {
         return maximumSpeed;
     }
 
-    public boolean isUseColor1() {
+    public boolean useColor1() {
         return useColor1;
     }
 
-    public boolean isUseColor2() {
+    public boolean useColor2() {
         return useColor2;
     }
 

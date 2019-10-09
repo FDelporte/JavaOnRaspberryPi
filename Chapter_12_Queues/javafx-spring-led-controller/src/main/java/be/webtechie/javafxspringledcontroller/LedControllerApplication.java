@@ -16,7 +16,7 @@ public class LedControllerApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setScene(new Scene(new MenuWindow(), 400, 400));
+		primaryStage.setScene(new Scene(new MenuWindow(), 1024, 600));
 		primaryStage.centerOnScreen();
 		primaryStage.show();
 	}

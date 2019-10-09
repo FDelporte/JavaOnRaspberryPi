@@ -2,36 +2,38 @@ package be.webtechie.javafxspringledcontroller.ui;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class MenuWindow extends HBox {
 
-    private final TabPane tabPane;
-    private final Tab tabHome;
-    private final Tab tabColorPicker;
+    private final Pane pane;
+    private final Group home;
+    private final Group led;
 
     /**
      * Builds the UI.
      */
     public MenuWindow() {
+        this.setSpacing(25);
         this.getStylesheets().add("styles/style.css");
         this.getStyleClass().add("bg");
 
         this.getChildren().add(this.getMenu());
 
-        this.tabPane = new TabPane();
+        this.pane = new StackPane();
+        this.getChildren().add(this.pane);
 
-        this.tabHome = new Tab("", new Home());
-        this.tabPane.getTabs().add(this.tabHome);
+        this.home = new Group();
+        this.led = new Group(new LedControlPanel());
 
-        this.tabColorPicker = new Tab("", new LedControlPanel());
-        this.tabPane.getTabs().add(this.tabColorPicker);
-
-        this.getChildren().add(this.tabPane);
+        this.showLedController(null);
     }
 
     /**
@@ -49,9 +51,9 @@ public class MenuWindow extends HBox {
         btHome.setOnAction(this::showHome);
         buttons.getChildren().add(btHome);
 
-        final Button btColors = new Button("Colors");
+        final Button btColors = new Button("LED");
         btColors.getStyleClass().add("menuButton");
-        btColors.setOnAction(this::showColorPicker);
+        btColors.setOnAction(this::showLedController);
         buttons.getChildren().add(btColors);
 
         return buttons;
@@ -63,7 +65,8 @@ public class MenuWindow extends HBox {
      * @param e
      */
     private void showHome(ActionEvent e) {
-        this.tabPane.getSelectionModel().select(this.tabHome);
+        this.pane.getChildren().clear();
+        this.pane.getChildren().add(this.home);
     }
 
     /**
@@ -71,7 +74,8 @@ public class MenuWindow extends HBox {
      *
      * @param e
      */
-    private void showColorPicker(ActionEvent e) {
-        this.tabPane.getSelectionModel().select(this.tabColorPicker);
+    private void showLedController(ActionEvent e) {
+        this.pane.getChildren().clear();
+        this.pane.getChildren().add(this.led);
     }
 }
