@@ -3,9 +3,10 @@
 ## Functions
 
 ## Libraries to install in Arduino IDE
-* FastLED
-* NRFLite
+* FastLED by Daniel Garcia
+* NRFLite by Dave Parson
 * PubSubClient by Nick O'Leary
+* Arduino Uno WiFi Dev Ed Library by Arduino
 
 ## Inspired by
 
