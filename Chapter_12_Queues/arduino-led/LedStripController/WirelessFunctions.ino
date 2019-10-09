@@ -1,4 +1,6 @@
 #include <SPI.h>
+
+/*
 #include <NRFLite.h>
 
 NRFLite radio;
@@ -16,3 +18,4 @@ void checkWireless() {
     Serial.println(radioData);
   }
 }
+*/

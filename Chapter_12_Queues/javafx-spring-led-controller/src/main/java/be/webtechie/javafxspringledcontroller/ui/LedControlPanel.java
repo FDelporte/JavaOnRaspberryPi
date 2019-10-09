@@ -1,5 +1,9 @@
 package be.webtechie.javafxspringledcontroller.ui;
 
+import be.webtechie.javafxspringledcontroller.LedControllerApplication;
+import be.webtechie.javafxspringledcontroller.client.QueueClient;
+import be.webtechie.javafxspringledcontroller.event.EventListener;
+import be.webtechie.javafxspringledcontroller.event.EventManager;
 import be.webtechie.javafxspringledcontroller.led.LedCommand;
 import be.webtechie.javafxspringledcontroller.led.LedEffect;
 import eu.hansolo.fx.colorselector.ColorSelector;
@@ -12,7 +16,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class LedControlPanel extends HBox {
+public class LedControlPanel extends HBox implements EventListener {
+
+    private final QueueClient queueClient;
+
     private final ColorSelector colorSelector1;
     private final ColorSelector colorSelector2;
 
@@ -27,8 +34,11 @@ public class LedControlPanel extends HBox {
     private final Slider slider;
 
     private LedEffect selectedLedEffect;
+    private LedCommand lastLedCommand = null;
 
-    public LedControlPanel() {
+    public LedControlPanel(QueueClient queueClient) {
+        this.queueClient = queueClient;
+
         this.setSpacing(25);
 
         VBox colorSelectors = new VBox();
@@ -44,7 +54,7 @@ public class LedControlPanel extends HBox {
         this.colorSelector2 = new ColorSelector();
         this.colorSelector2.setPrefSize(250, 250);
         this.colorSelector2.selectedColorProperty().addListener(e -> this.sendMessage());
-        this.colorSelector1.setSelectedColor(Color.RED);
+        this.colorSelector2.setSelectedColor(Color.RED);
         colorSelectors.getChildren().add(this.colorSelector2);
 
         GridPane effectButtons = new GridPane();
@@ -116,6 +126,11 @@ public class LedControlPanel extends HBox {
     }
 
     private void sendMessage() {
+        if (this.slider == null) {
+            // Not ready yet
+            return;
+        }
+
         LedCommand ledCommand = new LedCommand(
                 this.selectedLedEffect,
                 (int) this.slider.getValue(),
@@ -123,6 +138,26 @@ public class LedControlPanel extends HBox {
                 this.colorSelector2.getSelectedColor()
         );
 
+        if (this.lastLedCommand != null && this.lastLedCommand.toCommandString().equals(ledCommand.toCommandString())) {
+            // Avoid repeat send-receive
+            return;
+        }
+
         System.out.println(ledCommand.toCommandString());
+
+        if (this.queueClient != null) {
+            this.lastLedCommand = ledCommand;
+            this.queueClient.sendMessage(ledCommand.toCommandString());
+        }
+    }
+
+    @Override
+    public void onQueueMessage(String message) {
+        this.lastLedCommand = new LedCommand(message);
+
+        this.setEffect(this.lastLedCommand.getLedEffect());
+        this.slider.setValue(this.lastLedCommand.getSpeed());
+        this.colorSelector1.setSelectedColor(this.lastLedCommand.getColor1());
+        this.colorSelector2.setSelectedColor(this.lastLedCommand.getColor2());
     }
 }

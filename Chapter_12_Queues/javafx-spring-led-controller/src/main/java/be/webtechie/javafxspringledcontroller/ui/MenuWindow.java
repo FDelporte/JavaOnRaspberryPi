@@ -1,11 +1,11 @@
 package be.webtechie.javafxspringledcontroller.ui;
 
+import be.webtechie.javafxspringledcontroller.client.QueueClient;
+import be.webtechie.javafxspringledcontroller.event.EventManager;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -20,7 +20,7 @@ public class MenuWindow extends HBox {
     /**
      * Builds the UI.
      */
-    public MenuWindow() {
+    public MenuWindow(EventManager eventManager, QueueClient queueClient) {
         this.setSpacing(25);
         this.getStylesheets().add("styles/style.css");
         this.getStyleClass().add("bg");
@@ -31,7 +31,10 @@ public class MenuWindow extends HBox {
         this.getChildren().add(this.pane);
 
         this.home = new Group();
-        this.led = new Group(new LedControlPanel());
+
+        LedControlPanel ledControlPanel = new LedControlPanel(queueClient);
+        eventManager.addListener(ledControlPanel);
+        this.led = new Group(ledControlPanel);
 
         this.showLedController(null);
     }

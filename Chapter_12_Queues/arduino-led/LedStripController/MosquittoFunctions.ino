@@ -31,7 +31,7 @@ void reconnectMosquitto() {
     
     if (client.connect("Arduino")) {
       Serial.println("Connected");
-      client.subscribe("ledCommand");
+      client.subscribe(queue_topic);
     } else {
       Serial.print("Failed, rc=");
       Serial.print(client.state());

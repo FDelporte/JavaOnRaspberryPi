@@ -41,19 +41,19 @@ public class LedCommand {
                 + Math.round(color2.getBlue() * 255);
     }
 
-    LedEffect getLedEffect() {
+    public LedEffect getLedEffect() {
         return ledEffect;
     }
 
-    int getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    Color getColor1() {
+    public Color getColor1() {
         return color1;
     }
 
-    Color getColor2() {
+    public Color getColor2() {
         return color2;
     }
 }

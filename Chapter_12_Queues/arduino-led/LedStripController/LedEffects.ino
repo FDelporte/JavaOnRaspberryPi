@@ -12,8 +12,9 @@ void initLeds() {
   // If you use multiple led strips who need to show the same colors,
   // uncomment one or more of the following lines and attach the led strep
   // to the defined pin 7, 8 or other...
+  //
   // FastLED.addLeds<NEOPIXEL, 7>(leds, numberOfLeds);
-  FastLED.addLeds<NEOPIXEL, 8>(leds, numberOfLeds);
+  // FastLED.addLeds<NEOPIXEL, 8>(leds, numberOfLeds);
 
   // Clear all the leds so they all start from the same point
   FastLED.clear();

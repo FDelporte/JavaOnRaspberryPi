@@ -1,5 +1,8 @@
 # Arduino LED Strip Controller
 
+## Arduino WiFi
+When using an Arduino Uno with integrated WiFi, make sure to go to "Boards Manager" and install "Arduino megaAVR Boards" by Arduino.
+
 ## Functions
 
 ## Libraries to install in Arduino IDE
@@ -7,6 +10,7 @@
 * NRFLite by Dave Parson
 * PubSubClient by Nick O'Leary
 * Arduino Uno WiFi Dev Ed Library by Arduino
+* WiFiNINA by Arduino
 
 ## Inspired by
 

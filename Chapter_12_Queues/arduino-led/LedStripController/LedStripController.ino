@@ -10,8 +10,8 @@
 const int numberOfLeds = 11;
 
 // Define the type of connections you want to enable
-bool useWireless = true; // to commmunicate via NRF24L01
-bool useWifiMosquitto = true; // to get messages from Mosquitto via Wifi
+bool useWireless = false; // to commmunicate via NRF24L01
+bool useWifiMosquitto = false; // to get messages from Mosquitto via Wifi
 
 // Define the Wifi settings if "useWifi=true"
 bool scanWifiNetworks = true;
@@ -20,6 +20,7 @@ char pass[] = "******";       // your network password
 
 // Define the Mosquitto settings if "useMosquitto=true"
 const char* mqtt_server = "192.168.0.213";
+const char* queue_topic = "ledCommand";
 
 // Variables used by the code to handle the incoming LED commands
 char input[50];
@@ -54,7 +55,7 @@ void setup() {
   }
 
   if (useWireless) {
-    initWireless();
+    //initWireless();
   }
 
   // Set the initial LED effect
@@ -70,7 +71,7 @@ void loop() {
   }
 
   if (useWireless) {
-    checkWireless();
+    //checkWireless();
   }
   
   handleMessage();
