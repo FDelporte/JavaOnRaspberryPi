@@ -4,11 +4,12 @@ public enum LedEffect {
     UNDEFINED("0", false, 0, 0, false, false),
     STATIC("1", false, 0, 0, true, false),
     STATIC_FADE("2", false, 0, 0, true, true),
-    BLINKING("3", true, 2, 15, true, true),
-    RUNNING("4", true, 2, 15, true, true),
-    FADING_RAINBOW("5", true, 2, 15, false, false),
+    BLINKING("3", true, 25, 2500, true, true),
+    RUNNING("4", true, 25, 250, true, true),
+    FADING_RAINBOW("5", true, 1, 50, false, false),
     STATIC_RAINBOW("6", false, 0, 0, false, false),
-    ALL_OUT("255", false, 0, 0, false, false);
+    ALL_WHITE("98", false, 0, 0, false, false),
+    ALL_OUT("99", false, 0, 0, false, false);
 
     private String id;
     private boolean useSpeed;

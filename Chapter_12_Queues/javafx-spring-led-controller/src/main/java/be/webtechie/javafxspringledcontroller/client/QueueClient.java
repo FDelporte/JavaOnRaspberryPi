@@ -1,8 +1,6 @@
 package be.webtechie.javafxspringledcontroller.client;
 
 import be.webtechie.javafxspringledcontroller.event.EventManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -58,6 +56,7 @@ public class QueueClient {
     public void sendMessage(String messageText) {
         if (!this.client.isConnected()) {
             System.err.println("The queue client is not connected!");
+            this.connect();
         }
 
         MqttMessage message = new MqttMessage();

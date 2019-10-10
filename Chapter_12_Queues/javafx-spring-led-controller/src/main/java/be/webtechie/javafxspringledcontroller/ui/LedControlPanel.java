@@ -29,6 +29,7 @@ public class LedControlPanel extends HBox implements EventListener {
     private final Button btRunning;
     private final Button btStaticRainbow;
     private final Button btFadingRainbow;
+    private final Button btWhite;
     private final Button btClear;
 
     private final Slider slider;
@@ -92,10 +93,15 @@ public class LedControlPanel extends HBox implements EventListener {
         this.btFadingRainbow.setOnAction(e -> this.setEffect(LedEffect.FADING_RAINBOW));
         effectButtons.add(this.btFadingRainbow, 1, 2);
 
+        this.btWhite = new Button("White");
+        this.btWhite.getStyleClass().add("ledButton");
+        this.btWhite.setOnAction(e -> this.setEffect(LedEffect.ALL_WHITE));
+        effectButtons.add(this.btWhite, 0, 3);
+
         this.btClear = new Button("Clear");
-        this.btClear.getStyleClass().add("ledButtonFullWidth");
+        this.btClear.getStyleClass().add("ledButton");
         this.btClear.setOnAction(e -> this.setEffect(LedEffect.ALL_OUT));
-        effectButtons.add(this.btClear, 0, 3, 2, 1);
+        effectButtons.add(this.btClear, 1, 3);
 
         effectButtons.add(new Label(""), 0, 4, 2, 1);
 
