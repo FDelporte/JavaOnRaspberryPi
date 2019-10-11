@@ -13,8 +13,8 @@
     <groupId>be.webtechie</groupId>
     <artifactId>javafx-spring-led-controller</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>javafx-spring-led-controller</name>
-    <description>JavaFX and Spring boot application to control a LED strip via Arduino via Mosquitto</description>
+    <name>javafx-led-controller</name>
+    <description>JavaFX and Undertow application to control a LED strip via Arduino via Mosquitto</description>
 
     <properties>
         <java.version>11</java.version>
