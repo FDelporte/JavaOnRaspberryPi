@@ -16,6 +16,7 @@ public class MenuWindow extends HBox {
     private final Pane pane;
     private final Group home;
     private final Group led;
+    private final Group log;
 
     /**
      * Builds the UI.
@@ -36,7 +37,11 @@ public class MenuWindow extends HBox {
         eventManager.addListener(ledControlPanel);
         this.led = new Group(ledControlPanel);
 
-        this.showLedController(null);
+        QueueMessagesList queueMessagesList = new QueueMessagesList();
+        eventManager.addListener(queueMessagesList);
+        this.log = new Group(queueMessagesList);
+
+        this.show(this.led);
     }
 
     /**
@@ -51,34 +56,29 @@ public class MenuWindow extends HBox {
 
         final Button btHome = new Button("Home");
         btHome.getStyleClass().add("menuButton");
-        btHome.setOnAction(this::showHome);
+        btHome.setOnAction(e -> this.show(this.home));
         buttons.getChildren().add(btHome);
 
         final Button btColors = new Button("LED");
         btColors.getStyleClass().add("menuButton");
-        btColors.setOnAction(this::showLedController);
+        btColors.setOnAction(e -> this.show(this.led));
         buttons.getChildren().add(btColors);
+
+        final Button btLog = new Button("Queue");
+        btLog.getStyleClass().add("menuButton");
+        btLog.setOnAction(e -> this.show(this.log));
+        buttons.getChildren().add(btLog);
 
         return buttons;
     }
 
     /**
-     * Switch to the home screen.
+     * Switch to the given screen.
      *
-     * @param e
+     * @param group The group node to be shown
      */
-    private void showHome(ActionEvent e) {
+    private void show(Group group) {
         this.pane.getChildren().clear();
-        this.pane.getChildren().add(this.home);
-    }
-
-    /**
-     * Switch to the color picker screen.
-     *
-     * @param e
-     */
-    private void showLedController(ActionEvent e) {
-        this.pane.getChildren().clear();
-        this.pane.getChildren().add(this.led);
+        this.pane.getChildren().add(group);
     }
 }
