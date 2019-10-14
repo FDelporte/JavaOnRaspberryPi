@@ -1,5 +1,7 @@
-# HomeFX
+# JavaFX LED controller application
 JavaFX application to control a LED strip via Arduino with commands via Mosquitto
+
+![Screenshot of the application](screenshots/led-selection-screen.png)
 
 ## Desciption
 * Uses JavaFX for the UI
