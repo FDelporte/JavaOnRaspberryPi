@@ -1,6 +1,7 @@
 package be.webtechie.javafxspringledcontroller.client;
 
 import be.webtechie.javafxspringledcontroller.event.EventManager;
+import be.webtechie.javafxspringledcontroller.led.LedCommand;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -51,6 +52,10 @@ public class QueueClient {
         } catch (MqttException ex) {
             System.err.println("Error while subscribing: " + ex.getMessage());
         }
+    }
+
+    public void sendMessage(LedCommand ledCommand) {
+        this.sendMessage(ledCommand.toCommandString());
     }
 
     public void sendMessage(String messageText) {

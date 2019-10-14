@@ -8,6 +8,13 @@ public class LedCommand {
     private Color color1;
     private Color color2;
 
+    public LedCommand(LedEffect ledEffect) {
+        this.ledEffect = ledEffect;
+        this.speed = 50;
+        this.color1 = Color.BLACK;
+        this.color2 = Color.BLACK;
+    }
+
     public LedCommand(LedEffect ledEffect, int speed, Color color1, Color color2) {
         this.ledEffect = ledEffect;
         this.speed = speed;

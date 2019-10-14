@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -39,6 +40,8 @@ public class MenuWindow extends HBox {
 
         QueueMessagesList queueMessagesList = new QueueMessagesList();
         eventManager.addListener(queueMessagesList);
+        queueMessagesList.prefWidthProperty().bind(this.widthProperty());
+        queueMessagesList.prefHeightProperty().bind(this.heightProperty());
         this.log = new Group(queueMessagesList);
 
         this.show(this.led);

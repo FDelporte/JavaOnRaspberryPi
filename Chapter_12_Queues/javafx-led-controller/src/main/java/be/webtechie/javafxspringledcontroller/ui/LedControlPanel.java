@@ -1,9 +1,7 @@
 package be.webtechie.javafxspringledcontroller.ui;
 
-import be.webtechie.javafxspringledcontroller.LedControllerApplication;
 import be.webtechie.javafxspringledcontroller.client.QueueClient;
 import be.webtechie.javafxspringledcontroller.event.EventListener;
-import be.webtechie.javafxspringledcontroller.event.EventManager;
 import be.webtechie.javafxspringledcontroller.led.LedCommand;
 import be.webtechie.javafxspringledcontroller.led.LedEffect;
 import eu.hansolo.fx.colorselector.ColorSelector;
@@ -153,7 +151,7 @@ public class LedControlPanel extends HBox implements EventListener {
 
         if (this.queueClient != null) {
             this.lastLedCommand = ledCommand;
-            this.queueClient.sendMessage(ledCommand.toCommandString());
+            this.queueClient.sendMessage(ledCommand);
         }
     }
 
