@@ -37,7 +37,7 @@ public class MenuWindow extends HBox {
         LedControlPanel ledControlPanel = new LedControlPanel(queueClient);
         eventManager.addListener(ledControlPanel);
         this.led = new Group(ledControlPanel);
-
+;
         QueueMessagesList queueMessagesList = new QueueMessagesList();
         eventManager.addListener(queueMessagesList);
         queueMessagesList.prefWidthProperty().bind(this.widthProperty());

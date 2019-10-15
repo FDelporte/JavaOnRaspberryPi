@@ -24,12 +24,12 @@ public class QueueMessagesList extends TableView implements EventListener {
     public QueueMessagesList() {
         TableColumn colTimestamp = new TableColumn("Timestamp");
         colTimestamp.setStyle("-fx-alignment: TOP-LEFT;");
-        colTimestamp.setMinWidth(70);
+        colTimestamp.setMinWidth(150);
         colTimestamp.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
 
         TableColumn colCommand = new TableColumn("Command");
         colCommand.setStyle("-fx-alignment: TOP-LEFT;");
-        colCommand.setMinWidth(70);
+        colCommand.setMinWidth(100);
         colCommand.setCellValueFactory(new PropertyValueFactory<>("ledCommand"));
         colCommand.setCellFactory(column -> new TableCell<LedCommand, LedCommand>() {
             @Override
@@ -101,12 +101,30 @@ public class QueueMessagesList extends TableView implements EventListener {
             }
         });
 
+        TableColumn colData = new TableColumn("Data");
+        colData.setStyle("-fx-alignment: TOP-CENTER;");
+        colData.setMinWidth(150);
+        colData.setCellValueFactory(new PropertyValueFactory<>("ledCommand"));
+        colData.setCellFactory(column -> new TableCell<LedCommand, LedCommand>() {
+            @Override
+            protected void updateItem(LedCommand item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item.toCommandString());
+                }
+            }
+        });
+
         this.getColumns().addAll(
                 colTimestamp,
                 colCommand,
                 colSpeed,
                 colColor1,
-                colColor2);
+                colColor2,
+                colData);
 
         this.setItems(this.queueItems);
 

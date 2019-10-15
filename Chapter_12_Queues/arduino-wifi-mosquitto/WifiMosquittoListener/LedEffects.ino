@@ -1,13 +1,3 @@
-// Parameter 1 = number of pixels in strip
-// Parameter 2 = Arduino pin number (most are valid)
-// Parameter 3 = pixel type flags, add together as needed:
-//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMBER_OF_LEDS, PIN, NEO_GRB + NEO_KHZ800);
-
 int currentAction = 0;
 
 void initLeds() {
@@ -24,33 +14,15 @@ void clearLeds() {
 
 void setStaticColor() {
   for (uint16_t i = 0; i < strip.numPixels(); i++) {
-    strip.setPixelColor(i, strip.Color(r1, g1, b1));
+    strip.setPixelColor(i, rgb1);
   }
 
   strip.show();
 }
 
-void setStaticFade() {
-  uint32_t c1 = strip.Color(r1, g1, b1);
-  uint32_t c2 = strip.Color(r2, g2, b2);
-  
+void setStaticFade() {  
   for (uint16_t i = 0; i < strip.numPixels(); i++) {
-    float num = strip.numPixels() * 1.00;
-    float p1 = (num - i) / num;
-    float p2 = i / (num - 1);
-
-    /* Serial.print(i);
-    Serial.print("\t");
-    Serial.print(p1);
-    Serial.print("\t");
-    Serial.print(p2);
-    Serial.println(""); */
-    
-    strip.setPixelColor(i, strip.Color(
-      (r1 * p1) + (r2 * p2),
-      (g1 * p1) + (g2 * p2),
-      (b1 * p1) + (b2 * p2)
-    ));
+    strip.setPixelColor(i, getGradientColor(i));
   }
 
   strip.show();
@@ -58,7 +30,7 @@ void setStaticFade() {
 
 void setBlinking() {  
   for(uint16_t i = 0; i < strip.numPixels(); i++) {
-    strip.setPixelColor(i, currentAction == 1 ? strip.Color(r1, g1, b1) : strip.Color(r2, g2, b2));
+    strip.setPixelColor(i, currentAction == 1 ? rgb1 : rgb2);
   }
 
   strip.show();
@@ -76,11 +48,11 @@ void setRunningLight() {
   }
   
   // Show color 1
-  strip.setPixelColor(currentAction, strip.Color(r1, g1, b1));
+  strip.setPixelColor(currentAction, rgb1);
   strip.show(); 
 
   // Reset to color 2 for next loop
-  strip.setPixelColor(currentAction, strip.Color(r2, g2, b2));
+  strip.setPixelColor(currentAction, rgb2);
   
   currentAction++;
 }
@@ -91,7 +63,7 @@ void setFadingRainbow() {
   }
 
   for (uint16_t i = 0; i < strip.numPixels(); i++) {
-    strip.setPixelColor(i, Wheel((i * 1 + currentAction) & 255));
+    strip.setPixelColor(i, getWheelColor((i * 1 + currentAction) & 255));
   }
   
   strip.show();
@@ -101,15 +73,46 @@ void setFadingRainbow() {
 
 void setStaticRainbow() {
   for (uint16_t i = 0; i < strip.numPixels(); i++) {
-    strip.setPixelColor(i, Wheel((255 / strip.numPixels()) * i));
+    strip.setPixelColor(i, getWheelColor((255 / strip.numPixels()) * i));
   }
   
   strip.show();
 }
 
-// Input a value 0 to 255 to get a color value.
-// The colours are a transition r - g - b - back to r.
-uint32_t Wheel(byte pos) {
+uint32_t getGradientColor(uint16_t pos) {
+  float factor = ((float) pos / (float) (strip.numPixels() - 1));
+  
+  byte r1 = (rgb1 & 0xFF0000) >> 16;
+  byte g1 = (rgb1 & 0x00FF00) >> 8;
+  byte b1 = (rgb1 & 0x0000FF);
+
+  byte r2 = (rgb2 & 0xFF0000) >> 16;
+  byte g2 = (rgb2 & 0x00FF00) >> 8;
+  byte b2 = (rgb2 & 0x0000FF);
+
+  byte r = (factor * r2) + ((1 - factor) * r1);
+  byte g = (factor * g2) + ((1 - factor) * g1);
+  byte b = (factor * b2) + ((1 - factor) * b1);
+
+  uint32_t rt = strip.Color(r, g, b);
+
+  /*
+  Serial.print("Position ");
+  Serial.print(pos);
+  Serial.print(", factor ");
+  Serial.print(factor);
+  Serial.print(", gradient color: ");
+  Serial.println(String(rt, HEX));
+  */
+  
+  return rt;
+}
+
+// Pos from 0 to 255 to get colors from full color wheel
+// 0 - 85:    G - R
+// 85 - 170:  R - B
+// 170 - 255: B - G
+uint32_t getWheelColor(byte pos) {
   if (pos < 85) {
     return strip.Color(pos * 3, 255 - pos * 3, 0);
   } else if (pos < 170) {

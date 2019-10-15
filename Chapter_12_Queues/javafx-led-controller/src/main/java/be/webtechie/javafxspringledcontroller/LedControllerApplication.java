@@ -14,7 +14,7 @@ public class LedControllerApplication extends Application {
 	@Override
 	public void start(Stage stage) {
 		EventManager eventManager = new EventManager();
-		QueueClient queueClient = new QueueClient(eventManager, "192.168.0.213", "ledCommand");
+		QueueClient queueClient = new QueueClient(eventManager, "192.168.0.142", "ledCommand");
 
 		var scene = new Scene(new MenuWindow(eventManager, queueClient), 1024, 600);
 		stage.setScene(scene);

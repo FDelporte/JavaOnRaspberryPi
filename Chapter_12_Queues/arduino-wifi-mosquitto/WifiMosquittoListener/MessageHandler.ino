@@ -8,6 +8,13 @@ void handleMessage() {
   
   char* part = strtok(input, ":");
   int position = 0;
+
+  byte r1 = 0;
+  byte g1 = 0;
+  byte b1 = 0;
+  byte r2 = 0;
+  byte g2 = 0;
+  byte b2 = 0;
   
   while (part != 0) {    
     int value = atoi(part);
@@ -38,21 +45,28 @@ void handleMessage() {
 
   input[0] = 0;
 
+  rgb1 = strip.Color(r1, g1, b1);
+  rgb2 = strip.Color(r2, g2, b2);
+  
   Serial.print("Parsed values: command: ");
   Serial.print(commandId);
   Serial.print(", speed: ");
   Serial.print(animationSpeed);
-  Serial.print(", color1: R: ");
+  Serial.print(", Color 1: RGB ");
   Serial.print(r1);
-  Serial.print(", G: ");
+  Serial.print("/");
   Serial.print(g1);
-  Serial.print(", B: ");
+  Serial.print("/");
   Serial.print(b1);
-  Serial.print(", color2: R: ");
+  Serial.print(" = ");
+  Serial.print(String(rgb1, HEX));
+  Serial.print(", Color 2: R/G/B: ");
   Serial.print(r2);
-  Serial.print(", G: ");
+  Serial.print("/");
   Serial.print(g2);
-  Serial.print(", B: ");
+  Serial.print("/");
   Serial.print(b2);
+  Serial.print(" = ");
+  Serial.print(String(rgb2, HEX));
   Serial.println("");
 }
