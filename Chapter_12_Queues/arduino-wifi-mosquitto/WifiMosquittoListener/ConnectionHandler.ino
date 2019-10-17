@@ -1,6 +1,7 @@
 void onMqttMessage(int messageSize) {
   while (mqttClient.available()) {
     mqttClient.read(input, sizeof(input));
+    input[50] = 0;
   }
 
   Serial.print("Received a message with topic '");

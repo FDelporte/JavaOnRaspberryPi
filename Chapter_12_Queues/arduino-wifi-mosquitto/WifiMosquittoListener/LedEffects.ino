@@ -79,6 +79,7 @@ void setStaticRainbow() {
   strip.show();
 }
 
+// Calculate a gradient color between color 1 and 2, for the given position
 uint32_t getGradientColor(uint16_t pos) {
   float factor = ((float) pos / (float) (strip.numPixels() - 1));
   

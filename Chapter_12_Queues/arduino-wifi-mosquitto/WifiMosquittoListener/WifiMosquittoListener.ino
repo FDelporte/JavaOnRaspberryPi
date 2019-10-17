@@ -7,9 +7,11 @@
 // 1:25:0:127:0
 // 2:5:255:0:0:0:0:250
 // 3:25:255:0:0:0:0:250
-// 4:5:255:0:0:0:0:250
-// 5:5
+// 4:50:255:0:0:0:0:250
+// 5:50
 // 6
+// 98
+// 99
 
 // Define the number of LEDS in your strip here
 #define PIN 6
@@ -79,7 +81,6 @@ void setup() {
   printMacAddress();
   Serial.println("");
   
-/*
   // Connecting to Mosquitto  
   Serial.println("");
   Serial.println("--- Connecting to Mosquitto ---");
@@ -93,7 +94,7 @@ void setup() {
   }
 
   Serial.println("");
-  */
+  
   // Set the initial LED effect
   String message = "2:0:14:255:0:255:5:0";
   message.toCharArray(input, 50);
