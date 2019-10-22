@@ -39,6 +39,7 @@ public class QueueClient {
     private void connect() {
         try {
             this.client.connect();
+            System.out.println("Connected to Mosquitto");
         } catch (MqttException ex) {
             System.err.println("MqttException: " + ex.getMessage());
         }
@@ -47,7 +48,6 @@ public class QueueClient {
     private void subscribe(EventManager eventManager) {
         try {
             this.client.setCallback(new ClientCallback(eventManager));
-
             this.client.subscribe(this.queueTopic);
         } catch (MqttException ex) {
             System.err.println("Error while subscribing: " + ex.getMessage());

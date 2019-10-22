@@ -10,6 +10,9 @@ import io.undertow.util.Headers;
 import io.undertow.util.StatusCodes;
 import javafx.scene.paint.Color;
 
+/**
+ * Handler for the internal Undertow webserver.
+ */
 public class WebHandler implements HttpHandler {
 
     final QueueClient queueClient;
@@ -18,8 +21,13 @@ public class WebHandler implements HttpHandler {
         this.queueClient = queueClient;
     }
 
+    /**
+     * Whenever a request is received by Undertow webserver, this handler will be called.
+     *
+     * @param exchange {@link HttpServerExchange}
+     */
     @Override
-    public void handleRequest(HttpServerExchange exchange) throws Exception {
+    public void handleRequest(HttpServerExchange exchange) {
         String path = exchange.getRequestPath();
 
         if (this.queueClient == null) {
@@ -27,30 +35,47 @@ public class WebHandler implements HttpHandler {
                     "Sorry, Message Queue Client is not available! Can not send your request...");
         } else if (path.equals("/red-alert")) {
             this.queueClient.sendMessage(new LedCommand(LedEffect.BLINKING, 1000, Color.RED, Color.WHITE));
-
             this.returnSuccess(exchange, "RED ALERT message has been sent");
         } else if (path.equals("/all-white")) {
-            this.queueClient.sendMessage(new LedCommand(LedEffect.ALL_WHITE));
-
+            this.queueClient.sendMessage(new LedCommand(LedEffect.ALL_WHITE, 1000, Color.WHITE, Color.BLACK));
             this.returnSuccess(exchange, "ALL WHITE message has been sent");
         } else if (path.equals("/all-out")) {
-            this.queueClient.sendMessage(new LedCommand(LedEffect.ALL_OUT));
-
+            this.queueClient.sendMessage(new LedCommand(LedEffect.ALL_OUT, 1000, Color.BLACK, Color.BLACK));
             this.returnSuccess(exchange, "ALL OUT message has been sent");
         } else {
-            this.returnError(exchange, StatusCodes.NOT_FOUND,
-                    "The requested path is not available");
+            this.returnError(exchange, StatusCodes.NOT_FOUND, "The requested path is not available");
         }
     }
 
+    /**
+     * Return a success page.
+     *
+     * @param exchange {@link HttpServerExchange}
+     * @param message The message to be shown on the page
+     */
     private void returnSuccess(HttpServerExchange exchange, String message) {
         this.returnPage(exchange, StatusCodes.OK, "LED command handled", message);
     }
 
+    /**
+     * Return an error page.
+     *
+     * @param exchange {@link HttpServerExchange}
+     * @param statusCode HTTP status code
+     * @param message The message to be shown on the page
+     */
     private void returnError(HttpServerExchange exchange, int statusCode, String message) {
         this.returnPage(exchange, statusCode, "Error", message);
     }
 
+    /**
+     * Create and return the page.
+     *
+     * @param exchange {@link HttpServerExchange}
+     * @param statusCode HTTP status code
+     * @param title Title of the page
+     * @param content Content of the page
+     */
     private void returnPage(HttpServerExchange exchange, int statusCode, String title, String content) {
         StringBuilder sb = new StringBuilder();
 

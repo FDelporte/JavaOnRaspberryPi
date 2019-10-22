@@ -2,19 +2,23 @@ package be.webtechie.javafxspringledcontroller.led;
 
 import javafx.scene.paint.Color;
 
+/**
+ * LedCommand as it is exchanged with the Arduino.
+ */
 public class LedCommand {
     private LedEffect ledEffect;
     private int speed;
     private Color color1;
     private Color color2;
 
-    public LedCommand(LedEffect ledEffect) {
-        this.ledEffect = ledEffect;
-        this.speed = 50;
-        this.color1 = Color.BLACK;
-        this.color2 = Color.BLACK;
-    }
-
+    /**
+     * Initialize a {@link LedCommand} with speed and colors.
+     *
+     * @param ledEffect {@link LedEffect}
+     * @param speed The speed value
+     * @param color1 {@link Color}
+     * @param color2 {@link Color}
+     */
     public LedCommand(LedEffect ledEffect, int speed, Color color1, Color color2) {
         this.ledEffect = ledEffect;
         this.speed = speed;
@@ -22,6 +26,11 @@ public class LedCommand {
         this.color2 = color2;
     }
 
+    /**
+     * Initialize a {@link LedCommand} from a ":"-separated String as exchanged via Mosquitto.
+     *
+     * @param command {@link String}
+     */
     public LedCommand(String command) {
         String[] parts = command.split(":");
 
@@ -37,6 +46,11 @@ public class LedCommand {
                 ) : Color.BLACK;
     }
 
+    /**
+     * Convert to a ":"-separated String to be exchanged via Mosquitto.
+     *
+     * @return The command as ":"-separated String
+     */
     public String toCommandString() {
         return this.ledEffect.getId() + ":"
                 + speed + ":"

@@ -2,11 +2,9 @@ package be.webtechie.javafxspringledcontroller.ui;
 
 import be.webtechie.javafxspringledcontroller.client.QueueClient;
 import be.webtechie.javafxspringledcontroller.event.EventManager;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -20,14 +18,14 @@ public class MenuWindow extends HBox {
     private final Group log;
 
     /**
-     * Builds the UI.
+     * Construct the main UI with the menu buttons.
      */
     public MenuWindow(EventManager eventManager, QueueClient queueClient) {
         this.setSpacing(25);
         this.getStylesheets().add("styles/style.css");
         this.getStyleClass().add("bg");
 
-        this.getChildren().add(this.getMenu());
+        this.getChildren().add(this.getMainMenu());
 
         this.pane = new StackPane();
         this.getChildren().add(this.pane);
@@ -48,11 +46,11 @@ public class MenuWindow extends HBox {
     }
 
     /**
-     * Builds the button bar.
+     * Builds the main menu button bar.
      *
-     * @return
+     * @return {@link VBox}
      */
-    private VBox getMenu() {
+    private VBox getMainMenu() {
         final VBox buttons = new VBox();
         buttons.setPadding(new Insets(5, 5, 5, 5));
         buttons.setSpacing(5);

@@ -3,25 +3,21 @@ package be.webtechie.javafxspringledcontroller.ui;
 import be.webtechie.javafxspringledcontroller.client.ReceivedMessage;
 import be.webtechie.javafxspringledcontroller.event.EventListener;
 import be.webtechie.javafxspringledcontroller.led.LedCommand;
-import be.webtechie.javafxspringledcontroller.ui.tablecell.ColorView;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 
 public class QueueMessagesList extends TableView implements EventListener {
 
-    private ObservableList<ReceivedMessage> queueItems = FXCollections.observableArrayList();
+    private ObservableList<ReceivedMessage> list = FXCollections.observableArrayList();
 
-    public QueueMessagesList() {
+    /**
+     * Construct the UI as a {@link TableView}.
+     */
+    QueueMessagesList() {
         TableColumn colTimestamp = new TableColumn("Timestamp");
         colTimestamp.setStyle("-fx-alignment: TOP-LEFT;");
         colTimestamp.setMinWidth(150);
@@ -126,19 +122,17 @@ public class QueueMessagesList extends TableView implements EventListener {
                 colColor2,
                 colData);
 
-        this.setItems(this.queueItems);
-
-        // Test date
-        this.onQueueMessage("2:50:255:0:0:0:255:0");
+        this.setItems(this.list);
     }
 
+    /**
+     * {@link LedCommand} received from Mosquitto.
+     * We put it on top of our internal list so it gets added to the table.
+     *
+     * @param ledCommand The {@link LedCommand}
+     */
     @Override
-    public void onQueueMessage(String message) {
-        this.queueItems.add(
-                new ReceivedMessage(
-                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                        new LedCommand(message)
-                )
-        );
+    public void onQueueMessage(LedCommand ledCommand) {
+        this.list.add(0, new ReceivedMessage(ledCommand));
     }
 }

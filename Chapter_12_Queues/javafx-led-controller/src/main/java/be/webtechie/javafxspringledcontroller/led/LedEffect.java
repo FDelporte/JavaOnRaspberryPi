@@ -1,5 +1,9 @@
 package be.webtechie.javafxspringledcontroller.led;
 
+/**
+ * The list of available effects.
+ * By using enums with variables, we can define here which UI-elements must be enabled when an effect is selected.
+ */
 public enum LedEffect {
     UNDEFINED("0", false, 0, 0, false, false),
     STATIC("1", false, 0, 0, true, false),
