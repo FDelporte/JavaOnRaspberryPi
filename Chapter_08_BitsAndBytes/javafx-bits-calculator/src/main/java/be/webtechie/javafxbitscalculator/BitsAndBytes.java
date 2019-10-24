@@ -1,3 +1,5 @@
+package be.webtechie.javafxbitscalculator;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;

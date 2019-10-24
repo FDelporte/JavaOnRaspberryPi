@@ -1,13 +1,17 @@
+package be.webtechie.javafxbitscalculator;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+/**
+ * JavaFX App
+ */
+public class App extends Application {
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new BitsAndBytes(), 1600, 300);
-
-        stage.setTitle("Bits and bytes - comparing signed and unsigned");
+        var scene = new Scene(new BitsAndBytes(), 1600, 260);
+        stage.setTitle("Bits and bytes");
         stage.setScene(scene);
         stage.show();
     }

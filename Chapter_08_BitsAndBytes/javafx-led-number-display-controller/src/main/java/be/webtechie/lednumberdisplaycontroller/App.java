@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage stage) {
-        var scene = new Scene(new SegmentSelection(), 640, 480);
+        var scene = new Scene(new SegmentSelection(), 640, 330);
         stage.setScene(scene);
         stage.show();
     }
