@@ -46,6 +46,16 @@ http://paletton.com/#uid=13-0u0kllllaFw0g0qFqFg0w0aF
   -fx-min-height: 30;
 }
 
+.ledButton:hover {
+  -fx-text-fill: yellow;
+}
+
+.ledButton:selected {
+  -fx-text-fill: #041E37;
+  -fx-background-color: yellow, #728CA6;
+  -fx-background-insets: 0 0 0 0, 2 2 2 2;
+}
+
 .ledButtonFullWidth {
   -fx-font: 20px "Sans";
   -fx-padding: 10;
@@ -55,16 +65,6 @@ http://paletton.com/#uid=13-0u0kllllaFw0g0qFqFg0w0aF
   -fx-font-weight: bold;
   -fx-min-width: 410;
   -fx-min-height: 30;
-}
-
-.ledButton:hover {
-  -fx-text-fill: yellow;
-}
-
-.ledButton:selected {
-  -fx-text-fill: #041E37;
-  -fx-background-color: yellow, #728CA6;
-  -fx-background-insets: 0 0 0 0, 2 2 2 2;
 }
 
 .ledSpeed {

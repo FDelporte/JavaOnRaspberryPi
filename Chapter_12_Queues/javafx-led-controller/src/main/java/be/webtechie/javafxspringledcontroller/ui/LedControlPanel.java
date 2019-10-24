@@ -158,7 +158,7 @@ public class LedControlPanel extends HBox implements EventListener {
         }
 
         if (this.blockSending) {
-            // Avoid sending the same command to Mosquitto as the one received from it to avoid infinite loops.
+            // Avoid sending the same command to Mosquitto again to avoid infinite loops.
             return;
         }
 
@@ -178,7 +178,8 @@ public class LedControlPanel extends HBox implements EventListener {
 
     /**
      * {@link LedCommand} received from Mosquitto.
-     * We block sending updates back to Mosquitto until the interface is updated to match the received command.
+     * We block sending updates back to Mosquitto until the interface is updated fully to match the received command,
+     * to avoid infinite loops.
      *
      * @param ledCommand The {@link LedCommand}
      */
