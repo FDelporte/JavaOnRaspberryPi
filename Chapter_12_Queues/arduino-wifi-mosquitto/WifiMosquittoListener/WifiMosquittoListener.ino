@@ -22,7 +22,7 @@ char ssid[] = "******";    //  your network SSID (name)
 char pass[] = "******";       // your network password
 
 // Mosquitto settings
-const char broker[] = "192.168.0.142";
+const char broker[] = "192.168.0.141";
 int        port     = 1883; // default broker mqtt port, normally you don't need to change this 
 const char topic[]  = "ledCommand";
 
@@ -67,6 +67,8 @@ void setup() {
 
   // Connecting to WiFi
   Serial.println("--- Connecting to WiFi ---");
+  Serial.print("SSID ");
+  Serial.println(ssid);
   while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
     // failed, retry
     Serial.print(".");

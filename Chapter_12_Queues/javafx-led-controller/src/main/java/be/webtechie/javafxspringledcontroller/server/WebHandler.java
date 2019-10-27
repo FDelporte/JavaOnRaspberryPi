@@ -34,13 +34,13 @@ public class WebHandler implements HttpHandler {
             this.returnError(exchange, StatusCodes.INTERNAL_SERVER_ERROR,
                     "Sorry, Message Queue Client is not available! Can not send your request...");
         } else if (path.equals("/red-alert")) {
-            this.queueClient.sendMessage(new LedCommand(LedEffect.BLINKING, 1000, Color.RED, Color.WHITE));
+            this.queueClient.sendMessage(new LedCommand(LedEffect.BLINKING, 10, Color.RED, Color.WHITE));
             this.returnSuccess(exchange, "RED ALERT message has been sent");
         } else if (path.equals("/all-white")) {
-            this.queueClient.sendMessage(new LedCommand(LedEffect.ALL_WHITE, 1000, Color.WHITE, Color.BLACK));
+            this.queueClient.sendMessage(new LedCommand(LedEffect.ALL_WHITE, 10, Color.WHITE, Color.BLACK));
             this.returnSuccess(exchange, "ALL WHITE message has been sent");
         } else if (path.equals("/all-out")) {
-            this.queueClient.sendMessage(new LedCommand(LedEffect.ALL_OUT, 1000, Color.BLACK, Color.BLACK));
+            this.queueClient.sendMessage(new LedCommand(LedEffect.ALL_OUT, 10, Color.BLACK, Color.BLACK));
             this.returnSuccess(exchange, "ALL OUT message has been sent");
         } else {
             this.returnError(exchange, StatusCodes.NOT_FOUND, "The requested path is not available");

@@ -17,7 +17,7 @@ public class LedControllerApplication extends Application {
 	@Override
 	public void start(Stage stage) {
 		EventManager eventManager = new EventManager();
-		QueueClient queueClient = null; // new QueueClient(eventManager, "192.168.0.141", "ledCommand");
+		QueueClient queueClient = new QueueClient(eventManager, "192.168.0.141", "ledCommand");
 
 		Undertow server = Undertow.builder()
 				.addHttpListener(8080, "localhost")
