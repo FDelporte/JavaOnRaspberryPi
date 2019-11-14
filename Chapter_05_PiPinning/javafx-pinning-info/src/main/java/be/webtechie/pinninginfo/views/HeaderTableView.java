@@ -1,9 +1,12 @@
 package be.webtechie.pinninginfo.views;
 
 import be.webtechie.piheaders.definition.Header;
+import be.webtechie.piheaders.definition.PinType;
 import be.webtechie.piheaders.pin.HeaderPin;
+import be.webtechie.pinninginfo.util.Converter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +25,7 @@ public class HeaderTableView extends TableView {
      */
     public HeaderTableView(Header header) {
         this.setMinWidth(1000);
+        this.setMinHeight(1000);
 
         TableColumn colPinNumber = new TableColumn("Pin n°");
         colPinNumber.setStyle("-fx-alignment: TOP-CENTER;");
@@ -45,6 +49,25 @@ public class HeaderTableView extends TableView {
         TableColumn colType = new TableColumn("Type");
         colType.setMinWidth(150);
         colType.setCellValueFactory(new PropertyValueFactory<>("pinType"));
+        colType.setCellFactory(column -> new TableCell<PinType, PinType>() {
+            @Override
+            protected void updateItem(PinType item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item.name());
+                    setStyle("-fx-font-size: 9px; "
+                            + "-fx-padding: 1; "
+                            + "-fx-border-style: solid inside; "
+                            + "-fx-border-width: 2; "
+                            + "-fx-border-insets: 1; "
+                            + "-fx-border-color: " + Converter.intToColor(item.getColor()).toString().replace("0x", "#") + ";");
+                }
+            }
+        });
 
         TableColumn colFunction = new TableColumn("Function");
         colFunction.setMinWidth(70);

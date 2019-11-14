@@ -16,7 +16,7 @@ public class App extends Application {
         int width = 900;
         int height = 500;
 
-        var scene = new Scene(new JavaTimeline(width, height, 1990, 2024, 10, DataSets.LANGUAGE_BIRTDATES), width, height);
+        var scene = new Scene(new JavaTimeline(width, height, 10, DataSet.RASPBERRYPI_BOARDS), width, height);
         stage.setScene(scene);
         stage.show();
     }

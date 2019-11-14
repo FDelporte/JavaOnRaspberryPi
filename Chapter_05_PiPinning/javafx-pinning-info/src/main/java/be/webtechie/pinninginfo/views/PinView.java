@@ -28,18 +28,46 @@ class PinView extends HBox {
         this.setNodeOrientation(rightToLeft ? NodeOrientation.RIGHT_TO_LEFT : NodeOrientation.LEFT_TO_RIGHT);
         this.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-border-style: solid;");
         this.setPadding(new Insets(1, 1, 1, 1));
-        this.setSpacing(1);
+        this.setSpacing(5);
         this.setPrefHeight(20);
         this.setAlignment(Pos.CENTER);
 
-        // GPIO number
-        Label gpioNumber = new Label();
-        gpioNumber.setPrefWidth(20);
-        gpioNumber.setStyle("-fx-font: 16px Tahoma; -fx-alignment: TOP-CENTER;");
-        this.getChildren().add(gpioNumber);
+        // BCM
+        VBox bcmHolder = new VBox();
+        this.getChildren().add(bcmHolder);
+
+        Label bcmLabel = new Label();
+        bcmLabel.setPrefWidth(20);
+        bcmLabel.setStyle("-fx-font: 9px Tahoma; -fx-alignment: TOP-CENTER;");
+        bcmHolder.getChildren().add(bcmLabel);
+
+        Label bcmNumber = new Label();
+        bcmNumber.setPrefWidth(20);
+        bcmNumber.setStyle("-fx-font: 16px Tahoma; -fx-alignment: TOP-CENTER;");
+        bcmHolder.getChildren().add(bcmNumber);
+
+        if (pin.getBcmNumber() != null) {
+            bcmLabel.setText("BCM");
+            bcmNumber.setText(String.valueOf(pin.getBcmNumber()));
+        }
+
+        // WiringPi number
+        VBox wiringHolder = new VBox();
+        this.getChildren().add(wiringHolder);
+
+        Label wiringPiLabel = new Label();
+        wiringPiLabel.setPrefWidth(20);
+        wiringPiLabel.setStyle("-fx-font: 9px Tahoma; -fx-alignment: TOP-CENTER;");
+        wiringHolder.getChildren().add(wiringPiLabel);
+
+        Label wiringPiNumber = new Label();
+        wiringPiNumber.setPrefWidth(20);
+        wiringPiNumber.setStyle("-fx-font: 16px Tahoma; -fx-alignment: TOP-CENTER;");
+        wiringHolder.getChildren().add(wiringPiNumber);
 
         if (pin.getWiringPiNumber() != null) {
-            gpioNumber.setText(String.valueOf(pin.getWiringPiNumber()));
+            wiringPiLabel.setText("WPI");
+            wiringPiNumber.setText(String.valueOf(pin.getWiringPiNumber()));
         }
 
         // Tooltip
@@ -56,11 +84,20 @@ class PinView extends HBox {
         this.getChildren().add(name);
 
         // Pin number
+        VBox pinNumberHolder = new VBox();
+        this.getChildren().add(pinNumberHolder);
+
+        Label pinNumberLabel = new Label();
+        pinNumberLabel.setPrefWidth(20);
+        pinNumberLabel.setStyle("-fx-font: 9px Tahoma; -fx-alignment: TOP-CENTER;");
+        pinNumberLabel.setText("PIN");
+        pinNumberHolder.getChildren().add(pinNumberLabel);
+
         Label pinNumber = new Label();
         pinNumber.setPrefWidth(20);
         pinNumber.setStyle("-fx-font: 16px Tahoma; -fx-alignment: TOP-CENTER;");
         pinNumber.setText(String.valueOf(pin.getPinNumber()));
-        this.getChildren().add(pinNumber);
+        pinNumberHolder.getChildren().add(pinNumber);
 
         // Color pin
         VBox color = new VBox();

@@ -1,6 +1,5 @@
 package be.webtechie.timeline;
 
-import java.util.Map;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -9,7 +8,7 @@ import javafx.scene.transform.Rotate;
 
 public class JavaTimeline extends Pane {
 
-    public JavaTimeline(int width, int height, int startYear, int endYear, int offset, Map<Integer, String> notations) {
+    public JavaTimeline(int width, int height, int offset, DataSet dataSet) {
         // Set the background color
         this.setStyle("-fx-background-color: #ffffff");
 
@@ -22,11 +21,11 @@ public class JavaTimeline extends Pane {
         this.getChildren().add(horizontalAxis);
 
         // Draw the year lines
-        int yearsToDraw = endYear - startYear + 1;
+        int yearsToDraw = dataSet.getEndYear() - dataSet.getStartYear() + 1;
         double distanceBetweenYears = axisLength / yearsToDraw;
 
         for (int i = 0; i < yearsToDraw; i++) {
-            int currentYear = startYear + i;
+            int currentYear = dataSet.getStartYear() + i;
             double yearLineX = (offset * 3) + (i * distanceBetweenYears);
 
             Line yearLine = new Line(yearLineX, offset * 2, yearLineX, offset * 4);
@@ -44,7 +43,7 @@ public class JavaTimeline extends Pane {
             }
 
             // Add a special notation
-            String notation = notations.get(currentYear);
+            String notation = dataSet.getEntries().get(currentYear);
 
             if (notation != null && !notation.isEmpty()) {
                 Line notationLine = new Line(yearLineX, offset * 5, yearLineX, offset * 9);
@@ -54,7 +53,7 @@ public class JavaTimeline extends Pane {
 
                 int notationLabelWidth = height - (offset * 9);
 
-                Label notationLabel = new Label(String.valueOf(startYear + i) + " - " + notation);
+                Label notationLabel = new Label(String.valueOf(dataSet.getStartYear() + i) + " - " + notation);
                 notationLabel.setLayoutX(yearLineX);
                 notationLabel.setLayoutY((offset * 9));
                 notationLabel.setPrefWidth(notationLabelWidth);
