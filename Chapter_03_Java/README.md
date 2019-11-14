@@ -11,6 +11,7 @@ First appearance or initial release of programming languages
 * https://en.wikipedia.org/wiki/Qt_(software)
 * https://en.wikipedia.org/wiki/C_Sharp_(programming_language)
 * https://en.wikipedia.org/wiki/Swift_(programming_language)
+* https://en.wikipedia.org/wiki/Go_(programming_language)
 
 ## Links
 * [AdoptOpenJDK](https://adoptopenjdk.net/)

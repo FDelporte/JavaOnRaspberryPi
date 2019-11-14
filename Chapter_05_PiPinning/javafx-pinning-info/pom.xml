@@ -15,6 +15,12 @@
             <artifactId>javafx-controls</artifactId>
             <version>11.0.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>be.webtechie</groupId>
+            <artifactId>pi-headers</artifactId>
+            <version>0.0.3</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

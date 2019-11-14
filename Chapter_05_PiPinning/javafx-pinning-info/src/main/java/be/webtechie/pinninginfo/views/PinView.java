@@ -1,12 +1,10 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.pinninginfo.data.HeaderPin;
-import be.webtechie.pinninginfo.data.RaspberryPiHeader;
-import java.util.stream.Collectors;
+import be.webtechie.piheaders.pin.HeaderPin;
+import be.webtechie.pinninginfo.util.Converter;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Background;
@@ -14,7 +12,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  * Visualizes the {@link HeaderPin}.
@@ -22,7 +19,7 @@ import javafx.scene.paint.Color;
 class PinView extends HBox {
 
     /**
-     * Constructor to create the visualization of a {@link RaspberryPiHeader}.
+     * Constructor to create the visualization of a {@link HeaderPin}.
      *
      * @param pin The {@link HeaderPin} to be visualized.
      * @param rightToLeft True/False to switch between RL and LR visualization.
@@ -69,7 +66,8 @@ class PinView extends HBox {
         VBox color = new VBox();
         color.setPrefWidth(25);
         color.setPrefHeight(25);
-        color.setBackground(new Background(new BackgroundFill(pin.getPinType().getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+        color.setBackground(new Background(new BackgroundFill(
+                Converter.intToColor(pin.getPinType().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
         this.getChildren().add(color);
     }
 }

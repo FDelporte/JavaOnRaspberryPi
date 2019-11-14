@@ -1,7 +1,7 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.pinninginfo.data.HeaderPin;
-import java.util.List;
+import be.webtechie.piheaders.definition.Header;
+import be.webtechie.piheaders.pin.HeaderPin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -18,9 +18,9 @@ public class HeaderTableView extends TableView {
     /**
      * Constructor to create the table visualization of the header.
      *
-     * @param pins {@link List} of {@link HeaderPin} for which the header must be visualized.
+     * @param header {@link Header} to be visualized.
      */
-    public HeaderTableView(List<HeaderPin> pins) {
+    public HeaderTableView(Header header) {
         this.setMinWidth(1000);
 
         TableColumn colPinNumber = new TableColumn("Pin n°");
@@ -51,7 +51,7 @@ public class HeaderTableView extends TableView {
                 colName,
                 colRemark);
 
-        this.data.addAll(pins);
+        this.data.addAll(header.getPins());
         this.setItems(data);
     }
 }

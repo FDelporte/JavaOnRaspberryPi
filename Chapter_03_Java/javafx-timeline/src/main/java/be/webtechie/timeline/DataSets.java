@@ -11,6 +11,7 @@ public class DataSets {
             entry(1991, "Python\n "),
             entry(1995, "Java, JavaScript, PHP, Qt"),
             entry(2000, "C#"),
+            entry(2009, "Go"),
             entry(2014, "Swift")
     );
 

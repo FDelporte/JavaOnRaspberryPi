@@ -1,6 +1,6 @@
 package be.webtechie;
 
-import be.webtechie.pinninginfo.data.RaspberryPiHeader;
+import be.webtechie.piheaders.definition.Header;
 import be.webtechie.pinninginfo.views.HeaderPinView;
 import be.webtechie.pinninginfo.views.HeaderTableView;
 import javafx.application.Application;
@@ -19,8 +19,8 @@ public class App extends Application {
         HBox holder = new HBox();
         holder.setSpacing(25);
         holder.setPadding(new Insets(5));
-        holder.getChildren().add(new HeaderPinView(RaspberryPiHeader.get40PinsHeader()));
-        holder.getChildren().add(new HeaderTableView(RaspberryPiHeader.get40PinsHeader()));
+        holder.getChildren().add(new HeaderPinView(Header.HEADER_40));
+        holder.getChildren().add(new HeaderTableView(Header.HEADER_40));
 
         var scene = new Scene(holder, 1800, 800);
         stage.setScene(scene);

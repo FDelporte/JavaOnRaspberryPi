@@ -1,6 +1,8 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.pinninginfo.data.PinType;
+import be.webtechie.piheaders.DemoApp;
+import be.webtechie.piheaders.definition.PinType;
+import be.webtechie.pinninginfo.util.Converter;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -13,7 +15,6 @@ import javafx.scene.layout.VBox;
  * Visualizes the {@link PinType}.
  */
 class PinTypeView extends HBox {
-
     /**
      * Constructor to create a legend field for a {@link PinType}.
      *
@@ -28,7 +29,7 @@ class PinTypeView extends HBox {
         VBox color = new VBox();
         color.setPrefWidth(25);
         color.setPrefHeight(25);
-        color.setBackground(new Background(new BackgroundFill(pinType.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+        color.setBackground(new Background(new BackgroundFill(Converter.intToColor(pinType.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
         this.getChildren().add(color);
 
         Label name = new Label(pinType.getLabel());
