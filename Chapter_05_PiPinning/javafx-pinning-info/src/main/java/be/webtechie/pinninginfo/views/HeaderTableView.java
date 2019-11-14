@@ -33,13 +33,22 @@ public class HeaderTableView extends TableView {
         colWiringPiNumber.setMinWidth(70);
         colWiringPiNumber.setCellValueFactory(new PropertyValueFactory<>("wiringPiNumber"));
 
-        TableColumn colType = new TableColumn("Type");
-        colType.setMinWidth(150);
-        colType.setCellValueFactory(new PropertyValueFactory<>("pinType"));
+        TableColumn colBcmNumber = new TableColumn("BCM n°");
+        colBcmNumber.setStyle("-fx-alignment: TOP-CENTER;");
+        colBcmNumber.setMinWidth(70);
+        colBcmNumber.setCellValueFactory(new PropertyValueFactory<>("bcmNumber"));
 
         TableColumn colName = new TableColumn("Name");
         colName.setMinWidth(125);
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn colType = new TableColumn("Type");
+        colType.setMinWidth(150);
+        colType.setCellValueFactory(new PropertyValueFactory<>("pinType"));
+
+        TableColumn colFunction = new TableColumn("Function");
+        colFunction.setMinWidth(70);
+        colFunction.setCellValueFactory(new PropertyValueFactory<>("pinFunction"));
 
         TableColumn colRemark = new TableColumn("Remark");
         colRemark.setMinWidth(550);
@@ -47,8 +56,10 @@ public class HeaderTableView extends TableView {
 
         this.getColumns().addAll(colPinNumber,
                 colWiringPiNumber,
-                colType,
+                colBcmNumber,
                 colName,
+                colType,
+                colFunction,
                 colRemark);
 
         this.data.addAll(header.getPins());
