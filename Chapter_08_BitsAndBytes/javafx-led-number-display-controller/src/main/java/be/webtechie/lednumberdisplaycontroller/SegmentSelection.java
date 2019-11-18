@@ -111,7 +111,7 @@ public class SegmentSelection extends VBox {
         this.cbF.setSelected(highlightType.isF());
         this.cbG.setSelected(highlightType.isG());
 
-        this.setLblValue();
+        this.setValue();
     }
 
     private void updateFromBits(ActionEvent actionEvent) {
@@ -128,10 +128,10 @@ public class SegmentSelection extends VBox {
                 this.cbH.isSelected()
         );
 
-        this.setLblValue();
+        this.setValue();
     }
 
-    private void setLblValue() {
+    private void setValue() {
         int value = (this.cbA.isSelected() ? 0x01 : 0x00)
                 + (this.cbB.isSelected() ? 0x02 : 0x00)
                 + (this.cbC.isSelected() ? 0x04 : 0x00)
@@ -144,6 +144,8 @@ public class SegmentSelection extends VBox {
         this.lblValue.setText("Value: " + value
                 + " = 0x" + padLeftZero(Integer.toHexString(value).toUpperCase(), 2)
                 + " = " + padLeftZero(Integer.toBinaryString(value), 8));
+
+        Executor.execute("python shift.py " + value);
     }
 
     private static String padLeftZero(String txt, int length) {

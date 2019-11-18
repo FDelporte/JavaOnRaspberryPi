@@ -12,6 +12,7 @@ public class App extends Application {
     public void start(Stage stage) {
         var scene = new Scene(new SegmentSelection(), 640, 330);
         stage.setScene(scene);
+        stage.setTitle("LED Segment display");
         stage.show();
     }
 
