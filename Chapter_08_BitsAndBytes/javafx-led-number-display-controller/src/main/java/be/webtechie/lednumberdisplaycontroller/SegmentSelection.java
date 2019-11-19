@@ -34,6 +34,11 @@ public class SegmentSelection extends VBox {
 
     private final String scriptFilePath;
 
+    /**
+     * Generates the SegmentSelection UI.
+     *
+     * @param scriptFilePath The full path to the python script copied to the temp directory to execute the segment selection.
+     */
     public SegmentSelection(String scriptFilePath) {
         this.scriptFilePath = scriptFilePath;
         System.out.println("Initializing SegmentSelection with script file located copied to " + scriptFilePath);
@@ -42,25 +47,26 @@ public class SegmentSelection extends VBox {
         this.setSpacing(25);
         this.setAlignment(Pos.CENTER);
 
-        this.addLedNumberWithHighlightSelection();
-        this.addBitSelection();
-
-        this.selectHighLightType = new ComboBox<>();
-        this.selectHighLightType.getItems().setAll(HighlightType.values());
-        this.selectHighLightType.setOnAction(this::updateHighlights);
-        this.getChildren().add(this.selectHighLightType);
+        this.getChildren().add(this.generateLedNumberWithHighlightSelection());
+        this.getChildren().add(this.generateBitSelection());
+        this.getChildren().add(this.initializeHighLightTypeSelection());
 
         this.lblValue = new Label();
         this.lblValue.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
         this.getChildren().add(this.lblValue);
     }
 
-    private void addLedNumberWithHighlightSelection() {
+    /**
+     * Generate a black holder with an image to show the A, B, C... segment location and
+     * the LED number display component from the Maven dependency be.webtechie.javafx-led-number-display
+     *
+     * @return {@link HBox} with the image and led number display
+     */
+    private HBox generateLedNumberWithHighlightSelection() {
         HBox holder = new HBox();
         holder.setSpacing(100);
         holder.setStyle("-fx-background-color: black;");
         holder.setAlignment(Pos.CENTER);
-        this.getChildren().add(holder);
 
         Image img = new Image("led-number-display.jpg");
         ImageView imgView = new ImageView();
@@ -70,13 +76,19 @@ public class SegmentSelection extends VBox {
         this.ledNumberDisplay = new LedNumber(DisplaySkin.CLASSIC, Color.BLACK, Color.DARKGRAY, Color.RED);
         this.ledNumberDisplay.setMaxHeight(105);
         holder.getChildren().add(this.ledNumberDisplay);
+
+        return holder;
     }
 
-    private void addBitSelection() {
-        HBox bitsSelection = new HBox();
-        bitsSelection.setSpacing(10);
-        bitsSelection.setAlignment(Pos.CENTER);
-        this.getChildren().add(bitsSelection);
+    /**
+     * Generate the holder with 8 checkboxes for the segment selection.
+     *
+     * return {@link HBox} with the checkboxes
+     */
+    private HBox generateBitSelection() {
+        HBox checkBoxes = new HBox();
+        checkBoxes.setSpacing(10);
+        checkBoxes.setAlignment(Pos.CENTER);
 
         this.cbA = new CheckBox("A (0x01)");
         this.cbA.setOnAction(this::updateFromBits);
@@ -95,10 +107,23 @@ public class SegmentSelection extends VBox {
         this.cbH = new CheckBox("H (0x80)");
         this.cbH.setOnAction(this::updateFromBits);
 
-        bitsSelection.getChildren()
-                .addAll(this.cbH, this.cbG, this.cbF, this.cbE, this.cbD, this.cbC, this.cbB, this.cbA);
+        checkBoxes.getChildren().addAll(this.cbH, this.cbG, this.cbF, this.cbE, this.cbD, this.cbC, this.cbB, this.cbA);
+
+        return checkBoxes;
     }
 
+    /**
+     * Initializes the {@link ComboBox} with all the available {@link HighlightType}
+     */
+    private void initializeHighLightTypeSelection() {
+        this.selectHighLightType = new ComboBox<>();
+        this.selectHighLightType.getItems().setAll(HighlightType.values());
+        this.selectHighLightType.setOnAction(this::updateHighlights);
+    }
+
+    /**
+     * Change the states of all the {@link ComboBox} to match the selected {@link HighlightType}
+     */
     private void updateHighlights(ActionEvent actionEvent) {
         HighlightType highlightType = this.selectHighLightType.getValue();
 
@@ -119,6 +144,11 @@ public class SegmentSelection extends VBox {
         this.setValue();
     }
 
+    /**
+     * Change the LED segment component to match the selected {@link ComboBox}
+     *
+     * @param actionEvent {@link ActionEvent} called from a changed {@link ComboBox}
+     */
     private void updateFromBits(ActionEvent actionEvent) {
         this.selectHighLightType.valueProperty().set(null);
 
@@ -136,6 +166,10 @@ public class SegmentSelection extends VBox {
         this.setValue();
     }
 
+    /**
+     * Calculate the value base on the selected {@link ComboBox}, display in the label of the UI and send to the
+     * hardware by calling the Python script.
+     */
     private void setValue() {
         int value = (this.cbA.isSelected() ? 0x01 : 0x00)
                 + (this.cbB.isSelected() ? 0x02 : 0x00)
@@ -153,6 +187,13 @@ public class SegmentSelection extends VBox {
         Executor.execute("python " + this.scriptFilePath + " " + value);
     }
 
+    /**
+     * Helper function to pad "0" to the left of the given string till the requested string length is reached.
+     *
+     * @param txt Text to which "0" must be added
+     * @param length Requested length
+     * @return String with the requested length
+     */
     private static String padLeftZero(String txt, int length) {
         StringBuilder rt = new StringBuilder();
         for (int i = 0; i < (length - txt.length()); i++) {
