@@ -32,7 +32,12 @@ public class SegmentSelection extends VBox {
 
     private Label lblValue;
 
-    public SegmentSelection() {
+    private final String scriptFilePath;
+
+    public SegmentSelection(String scriptFilePath) {
+        this.scriptFilePath = scriptFilePath;
+        System.out.println("Initializing SegmentSelection with script file located copied to " + scriptFilePath);
+
         this.setPadding(new Insets(10));
         this.setSpacing(25);
         this.setAlignment(Pos.CENTER);
@@ -145,7 +150,7 @@ public class SegmentSelection extends VBox {
                 + " = 0x" + padLeftZero(Integer.toHexString(value).toUpperCase(), 2)
                 + " = " + padLeftZero(Integer.toBinaryString(value), 8));
 
-        Executor.execute("python shift.py " + value);
+        Executor.execute("python " + this.scriptFilePath + " " + value);
     }
 
     private static String padLeftZero(String txt, int length) {
