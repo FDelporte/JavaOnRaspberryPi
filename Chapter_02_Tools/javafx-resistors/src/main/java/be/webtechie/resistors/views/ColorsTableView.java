@@ -49,7 +49,9 @@ public class ColorsTableView extends TableView {
 
                     VBox colorBox = new VBox();
                     colorBox.setMinWidth(20);
-                    colorBox.setStyle("-fx-background-color: " + Convert.toHexColorString(item) + ";");
+                    if (item != null) {
+                        colorBox.setStyle("-fx-background-color: " + Convert.toHexColorString(item) + ";");
+                    }
                     holder.getChildren().add(colorBox);
 
                     holder.getChildren().add(new Label(Convert.toHexColorString(item)));
