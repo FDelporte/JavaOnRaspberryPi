@@ -22,7 +22,7 @@ import javafx.util.Callback;
 public class ColorsTableView extends TableView {
 
     /**
-     * Constructor to create the table visualization of the color codings on a resistor.
+     * Constructor to create the table visualization of the color codes on a resistor.
      */
     public ColorsTableView() {
         TableColumn colName = new TableColumn("Name");

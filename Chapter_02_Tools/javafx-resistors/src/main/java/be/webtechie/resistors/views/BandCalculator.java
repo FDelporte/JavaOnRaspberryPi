@@ -1,20 +1,17 @@
 package be.webtechie.resistors.views;
 
 import be.webtechie.resistorcalculator.definition.ColorCode;
-import be.webtechie.resistorcalculator.definition.ColorValue;
-import be.webtechie.resistorcalculator.util.CalculateColorValue;
+import be.webtechie.resistorcalculator.util.Calculate;
 import be.webtechie.resistorcalculator.util.Convert;
+import be.webtechie.resistorcalculator.util.ResistorValue;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -30,10 +27,14 @@ public class BandCalculator extends VBox {
 
     private final Label result;
 
+    /**
+     * Build the component.
+     */
     public BandCalculator() {
         setSpacing(10);
 
         Label title = new Label("Resistor value calculator (3, 4, 5 or 6 bands)");
+        title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold");
         getChildren().add(title);
 
         HBox colorSelection = new HBox();
@@ -72,13 +73,17 @@ public class BandCalculator extends VBox {
                 band4, band5, band6, clearButton);
 
         result = new Label();
+        result.setStyle("-fx-font-size: 14px; -fx-font-weight: bold");
         getChildren().add(result);
     }
 
-    Callback<ListView<ColorCode>, ListCell<ColorCode>> cellFactory = new Callback<ListView<ColorCode>, ListCell<ColorCode>>() {
+    /**
+     * Callback to render the items in the dropdown list with a color box and the name of the color.
+     */
+    Callback<ListView<ColorCode>, ListCell<ColorCode>> cellFactory = new Callback<>() {
         @Override
         public ListCell<ColorCode> call(ListView<ColorCode> l) {
-            return new ListCell<ColorCode>() {
+            return new ListCell<>() {
                 @Override
                 protected void updateItem(ColorCode item, boolean empty) {
                     super.updateItem(item, empty);
@@ -100,10 +105,16 @@ public class BandCalculator extends VBox {
                         holder.getChildren().add(new Label(item.name()));
                     }
                 }
-            } ;
+            };
         }
     };
 
+    /**
+     * Calculate the resistor value based on the selected colors.
+     * As soon as the first three are selected, the calculation can be done.
+     *
+     * @param actionEvent
+     */
     private void calculateValue(ActionEvent actionEvent) {
         List<ColorCode> colors = new ArrayList<>();
 
@@ -147,6 +158,9 @@ public class BandCalculator extends VBox {
         }
     }
 
+    /**
+     * Show the selected color for all the combo boxes.
+     */
     private void setAllComboBoxColors() {
         setComboBoxColor(band1);
         setComboBoxColor(band2);
@@ -156,6 +170,11 @@ public class BandCalculator extends VBox {
         setComboBoxColor(band6);
     }
 
+    /**
+     * Show the selected color of the given combo box.
+     *
+     * @param comboBox
+     */
     private void setComboBoxColor(ComboBox<ColorCode> comboBox) {
         if (comboBox.getValue() == null || comboBox.getValue().getColor() == null) {
             comboBox.setStyle("-fx-border-width: 0px;");
@@ -165,9 +184,14 @@ public class BandCalculator extends VBox {
         }
     }
 
+    /**
+     * Calculate the resistor value for the given list of color codes.
+     *
+     * @param colors
+     */
     private void calculateValue(List<ColorCode> colors) {
         try {
-            ColorValue value = CalculateColorValue.from(colors);
+            ResistorValue value = Calculate.resistorValue(colors);
 
             result.setText(
                     "Resistor value is "
@@ -181,6 +205,11 @@ public class BandCalculator extends VBox {
         }
     }
 
+    /**
+     * Clear all the combo boxes.
+     *
+     * @param actionEvent
+     */
     private void clear(ActionEvent actionEvent) {
         band1.setValue(null);
         band2.setValue(null);
