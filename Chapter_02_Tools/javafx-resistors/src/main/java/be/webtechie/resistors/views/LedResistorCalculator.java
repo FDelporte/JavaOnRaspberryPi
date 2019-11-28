@@ -1,28 +1,18 @@
 package be.webtechie.resistors.views;
 
-import be.webtechie.resistorcalculator.definition.ColorCode;
 import be.webtechie.resistorcalculator.util.Calculate;
 import be.webtechie.resistorcalculator.util.Convert;
-import be.webtechie.resistorcalculator.util.ResistorValue;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 public class LedResistorCalculator extends VBox {
 
     private final Spinner<Double> inputVoltage;
     private final Spinner<Double> ledVoltage;
-    private final Spinner<Double> ledAmpere;
+    private final Spinner<Double> ledCurrent;
 
     private final Label result;
 
@@ -55,12 +45,12 @@ public class LedResistorCalculator extends VBox {
         ledVoltage.valueProperty().addListener((obs, oldValue, newValue) -> calculateValue());
         inputs.getChildren().add(ledVoltage);
 
-        inputs.getChildren().add(new Label("Led ampere (A)"));
-        ledAmpere = new Spinner<>(0.001, 3, 0.02);
-        ledAmpere.setPrefWidth(80);
-        ledAmpere.setEditable(true);
-        ledAmpere.valueProperty().addListener((obs, oldValue, newValue) -> calculateValue());
-        inputs.getChildren().add(ledAmpere);
+        inputs.getChildren().add(new Label("Led current (A)"));
+        ledCurrent = new Spinner<>(0.001, 3, 0.02);
+        ledCurrent.setPrefWidth(80);
+        ledCurrent.setEditable(true);
+        ledCurrent.valueProperty().addListener((obs, oldValue, newValue) -> calculateValue());
+        inputs.getChildren().add(ledCurrent);
 
         result = new Label();
         result.setStyle("-fx-font-size: 14px; -fx-font-weight: bold");
@@ -74,7 +64,7 @@ public class LedResistorCalculator extends VBox {
      */
     private void calculateValue() {
         try {
-            long value = Calculate.resistorForLed(inputVoltage.getValue(), ledVoltage.getValue(), ledAmpere.getValue());
+            long value = Calculate.resistorForLed(inputVoltage.getValue(), ledVoltage.getValue(), ledCurrent.getValue());
 
             result.setText("A resistor with value " + Convert.toOhmString((double) value) + " is needed");
         } catch (IllegalArgumentException ex) {
