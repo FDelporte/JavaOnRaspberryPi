@@ -16,6 +16,7 @@ First appearance or initial release of programming languages
 ## Links
 * [AdoptOpenJDK](https://adoptopenjdk.net/)
 * [BellSoft Liberica JDK](https://bell-sw.com/)
+* [Duke the Java Mascot, explained](https://jaxenter.com/duke-the-java-mascot-explained-118397.html)
 
 ## Scripts
 See the scripts directory to install specific Liberica SDK versions on the Pi.
