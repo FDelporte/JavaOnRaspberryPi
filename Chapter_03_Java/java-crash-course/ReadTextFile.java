@@ -26,7 +26,6 @@ public class ReadTextFile {
         System.out.println("Minimum age: " + stats.getMin());
         System.out.println("Maximum age: " + stats.getMax());
         System.out.println("Average age: " + stats.getAverage());
-        stats.
     }
 
     public static int countFirstName(List<Person> persons, String firstName) {
