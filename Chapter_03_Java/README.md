@@ -35,6 +35,10 @@ $ chmod +x install_liberica_12.0.2.sh
 $ ./install_liberica_12.0.2.sh
 ```
 
+## Java crash course
+* [Use this tool to generate test data in CSV or JSON format](http://www.convertcsv.com/generate-test-data.htm)
+* [Java 8 Stream Tutorial](https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/)
+
 ## Read more
 * [Oracle to stop providing a free Java (JDK) with Long Term Support (LTS)](https://react-etc.net/entry/oracle-to-stop-providing-a-free-java-jdk-with-long-term-support-lts)
 * [Why Java is so hot right now](https://developers.redhat.com/blog/2019/09/05/why-java-is-so-hot-right-now/)

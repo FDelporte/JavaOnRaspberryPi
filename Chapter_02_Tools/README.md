@@ -13,3 +13,5 @@
 * [WS2812B vs WS2813 Addressable RGB LED Strips – How are they different?](https://www.seeedstudio.com/blog/2019/02/14/ws2812b-vs-ws2813-addressable-rgb-led-strips-how-are-they-different/)
 * [Guide for WS2812B Addressable RGB LED Strip with Arduino](https://randomnerdtutorials.com/guide-for-ws2812b-addressable-rgb-led-strip-with-arduino/)
 * [The Magic of NeoPixels](https://learn.adafruit.com/adafruit-neopixel-uberguide)
+* [Light_WS2812 library V2.0 – Part I: Understanding the WS2812](https://cpldcpu.wordpress.com/2014/01/14/light_ws2812-library-v2-0-part-i-understanding-the-ws2812/)
+* [LED Chips Explained – differences between 3528s, 5050s and other SMDs](https://www.instyleled.co.uk/support/what-are-the-differences-between-types-of-led-chip/)
