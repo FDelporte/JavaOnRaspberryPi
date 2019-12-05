@@ -38,6 +38,8 @@ $ ./install_liberica_12.0.2.sh
 ## Java crash course
 * [Use this tool to generate test data in CSV or JSON format](http://www.convertcsv.com/generate-test-data.htm)
 * [Java 8 Stream Tutorial](https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/)
+* [My favorite free courses to learn Java in depth](https://medium.com/javarevisited/10-free-courses-to-learn-java-in-2019-22d1f33a3915)
+* [Codecademy Java course](https://www.codecademy.com/catalog/language/java)
 
 ## Read more
 * [Oracle to stop providing a free Java (JDK) with Long Term Support (LTS)](https://react-etc.net/entry/oracle-to-stop-providing-a-free-java-jdk-with-long-term-support-lts)
