@@ -2,8 +2,13 @@
 Chapter describing the history and current state of Java and how to install on a Pi.
 
 ## IDE's
-### IntelliJ
+
+### IntelliJ IDEA
+* [IntelliJ IDEA shortcuts](https://www.jetbrains.com/help/idea/mastering-keyboard-shortcuts.html)
+
+### Visual Studio Code
+* [VSC shortcuts](https://code.visualstudio.com/docs/getstarted/keybindings)
+ 
 ### NetBeans
 https://www.youtube.com/watch?v=BIGgUZeTl4w&feature=youtu.be 
 https://blog.idrsolutions.com/2014/08/using-netbeans-remotely-deploy-projects-raspberry-pi/
-
