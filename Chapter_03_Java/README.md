@@ -17,6 +17,8 @@ First appearance or initial release of programming languages
 * [AdoptOpenJDK](https://adoptopenjdk.net/)
 * [BellSoft Liberica JDK](https://bell-sw.com/)
 * [Duke the Java Mascot, explained](https://jaxenter.com/duke-the-java-mascot-explained-118397.html)
+* [SDKMAN](https://sdkman.io/)
+* [SDKMAN on Windows](https://ngeor.com/2019/12/07/sdkman-windows.html)
 
 ## Scripts
 See the scripts directory to install specific Liberica SDK versions on the Pi.
@@ -40,12 +42,12 @@ $ ./install_liberica_12.0.2.sh
 * [Java 8 Stream Tutorial](https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/)
 * [My favorite free courses to learn Java in depth](https://medium.com/javarevisited/10-free-courses-to-learn-java-in-2019-22d1f33a3915)
 * [Codecademy Java course](https://www.codecademy.com/catalog/language/java)
+* [How you could learn Java on your own and where to start](https://jaxenter.com/learning-java-159740.html)
+* [Java tutorial](http://tutorials.jenkov.com/java/index.html)
 
 ## Read more
 * [Oracle to stop providing a free Java (JDK) with Long Term Support (LTS)](https://react-etc.net/entry/oracle-to-stop-providing-a-free-java-jdk-with-long-term-support-lts)
 * [Why Java is so hot right now](https://developers.redhat.com/blog/2019/09/05/why-java-is-so-hot-right-now/)
 * [Java will stay on the throne](https://jaxlondon.com/blog/java-core-languages/java-will-stay-on-the-throne)
-* [Java tutorial](http://tutorials.jenkov.com/java/index.html)
-* [How you could learn Java on your own and where to start](https://jaxenter.com/learning-java-159740.html)
-* [Oracle Blog: The arrival of Java 13](https://blogs.oracle.com/java-platform-group/the-arrival-of-java-13)
 * [10 new features or treasures in Java 11 | JDK 11](https://codinginfinite.com/ten-features-java-jdk-11/)
+* [Oracle Blog: The arrival of Java 13](https://blogs.oracle.com/java-platform-group/the-arrival-of-java-13)
