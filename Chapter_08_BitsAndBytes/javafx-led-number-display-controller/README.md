@@ -9,3 +9,4 @@
 * https://simple-circuit.com/arduino-7-segment-74hc595-shift-register/
 * https://learn.adafruit.com/adafruit-arduino-lesson-4-eight-leds/breadboard-layout
 * https://circuitdigest.com/microcontroller-projects/raspberry-pi-74hc595-shift-register-tutorial
+* https://www.instructables.com/id/Multiplexing-with-Arduino-and-the-74HC595/

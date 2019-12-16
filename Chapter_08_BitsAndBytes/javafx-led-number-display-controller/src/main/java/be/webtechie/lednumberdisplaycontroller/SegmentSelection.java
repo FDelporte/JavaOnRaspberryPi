@@ -9,8 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -47,9 +45,12 @@ public class SegmentSelection extends VBox {
         this.setSpacing(25);
         this.setAlignment(Pos.CENTER);
 
-        this.getChildren().add(this.generateLedNumberWithHighlightSelection());
-        this.getChildren().add(this.generateBitSelection());
-        this.getChildren().add(this.initializeHighLightTypeSelection());
+        HBox holderSelections = new HBox();
+        holderSelections.setSpacing(25);
+        holderSelections.setAlignment(Pos.CENTER);
+        holderSelections.getChildren().add(this.generateHighlightSelection());
+        holderSelections.getChildren().add(this.generateBitSelection());
+        this.getChildren().add(holderSelections);
 
         this.lblValue = new Label();
         this.lblValue.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
@@ -57,21 +58,16 @@ public class SegmentSelection extends VBox {
     }
 
     /**
-     * Generate a black holder with an image to show the A, B, C... segment location and
-     * the LED number display component from the Maven dependency be.webtechie.javafx-led-number-display
+     * Generate a black holder the LED number display component from
+     * the Maven dependency be.webtechie.javafx-led-number-display.
      *
-     * @return {@link HBox} with the image and led number display
+     * @return {@link HBox} with the led number display
      */
-    private HBox generateLedNumberWithHighlightSelection() {
+    private HBox generateHighlightSelection() {
         HBox holder = new HBox();
-        holder.setSpacing(100);
         holder.setStyle("-fx-background-color: black;");
+        holder.setPadding(new Insets(25));
         holder.setAlignment(Pos.CENTER);
-
-        Image img = new Image("led-number-display.jpg");
-        ImageView imgView = new ImageView();
-        imgView.setImage(img);
-        holder.getChildren().add(imgView);
 
         this.ledNumberDisplay = new LedNumber(DisplaySkin.CLASSIC, Color.BLACK, Color.DARKGRAY, Color.RED);
         this.ledNumberDisplay.setMaxHeight(105);
@@ -85,10 +81,15 @@ public class SegmentSelection extends VBox {
      *
      * return {@link HBox} with the checkboxes
      */
-    private HBox generateBitSelection() {
-        HBox checkBoxes = new HBox();
-        checkBoxes.setSpacing(10);
-        checkBoxes.setAlignment(Pos.CENTER);
+    private VBox generateBitSelection() {
+        VBox selectionsHolder = new VBox();
+        selectionsHolder.setSpacing(10);
+        selectionsHolder.setAlignment(Pos.CENTER);
+
+        this.selectHighLightType = new ComboBox<>();
+        this.selectHighLightType.getItems().setAll(HighlightType.values());
+        this.selectHighLightType.setOnAction(this::updateHighlights);
+        selectionsHolder.getChildren().add(this.selectHighLightType);
 
         this.cbA = new CheckBox("A (0x01)");
         this.cbA.setOnAction(this::updateFromBits);
@@ -107,18 +108,19 @@ public class SegmentSelection extends VBox {
         this.cbH = new CheckBox("H (0x80)");
         this.cbH.setOnAction(this::updateFromBits);
 
-        checkBoxes.getChildren().addAll(this.cbH, this.cbG, this.cbF, this.cbE, this.cbD, this.cbC, this.cbB, this.cbA);
+        selectionsHolder.getChildren().addAll(
+                this.cbH, this.cbG, this.cbF, this.cbE,
+                this.cbD, this.cbC, this.cbB, this.cbA
+        );
 
-        return checkBoxes;
+        return selectionsHolder;
     }
 
     /**
      * Initializes the {@link ComboBox} with all the available {@link HighlightType}
      */
     private void initializeHighLightTypeSelection() {
-        this.selectHighLightType = new ComboBox<>();
-        this.selectHighLightType.getItems().setAll(HighlightType.values());
-        this.selectHighLightType.setOnAction(this::updateHighlights);
+        
     }
 
     /**
@@ -150,18 +152,22 @@ public class SegmentSelection extends VBox {
      * @param actionEvent {@link ActionEvent} called from a changed {@link ComboBox}
      */
     private void updateFromBits(ActionEvent actionEvent) {
-        this.selectHighLightType.valueProperty().set(null);
+        if (this.selectHighLightType != null) {
+            this.selectHighLightType.valueProperty().set(null);
+        }
 
-        this.ledNumberDisplay.highlight(
-                this.cbA.isSelected(),
-                this.cbB.isSelected(),
-                this.cbC.isSelected(),
-                this.cbD.isSelected(),
-                this.cbE.isSelected(),
-                this.cbF.isSelected(),
-                this.cbG.isSelected(),
-                this.cbH.isSelected()
-        );
+        if (this.ledNumberDisplay != null) {
+            this.ledNumberDisplay.highlight(
+                    this.cbA.isSelected(),
+                    this.cbB.isSelected(),
+                    this.cbC.isSelected(),
+                    this.cbD.isSelected(),
+                    this.cbE.isSelected(),
+                    this.cbF.isSelected(),
+                    this.cbG.isSelected(),
+                    this.cbH.isSelected()
+            );
+        }
 
         this.setValue();
     }
@@ -180,9 +186,9 @@ public class SegmentSelection extends VBox {
                 + (this.cbG.isSelected() ? 0x40 : 0x00)
                 + (this.cbH.isSelected() ? 0x80 : 0x00);
 
-        this.lblValue.setText("Value: " + value
+        this.lblValue.setText("Value: " + padLeftZero(Integer.toBinaryString(value), 8) 
                 + " = 0x" + padLeftZero(Integer.toHexString(value).toUpperCase(), 2)
-                + " = " + padLeftZero(Integer.toBinaryString(value), 8));
+                + " = " + value);
 
         Executor.execute("python " + this.scriptFilePath + " " + value);
     }

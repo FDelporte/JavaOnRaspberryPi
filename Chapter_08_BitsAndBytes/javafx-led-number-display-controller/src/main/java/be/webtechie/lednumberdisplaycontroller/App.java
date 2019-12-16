@@ -15,7 +15,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        var scene = new Scene(new SegmentSelection(copyShiftScriptFile()), 640, 330);
+        var scene = new Scene(new SegmentSelection(copyShiftScriptFile()), 500, 350);
         stage.setScene(scene);
         stage.setTitle("LED Segment display");
         stage.show();

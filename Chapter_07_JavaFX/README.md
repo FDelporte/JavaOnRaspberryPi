@@ -37,3 +37,4 @@ https://dordnung.de/raspberrypi-ledstrip/
 * http://tutorials.jenkov.com/javafx/index.html 
 * https://openjfx.io/openjfx-docs/
 * [OpenJFX examples for multiple IDE's](https://github.com/openjfx/samples )
+* [JavaFX Programming Tutorials](https://o7planning.org/en/11009/javafx)

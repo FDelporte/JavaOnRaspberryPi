@@ -3,6 +3,7 @@
 ## Read more
 
 ### Tools
+* [Raspberry Pi Bash Command Cheat Sheet](https://www.elektormagazine.com/news/bash-command-cheat-sheet)
 * [WireShark on Raspberry PI ](https://donsthinktank.blogspot.com/2015/07/wireshark-raspberry-pi.html)
 
 ### Level shifting
