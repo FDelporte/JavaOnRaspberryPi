@@ -13,6 +13,10 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) {
         var scene = new Scene(new SegmentSelection(copyShiftScriptFile()), 500, 350);
@@ -21,10 +25,11 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
-
+    /**
+     * Copy the Python file "shift.py" from the resources directory to the tmp directory.
+     *
+     * @return The path of the copied file.
+     */
     private String copyShiftScriptFile() {
         try (InputStream is = App.class.getResourceAsStream("/shift.py")) {
             if (is == null) {

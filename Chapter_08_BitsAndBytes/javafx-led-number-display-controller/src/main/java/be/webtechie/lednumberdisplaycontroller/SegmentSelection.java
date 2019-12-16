@@ -58,7 +58,7 @@ public class SegmentSelection extends VBox {
     }
 
     /**
-     * Generate a black holder the LED number display component from
+     * Generate a black holder with a LED number display component from
      * the Maven dependency be.webtechie.javafx-led-number-display.
      *
      * @return {@link HBox} with the led number display
@@ -77,9 +77,10 @@ public class SegmentSelection extends VBox {
     }
 
     /**
-     * Generate the holder with 8 checkboxes for the segment selection.
+     * Generate the holder with a dropdown with highlight presets
+     * and 8 checkboxes to be able each segment separately.
      *
-     * return {@link HBox} with the checkboxes
+     * return {@link HBox} with combobox and checkboxes
      */
     private VBox generateBitSelection() {
         VBox selectionsHolder = new VBox();
@@ -114,13 +115,6 @@ public class SegmentSelection extends VBox {
         );
 
         return selectionsHolder;
-    }
-
-    /**
-     * Initializes the {@link ComboBox} with all the available {@link HighlightType}
-     */
-    private void initializeHighLightTypeSelection() {
-        
     }
 
     /**
