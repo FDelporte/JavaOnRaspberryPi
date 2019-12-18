@@ -14,7 +14,12 @@ Contains both
 
 * This is a Maven project
 * Open the terminal and run "mvn clean package"
-* To run on Raspberry Pi, use Liberica JDK (with included JavaFX) and use the generated jar from the target directory "led-number-display-controller-0.0.1-jar-with-dependencies.jar"
+
+## Running on Raspberry Pi
+
+* To run on Raspberry Pi, use Liberica JDK (with included JavaFX) 
+* Copy the generated jar from the target directory "led-number-display-controller-0.0.1-jar-with-dependencies.jar" to your Pi
+* Run with "java -jar led-number-display-controller-0.0.1-jar-with-dependencies.jar"
 
 ## Wiring
 
