@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
@@ -37,16 +39,34 @@ public class ImageController {
         StringBuilder rt = new StringBuilder();
 
         try {
-            rt.append("<html>");
-            rt.append("<body>");
+            rt.append("<html>")
+                .append("   <body>")
+                .append("       <table>")
+                .append("           <tr>")
+                .append("               <th>File</th>")
+                .append("               <th>Size</th>")
+                .append("               <th>Date</th>")
+                .append("           <tr>");
 
             File[] childFiles = (new File(this.pathImages)).listFiles();
             for (File childFile : childFiles) {
                 String relativePath = childFile.getName();
-                rt.append("<a href='file/" + URLEncoder.encode(relativePath, "UTF-8") + "' target='_blank'>" + relativePath
-                        + "</a><br>");
+                rt.append("           <tr>")
+                    .append("           <td>")
+                        .append("<a href='file/")
+                        .append(URLEncoder.encode(relativePath, "UTF-8"))
+                        .append("' target='_blank'>")
+                        .append(relativePath)
+                        .append("</a></td>")
+                    .append("           <td style='text-align: right;'>")
+                        .append(getSize(childFile)).append("</td>")
+                    .append("           <td>")
+                        .append(getTimestamp(childFile)).append("</td>")
+                    .append("       </tr>");
             }
-            rt.append("</body>");
+
+            rt.append("     <table>");
+            rt.append(" </body>");
             rt.append("</html>");
 
         } catch (Exception ex) {
@@ -54,6 +74,30 @@ public class ImageController {
         }
 
         return rt.toString();
+    }
+
+    /**
+     * Converts the file size in bytes to Kb.
+     * 
+     * @param file
+     * @return
+     */
+    private String getSize(File file) {
+        long sizeInBytes = file.length();
+        long sizeInKilobytes = sizeInBytes / 1024;
+        return sizeInKilobytes + "Kb";
+    }
+
+    /**
+     * Converts the last modified timestamp of the file to a readable format.
+     * 
+     * @param file
+     * @return
+     */
+    private String getTimestamp(File file) {
+        long timestamp = file.lastModified();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(new Date(timestamp));
     }
 
     /**
@@ -72,8 +116,8 @@ public class ImageController {
 
         // Check if the file exists.
         if (!file.exists()) {
-            // Immediatly return error 404.
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            // Immediately return error 404.
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
         // Get the file as a byte array.
@@ -83,11 +127,12 @@ public class ImageController {
         } catch (IOException ex) {
             // Oops something went wrong, return error 500.
             headers.setContentType(MediaType.TEXT_PLAIN);
-            return new ResponseEntity<>(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(ex.getMessage(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        // Check which type of file we are returning so we can correctly define the header content type.
-        // By doing this, the browser can show the image inside the browser, otherwise it will show it as a download.
+        // Check which type of file we are returning so we can correctly define
+        // the header content type. By doing this, the browser can show 
+        // the image inside the browser, otherwise it will do a download.
         if (fileName.toLowerCase().endsWith(".jpg")) {
             headers.setContentType(MediaType.IMAGE_JPEG);
         } else if (fileName.toLowerCase().endsWith(".png")) {

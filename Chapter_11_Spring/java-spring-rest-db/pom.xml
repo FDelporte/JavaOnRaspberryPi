@@ -12,7 +12,7 @@
 	<groupId>be.webtechie</groupId>
 	<artifactId>java-spring-rest-db</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>java-spring-image-server</name>
+	<name>java-spring-rest-db</name>
 	<description>Spring Boot project to store data in a H2 database</description>
 
 	<properties>

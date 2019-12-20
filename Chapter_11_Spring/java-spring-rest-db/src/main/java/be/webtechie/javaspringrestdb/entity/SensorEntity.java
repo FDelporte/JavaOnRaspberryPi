@@ -13,19 +13,29 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Maps a database entity from the table SENSORS to a Java object
+ * Maps a database entity from the table SENSORS to a Java object.
+ * The ID is marked as the unique identifier.
  */
 @Entity
 @Table(name = "SENSORS", uniqueConstraints={@UniqueConstraint(name="UN_SENSOR_ID", columnNames={"ID"})})
 public class SensorEntity {
 
+    /**
+     * Auto-generated identifier to have a unique key for this sensor.
+     */
     @Id
     @GeneratedValue
     private long id;
 
+    /**
+     * Name of the sensor, a required value.
+     */
     @Column(nullable = false)
     private String name;
 
+    /**
+     * Relationship between the sensor and a list of measurements.
+     */
     @OneToMany(
             mappedBy = "sensorEntity",
             cascade = {CascadeType.MERGE},
@@ -34,16 +44,21 @@ public class SensorEntity {
     private Set<MeasurementEntity> measurements = new HashSet<>();
 
     /**
-     * No-argument constructor is needed for hibernate.
+     * No-argument constructor is needed for JPA.
      */
     public SensorEntity() {
         // NOP
     }
 
+    /**
+     * Constructor with a name value.
+     * @param name
+     */
     public SensorEntity(String name) {
         this.name = name;
     }
 
+    // Getters and setters needed by JPA and the code.    
     public long getId() {
         return id;
     }

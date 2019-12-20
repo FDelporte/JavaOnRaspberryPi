@@ -16,7 +16,7 @@ public class SensorResource {
     private SensorRepository sensorRepository;
 
     @GetMapping("/sensors")
-    public List<SensorEntity> retrieveAllStudents() {
+    public List<SensorEntity> retrieveAllSensors() {
         return sensorRepository.findAll();
     }
     
