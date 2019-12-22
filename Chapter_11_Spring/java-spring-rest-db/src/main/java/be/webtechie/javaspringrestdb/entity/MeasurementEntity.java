@@ -1,5 +1,6 @@
 package be.webtechie.javaspringrestdb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -80,6 +81,7 @@ public class MeasurementEntity {
         this.id = id;
     }
 
+    @JsonIgnore
     public SensorEntity getSensor() {
         return sensorEntity;
     }
