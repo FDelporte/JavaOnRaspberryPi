@@ -22,15 +22,26 @@ public class MeasurementResource {
 	@Autowired
     private MeasurementRepository measurementRepository;
 
+    @GetMapping("/measurement")
+    public List<MeasurementEntity> retrieveAllMeasurements() {
+        return measurementRepository.findAll();
+    }
+
     @PostMapping("/measurement")
-    public ResponseEntity createMeasurement(@RequestParam long sensorId, @RequestParam String key, @RequestParam double value) {
+    public ResponseEntity createMeasurement(
+            @RequestParam long sensorId,
+            @RequestParam String key,
+            @RequestParam double value) {
+
         SensorEntity sensorEntity = sensorRepository.findById(sensorId);
 
         if (sensorEntity == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("No sensor defined with the ID: " + sensorId);
         }
 
-        MeasurementEntity measurementEntity = new MeasurementEntity(sensorEntity, System.currentTimeMillis(), key, value);
+        MeasurementEntity measurementEntity = new MeasurementEntity(
+                sensorEntity, System.currentTimeMillis(), key, value);
         measurementRepository.save(measurementEntity);
 
         return ResponseEntity.ok().build();
