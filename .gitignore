@@ -6,6 +6,8 @@
 */*/.vscode/
 */target/
 */*/target/
+*/.mvn/
+*/*/.mvn/
 *.classpath
 *.project
 *.iml
