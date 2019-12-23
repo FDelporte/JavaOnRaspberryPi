@@ -9,5 +9,4 @@ public class JavaSpringRestGpioApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JavaSpringRestGpioApplication.class, args);
 	}
-
 }

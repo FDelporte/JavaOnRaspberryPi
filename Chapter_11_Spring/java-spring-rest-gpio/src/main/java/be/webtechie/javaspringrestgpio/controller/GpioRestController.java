@@ -1,6 +1,6 @@
-package be.webtechie.javaspringrestgpio.rest;
+package be.webtechie.javaspringrestgpio.controller;
 
-import be.webtechie.javaspringrestgpio.gpio.GpioControllerSingleton;
+import be.webtechie.javaspringrestgpio.manager.GpioManager;
 import com.pi4j.io.gpio.GpioPin;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import java.util.Collection;
@@ -43,7 +43,7 @@ public class GpioRestController implements ApplicationContextAware {
      */
     @PostMapping(path = "provision/digital/input/{address}/{name}", produces = "application/json")
     public boolean provisionDigitalInputPin(@PathVariable("address")  int address, @PathVariable("name")  String name) {
-        return this.context.getBean(GpioControllerSingleton.class).provisionDigitalInputPin(address, name);
+        return this.context.getBean(GpioManager.class).provisionDigitalInputPin(address, name);
     }
 
     /**
@@ -56,7 +56,7 @@ public class GpioRestController implements ApplicationContextAware {
      */
     @PostMapping(path = "provision/digital/output/{address}/{name}", produces = "application/json")
     public boolean provisionDigitalOutputPin(@PathVariable("address")  int address, @PathVariable("name")  String name) {
-        return this.context.getBean(GpioControllerSingleton.class).provisionDigitalOutputPin(address, name);
+        return this.context.getBean(GpioManager.class).provisionDigitalOutputPin(address, name);
     }
 
     /**
@@ -66,7 +66,7 @@ public class GpioRestController implements ApplicationContextAware {
      */
     @GetMapping(path = "provision/list", produces = "application/json")
     public  Map<String, Map<String, String>> getProvisionList() {
-        final Map<Integer, Object> list = this.context.getBean(GpioControllerSingleton.class).getProvisionedPins();
+        final Map<Integer, Object> list = this.context.getBean(GpioManager.class).getProvisionedPins();
 
         final Map<String, Map<String, String>> map = new TreeMap<>();
 
@@ -99,7 +99,7 @@ public class GpioRestController implements ApplicationContextAware {
     @GetMapping(path = "state/{address}", produces = "application/json")
     public String getState(@PathVariable("address") long address) {
         try {
-            return String.valueOf(this.context.getBean(GpioControllerSingleton.class).getState((int) address).getValue());
+            return String.valueOf(this.context.getBean(GpioManager.class).getState((int) address).getValue());
         } catch (IllegalArgumentException ex) {
             logger.error(ex.getMessage());
 
@@ -118,7 +118,7 @@ public class GpioRestController implements ApplicationContextAware {
     @PostMapping(path = "digital/state/{address}/{value}", produces = "application/json")
     public String setPinDigitalState(@PathVariable("address") long address, @PathVariable("value") long value) {
         try {
-            return String.valueOf(this.context.getBean(GpioControllerSingleton.class)
+            return String.valueOf(this.context.getBean(GpioManager.class)
                     .setPinDigitalState((int) address, (int) value));
         } catch (IllegalArgumentException ex) {
             logger.error(ex.getMessage());
@@ -136,7 +136,7 @@ public class GpioRestController implements ApplicationContextAware {
      */
     @PostMapping(path = "digital/toggle/{address}", produces = "application/json")
     public boolean togglePin(@PathVariable("address") long address) {
-        return this.context.getBean(GpioControllerSingleton.class).togglePin((int) address);
+        return this.context.getBean(GpioManager.class).togglePin((int) address);
     }
 
     /**
@@ -149,6 +149,6 @@ public class GpioRestController implements ApplicationContextAware {
      */
     @PostMapping(path = "digital/pulse/{address}/{duration}", produces = "application/json")
     public boolean pulsePin(@PathVariable("address") long address, @PathVariable("duration") long duration) {
-        return this.context.getBean(GpioControllerSingleton.class).pulsePin((int) address, duration);
+        return this.context.getBean(GpioManager.class).pulsePin((int) address, duration);
     }
 }

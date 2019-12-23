@@ -1,4 +1,4 @@
-package be.webtechie.javaspringrestgpio.gpio;
+package be.webtechie.javaspringrestgpio.manager;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -17,14 +17,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * Singleton instance for the {@link GpioFactory}.
- *
- * Based on https://www.pi4j.com/1.2/example/control.html
- *
- * @author Frank Delporte (<a href="https://www.webtechie.be">https://www.webtechie.be</a>)
  */
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class GpioControllerSingleton {
+public class GpioManager {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -40,7 +36,7 @@ public class GpioControllerSingleton {
     /**
      * Constructor which initializes the {@link GpioController}.
      */
-    public GpioControllerSingleton() {
+    public GpioManager() {
         this.gpio = GpioFactory.getInstance();
     }
 

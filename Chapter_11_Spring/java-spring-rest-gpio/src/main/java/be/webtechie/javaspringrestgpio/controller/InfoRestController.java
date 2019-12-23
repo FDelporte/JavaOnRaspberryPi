@@ -1,4 +1,4 @@
-package be.webtechie.javaspringrestgpio.rest;
+package be.webtechie.javaspringrestgpio.controller;
 
 import com.pi4j.platform.Platform;
 import com.pi4j.platform.PlatformManager;
