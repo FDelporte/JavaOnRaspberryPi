@@ -25,7 +25,7 @@ public class SensorEntity {
      */
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     /**
      * Name of the sensor, a required value.
@@ -59,11 +59,11 @@ public class SensorEntity {
     }
 
     // Getters and setters needed by JPA and the code.    
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
