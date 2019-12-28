@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * Singleton instance for the {@link GpioFactory}.
  */
 @Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON) // Default value, added for clarity
 public class GpioManager {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -44,7 +44,6 @@ public class GpioManager {
      * Get the pin for the given address.
      *
      * @param address The address of the GPIO pin.
-     *
      * @return The {@link Pin} or null when not found.
      */
     private Pin getPinByAddress(int address) {
@@ -71,7 +70,6 @@ public class GpioManager {
      *
      * @param address The address of the GPIO pin.
      * @param name The name of the GPIO pin.
-     *
      * @return True if successful.
      */
     public boolean provisionDigitalOutputPin(final int address, final String name) {
@@ -84,13 +82,10 @@ public class GpioManager {
         );
         provisionedPin.setShutdownOptions(true, PinState.LOW);
 
-        if (provisionedPin != null) {
-            this.provisionedPins.put(address, provisionedPin);
+        this.provisionedPins.put(address, provisionedPin);
 
-            return true;
-        }
+        return true;
 
-        return false;
     }
 
     /**
@@ -98,7 +93,6 @@ public class GpioManager {
      *
      * @param address The address of the GPIO pin.
      * @param name The name of the GPIO pin.
-     *
      * @return True if successful.
      */
     public boolean provisionDigitalInputPin(final int address, final String name) {
@@ -121,7 +115,6 @@ public class GpioManager {
      * Get the state of the GPIO pin at the given address.
      *
      * @param address The address of the GPIO pin.
-     *
      * @return The {@link PinState}.
      */
     public PinState getState(final int address) {
@@ -145,7 +138,6 @@ public class GpioManager {
      *
      * @param address The address of the GPIO pin.
      * @param value The value, possible values 1 (= HIGH) or 0 and all other (= LOW)
-     *
      * @return True if successful.
      */
     public boolean setPinDigitalState(final int address, final int value) {
@@ -174,7 +166,6 @@ public class GpioManager {
      * Toggle a pin.
      *
      * @param address The address of the GPIO pin.
-     *
      * @return True if successful.
      */
     public boolean togglePin(final int address) {
@@ -200,7 +191,6 @@ public class GpioManager {
      *
      * @param address The address of the GPIO pin.
      * @param duration The duration in milliseconds.
-     *
      * @return True if successful.
      */
     public boolean pulsePin(final int address, final long duration) {

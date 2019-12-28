@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +28,7 @@ public class GpioRestController implements ApplicationContextAware {
     private ApplicationContext context;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) {
         this.context = applicationContext;
     }
 
@@ -38,7 +37,6 @@ public class GpioRestController implements ApplicationContextAware {
      *
      * @param address The address of the GPIO pin.
      * @param name The name of the GPIO pin.
-     *
      * @return True if successful.
      */
     @PostMapping(path = "provision/digital/input/{address}/{name}", produces = "application/json")
@@ -51,7 +49,6 @@ public class GpioRestController implements ApplicationContextAware {
      *
      * @param address The address of the GPIO pin.
      * @param name The name of the GPIO pin.
-     *
      * @return True if successful.
      */
     @PostMapping(path = "provision/digital/output/{address}/{name}", produces = "application/json")
@@ -112,7 +109,6 @@ public class GpioRestController implements ApplicationContextAware {
      *
      * @param address The address of the GPIO pin.
      * @param value Possible values: 1 (= PULL_DOWN), 2 (= PULL_UP), 0 and all other (= OFF).
-     *
      * @return True if successful.
      */
     @PostMapping(path = "digital/state/{address}/{value}", produces = "application/json")
@@ -131,7 +127,6 @@ public class GpioRestController implements ApplicationContextAware {
      * Toggle a pin.
      *
      * @param address The address of the GPIO pin.
-     *
      * @return True if successful.
      */
     @PostMapping(path = "digital/toggle/{address}", produces = "application/json")
@@ -144,7 +139,6 @@ public class GpioRestController implements ApplicationContextAware {
      *
      * @param address The address of the GPIO pin.
      * @param duration The duration in milliseconds.
-     *
      * @return True if successful.
      */
     @PostMapping(path = "digital/pulse/{address}/{duration}", produces = "application/json")
