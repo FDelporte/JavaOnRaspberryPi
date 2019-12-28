@@ -17,6 +17,12 @@ public class App extends Application {
         var scene = new Scene(new FxScreen(), 640, 480);
         stage.setScene(scene);
         stage.show();
+
+        // Make sure the application quits completely on close
+        stage.setOnCloseRequest(t -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {
