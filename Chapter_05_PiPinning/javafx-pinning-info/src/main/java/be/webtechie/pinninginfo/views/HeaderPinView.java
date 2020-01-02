@@ -1,6 +1,6 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.piheaders.definition.Header;
+import be.webtechie.piheaders.definition.HeaderPins;
 import be.webtechie.piheaders.definition.PinType;
 import be.webtechie.piheaders.pin.HeaderPin;
 import java.util.List;
@@ -16,14 +16,14 @@ public class HeaderPinView extends VBox {
     /**
      * Constructor to create the pin visualization of the header.
      *
-     * @param header {@link Header} to be visualized.
+     * @param headerPins {@link HeaderPins} to be visualized.
      */
-    public HeaderPinView(Header header) {
+    public HeaderPinView(HeaderPins headerPins) {
         this.setSpacing(25);
 
         HBox rows = new HBox();
-        rows.getChildren().add(this.getRow(header.getPins(), true));
-        rows.getChildren().add(this.getRow(header.getPins(),  false));
+        rows.getChildren().add(this.getRow(headerPins.getPins(), true));
+        rows.getChildren().add(this.getRow(headerPins.getPins(),  false));
         this.getChildren().add(rows);
 
         this.getChildren().add(this.getLegend());

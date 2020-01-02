@@ -1,6 +1,7 @@
 package be.webtechie;
 
-import be.webtechie.piheaders.definition.Header;
+import be.webtechie.piheaders.definition.HeaderPins;
+import be.webtechie.piheaders.pin.HeaderPin;
 import be.webtechie.pinninginfo.views.HeaderPinView;
 import be.webtechie.pinninginfo.views.HeaderTableView;
 import javafx.application.Application;
@@ -22,7 +23,7 @@ import javafx.util.Callback;
 public class App extends Application {
 
     private HBox headerViews;
-    private ComboBox<Header> headerSelection;
+    private ComboBox<HeaderPins> headerSelection;
 
     @Override
     public void start(Stage stage) {
@@ -38,7 +39,7 @@ public class App extends Application {
         selectionHolder.getChildren().add(select);
 
         this.headerSelection = new ComboBox<>();
-        this.headerSelection.getItems().setAll(Header.values());
+        this.headerSelection.getItems().setAll(HeaderPins.values());
         this.headerSelection.setOnAction(this::drawHeaders);
         selectionHolder.getChildren().add(this.headerSelection);
 
@@ -54,11 +55,11 @@ public class App extends Application {
     }
 
     private void drawHeaders(ActionEvent actionEvent) {
-        Header header = this.headerSelection.getValue();
+        HeaderPins headerPins = this.headerSelection.getValue();
 
         this.headerViews.getChildren().clear();
-        this.headerViews.getChildren().add(new HeaderPinView(header));
-        this.headerViews.getChildren().add(new HeaderTableView(header));
+        this.headerViews.getChildren().add(new HeaderPinView(headerPins));
+        this.headerViews.getChildren().add(new HeaderTableView(headerPins));
     }
 
     public static void main(String[] args) {

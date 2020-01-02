@@ -1,6 +1,6 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.piheaders.definition.Header;
+import be.webtechie.piheaders.definition.HeaderPins;
 import be.webtechie.piheaders.definition.PinType;
 import be.webtechie.piheaders.pin.HeaderPin;
 import be.webtechie.pinninginfo.util.Converter;
@@ -21,9 +21,9 @@ public class HeaderTableView extends TableView {
     /**
      * Constructor to create the table visualization of the header.
      *
-     * @param header {@link Header} to be visualized.
+     * @param headerPins {@link HeaderPins} to be visualized.
      */
-    public HeaderTableView(Header header) {
+    public HeaderTableView(HeaderPins headerPins) {
         this.setMinWidth(1000);
         this.setMinHeight(1000);
 
@@ -85,7 +85,7 @@ public class HeaderTableView extends TableView {
                 colFunction,
                 colRemark);
 
-        this.data.addAll(header.getPins());
+        this.data.addAll(headerPins.getPins());
         this.setItems(data);
     }
 }
