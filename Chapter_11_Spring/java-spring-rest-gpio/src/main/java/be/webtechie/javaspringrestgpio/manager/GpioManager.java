@@ -34,7 +34,7 @@ public class GpioManager {
     private final Map<Integer, Object> provisionedPins = new HashMap<>();
 
     /**
-     * Constructor which initializes the {@link GpioController}.
+     * Constructor which initializes the Pi4J {@link GpioController}.
      */
     public GpioManager() {
         this.gpio = GpioFactory.getInstance();
@@ -85,11 +85,10 @@ public class GpioManager {
         this.provisionedPins.put(address, provisionedPin);
 
         return true;
-
     }
 
     /**
-     * Provision a GPIO as digital output pin.
+     * Provision a GPIO as digital input pin.
      *
      * @param address The address of the GPIO pin.
      * @param name The name of the GPIO pin.
@@ -100,7 +99,7 @@ public class GpioManager {
             throw new IllegalArgumentException("There is already a provisioned pin at the given address");
         }
 
-        final GpioPinDigitalInput provisionedPin = this.gpio.provisionDigitalInputPin(this.getPinByAddress(address), name );
+        final GpioPinDigitalInput provisionedPin = this.gpio.provisionDigitalInputPin(this.getPinByAddress(address), name);
 
         if (provisionedPin != null) {
             this.provisionedPins.put(address, provisionedPin);
