@@ -47,7 +47,10 @@ $ ./install_liberica_12.0.2.sh
 * [Java Tutorials](https://howtodoinjava.com/)
 
 ## Read more
+* [What is the difference between JDK and JRE?](https://stackoverflow.com/questions/1906445/what-is-the-difference-between-jdk-and-jre)
+* [Differences Between Oracle JDK and OpenJDK](https://www.baeldung.com/oracle-jdk-vs-openjdk)
 * [Oracle to stop providing a free Java (JDK) with Long Term Support (LTS)](https://react-etc.net/entry/oracle-to-stop-providing-a-free-java-jdk-with-long-term-support-lts)
+* [Oracle Java SE Licensing FAQ](https://www.oracle.com/technetwork/java/javase/overview/oracle-jdk-faqs.html)
 * [Why Java is so hot right now](https://developers.redhat.com/blog/2019/09/05/why-java-is-so-hot-right-now/)
 * [Java will stay on the throne](https://jaxlondon.com/blog/java-core-languages/java-will-stay-on-the-throne)
 * [10 new features or treasures in Java 11 | JDK 11](https://codinginfinite.com/ten-features-java-jdk-11/)

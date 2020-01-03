@@ -1,18 +1,18 @@
 public class EnumSwitch {
     public static void main (String[] args) {
         // Compare integer value
-        HEADER_VERSION piHeaderVersion = HEADER_VERSION.TYPE_3;
+        HEADER_VERSION piHeaderVersion = HEADER_VERSION.TYPE_2;
 
         switch(piHeaderVersion) {
             case TYPE_1:
                 System.out.println("Header version 1 is used on original Model B");
-                return;
+                break;
             case TYPE_2:
                 System.out.println("Header version 2 is used on Model A and Model B (revision 2)");
-                return;
+                break;
             case TYPE_3:
                 System.out.println("Header version 3 is used on Model A+, B+, Pi Zero, Pi Zero W, Pi2B, Pi3B, Pi4B");
-                return;
+                break;
             default:
                 System.out.println("Sorry, header version " + piHeaderVersion + " is not known");
         }
