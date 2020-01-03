@@ -11,13 +11,13 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public enum DataSet {
-    LANGUAGE_BIRTHDATES(1990, 2024, Map.ofEntries(
+    LANGUAGE_BIRTHDAYS(1990, 2024, Map.ofEntries(
             entry(1990, "Ruby\n "),
             entry(1991, "Python\n "),
-            entry(1995, "Java, JavaScript, PHP, Qt"),
-            entry(2000, "C#"),
-            entry(2009, "Go"),
-            entry(2014, "Swift"))),
+            entry(1995, "Java, JavaScript, PHP, Qt\n "),
+            entry(2000, "C#\n "),
+            entry(2009, "Go\n "),
+            entry(2014, "Swift\n "))),
     JAVA_HISTORY(1990, 2024, Map.ofEntries(
             entry(1995, "Initial Java platform released by\nSun Microsystems"),
             entry(2007, "Sun relinces under the\nGNU General Public License"),

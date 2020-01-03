@@ -3,7 +3,7 @@ public class MainArguments {
         System.out.println("Number of arguments: " + args.length);
 
         if (args.length > 0) {
-            System.out.println("First arguments: " + args[0]);
+            System.out.println("First argument: " + args[0]);
         }
 
         for (int i = 0; i < args.length; i++) {

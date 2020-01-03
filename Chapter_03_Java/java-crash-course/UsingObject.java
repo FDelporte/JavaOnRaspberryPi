@@ -8,7 +8,7 @@ public class UsingObject {
         items.add(new ShoppingCartItem("Micro-HDMI cable", 2, 5.9F));
         items.add(new ShoppingCartItem("Raspberry Pi 4 power supply", 1, 9.95F));
 
-        double total = 0;
+        double total = 0D;
         for (ShoppingCartItem item : items) {
             System.out.println(item.getName());
             System.out.println("     " + item.getQuantity() + "\tx\t" + item.getPrice() + "\t= " + item.getTotal() + " Euro");

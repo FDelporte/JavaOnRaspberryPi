@@ -44,6 +44,7 @@ $ ./install_liberica_12.0.2.sh
 * [Codecademy Java course](https://www.codecademy.com/catalog/language/java)
 * [How you could learn Java on your own and where to start](https://jaxenter.com/learning-java-159740.html)
 * [Java tutorial](http://tutorials.jenkov.com/java/index.html)
+* [Java Tutorials](https://howtodoinjava.com/)
 
 ## Read more
 * [Oracle to stop providing a free Java (JDK) with Long Term Support (LTS)](https://react-etc.net/entry/oracle-to-stop-providing-a-free-java-jdk-with-long-term-support-lts)

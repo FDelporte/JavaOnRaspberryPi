@@ -5,6 +5,12 @@ Information about the pinning layout of a Raspberry Pi 4.
 * [Sources on GitHub](https://github.com/FDelporte/PiHeaders)
 * [Maven repository](https://mvnrepository.com/artifact/be.webtechie/pi-headers)
 
+## Pin functions
+https://www.raspberrypi.org/documentation/usage/gpio/
+https://pinout.xyz/#
+https://en.wikipedia.org/wiki/Raspberry_Pi#Connectors
+http://wiringpi.com/pins/
+
 ## Read more
 * [WiringPi](http://wiringpi.com/)
 * [WiringPi numbering explained](https://projects.drogon.net/wiringpi-pin-numbering/)
