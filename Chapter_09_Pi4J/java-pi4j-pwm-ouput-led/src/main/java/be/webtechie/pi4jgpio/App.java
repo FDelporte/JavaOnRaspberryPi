@@ -11,6 +11,9 @@ import com.pi4j.util.CommandArgumentParser;
  * Based on https://github.com/Pi4J/pi4j/blob/master/pi4j-example/src/main/java/PwmExample.java
  */
 public class App {
+    public static final int MAX_PMW_VALUE = 1000;
+    public static final int FADE_STEPS = 10;
+
     public static void main( String[] args ) {
         System.out.println("Starting PWM output example...");
 
@@ -25,7 +28,7 @@ public class App {
             // has been provided, then lookup the pin by address
             Pin pin = CommandArgumentParser.getPin(
                     RaspiPin.class,    // pin provider class to obtain pin instance from
-                    RaspiPin.GPIO_01,  // default pin if no pin argument found
+                    RaspiPin.GPIO_01,  // default pin if no pin argument found = BCM 18
                     args);             // argument array to search in
 
             GpioPinPwmOutput pwm = gpio.provisionPwmOutputPin(pin);
@@ -34,23 +37,17 @@ public class App {
             // see: http://wiringpi.com/reference/raspberry-pi-specifics/
             com.pi4j.wiringpi.Gpio.pwmSetMode(com.pi4j.wiringpi.Gpio.PWM_MODE_MS);
             com.pi4j.wiringpi.Gpio.pwmSetRange(1000);
-            com.pi4j.wiringpi.Gpio.pwmSetClock(500);
+            com.pi4j.wiringpi.Gpio.pwmSetClock(5);
 
-            // Change PRM values
-            pwm.setPwm(500);
-            System.out.println("PWM rate is: " + pwm.getPwm());
-
-            Thread.sleep(2500);
-
-            pwm.setPwm(250);
-            System.out.println("PWM rate is: " + pwm.getPwm());
-
-            Thread.sleep(2500);
-
-            pwm.setPwm(0);
-            System.out.println("PWM rate is: " + pwm.getPwm());
-
-            Thread.sleep(2500);
+            // Loop through PWM values 10 times
+            for (int loop = 0; loop < 10; loop++) {
+                for (int useValue = MAX_PMW_VALUE; useValue >= 0; useValue-=MAX_PMW_VALUE/FADE_STEPS) {
+                    pwm.setPwm(useValue);
+                    System.out.println("PWM rate is: " + pwm.getPwm());
+                    
+                    Thread.sleep(200);
+                }
+            }
 
             // stop all GPIO activity/threads by shutting down the GPIO controller
             // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
