@@ -22,31 +22,38 @@ import javafx.util.Callback;
  */
 public class App extends Application {
 
-    private HBox headerViews;
+    private HBox headerHolder;
+    private HBox tableholder;
     private ComboBox<HeaderPins> headerSelection;
 
     @Override
     public void start(Stage stage) {
-        VBox holder = new VBox();
+        HBox holder = new HBox();
+        holder.setSpacing(25);
 
-        HBox selectionHolder = new HBox();
-        selectionHolder.setSpacing(25);
-        selectionHolder.setPadding(new Insets(5));
-        holder.getChildren().add(selectionHolder);
+        VBox leftColumn = new VBox();
+        leftColumn.setSpacing(25);
+        holder.getChildren().add(leftColumn);
+
+        HBox selection = new HBox();
+        selection.setSpacing(25);
+        selection.setPadding(new Insets(5));
+        leftColumn.getChildren().add(selection);
 
         Label select = new Label("Select the header");
         select.setStyle("-fx-font: 18px Tahoma; -fx-font-weight: bold; -fx-alignment: TOP-CENTER;");
-        selectionHolder.getChildren().add(select);
+        selection.getChildren().add(select);
 
         this.headerSelection = new ComboBox<>();
         this.headerSelection.getItems().setAll(HeaderPins.values());
         this.headerSelection.setOnAction(this::drawHeaders);
-        selectionHolder.getChildren().add(this.headerSelection);
+        selection.getChildren().add(this.headerSelection);
 
-        this.headerViews = new HBox();
-        this.headerViews.setSpacing(25);
-        this.headerViews.setPadding(new Insets(5));
-        holder.getChildren().add(this.headerViews);
+        this.headerHolder = new HBox();
+        leftColumn.getChildren().add(this.headerHolder);
+
+        this.tableholder = new HBox();
+        holder.getChildren().add(this.tableholder);
 
         var scene = new Scene(holder, 1800, 800);
         stage.setScene(scene);
@@ -57,9 +64,11 @@ public class App extends Application {
     private void drawHeaders(ActionEvent actionEvent) {
         HeaderPins headerPins = this.headerSelection.getValue();
 
-        this.headerViews.getChildren().clear();
-        this.headerViews.getChildren().add(new HeaderPinView(headerPins));
-        this.headerViews.getChildren().add(new HeaderTableView(headerPins));
+        this.headerHolder.getChildren().clear();
+        this.headerHolder.getChildren().add(new HeaderPinView(headerPins));
+
+        this.tableholder.getChildren().clear();
+        this.tableholder.getChildren().add(new HeaderTableView(headerPins));
     }
 
     public static void main(String[] args) {

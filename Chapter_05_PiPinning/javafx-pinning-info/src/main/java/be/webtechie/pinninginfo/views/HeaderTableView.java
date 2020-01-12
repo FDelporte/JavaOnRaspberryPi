@@ -27,6 +27,8 @@ public class HeaderTableView extends TableView {
         this.setMinWidth(1000);
         this.setMinHeight(1000);
 
+        this.setStyle("-fx-font-weight: bold;");
+
         TableColumn colPinNumber = new TableColumn("Pin n°");
         colPinNumber.setStyle("-fx-alignment: TOP-CENTER;");
         colPinNumber.setMinWidth(70);
@@ -74,7 +76,7 @@ public class HeaderTableView extends TableView {
         colFunction.setCellValueFactory(new PropertyValueFactory<>("pinFunction"));
 
         TableColumn colRemark = new TableColumn("Remark");
-        colRemark.setMinWidth(550);
+        colRemark.setMinWidth(250);
         colRemark.setCellValueFactory(new PropertyValueFactory<>("remark"));
 
         this.getColumns().addAll(colPinNumber,
