@@ -40,7 +40,7 @@ public class App {
                     useLed.toggle();
                     Thread.sleep(150);
 
-                    System.out.println("State of the LED " + useLed.getName() + " been toggled");
+                    System.out.println("State of the LED " + useLed.getName() + " has been toggled");
                 }
 
                 // Make sure the led is off
@@ -50,26 +50,17 @@ public class App {
 
             Thread.sleep(1000);
 
-            // Put each LED on for 3 seconds, with interval to mix colors
-            // The second parameter when true forces this call to block the application,
-            // but false in this case because we want to pulse each led with interval of 1 second.
-            ledGreen.pulse(3000, false); 
-            System.out.println("Putting LED GREEN on for 3 seconds");
+            // All three on, should be white
+            ledRed.high();
+            ledGreen.high();
+            ledBlue.high();
 
-            Thread.sleep(1000);
+            System.out.println("All three on, check if this looks like white...");
 
-            ledBlue.pulse(3000, false); 
-            System.out.println("Putting LED BLUE on for 3 seconds");
-
-            Thread.sleep(1000);
-
-            ledRed.pulse(3000, false); 
-            System.out.println("Putting LED RED on for 3 seconds");
-
-            Thread.sleep(3000);
+            Thread.sleep(5000);
 
             // Stop all GPIO activity/threads by shutting down the GPIO controller
-            // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
+            // (this method will forcefully shut down all GPIO monitoring threads and scheduled tasks)
             gpio.shutdown();
 
             System.out.println("Done");
