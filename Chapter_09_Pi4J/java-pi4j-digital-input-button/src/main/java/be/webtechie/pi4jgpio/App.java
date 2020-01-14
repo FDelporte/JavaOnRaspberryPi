@@ -3,8 +3,8 @@ package be.webtechie.pi4jgpio;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
+import com.pi4j.io.gpio.Pin;
 import com.pi4j.io.gpio.PinPullResistance;
-import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
 
 import be.webtechie.pi4jgpio.handler.InputChangeEventListener;
@@ -14,35 +14,34 @@ import be.webtechie.pi4jgpio.handler.InputChangeEventListener;
  */
 public class App {
 
+    private static final Pin PIN_BUTTON = RaspiPin.GPIO_05; // BCM 24
+
     /**
-     * Reference to the listener, so we read its values after initialization.
+     * Reference to the listener, so we can read its values after initialization.
      */
     private static InputChangeEventListener listener;
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         System.out.println("Starting input example...");
 
         try {
             // Initialize the GPIO controller
             final GpioController gpio = GpioFactory.getInstance();
 
-            // Initialize WiringPi 5 as a digital input
-            //  --> With its internal pull down resistor enabled
+            // Initialize the input pin with pull down resistor
             GpioPinDigitalInput button = gpio.provisionDigitalInputPin(
-                RaspiPin.GPIO_05,            // PIN NUMBER
-                "Button",                      // PIN FRIENDLY NAME (optional)
-                PinPullResistance.PULL_DOWN);  // PIN RESISTANCE (optional)
+                PIN_BUTTON, "Button", PinPullResistance.PULL_DOWN); 
 
             // Attach an event listener
             listener = new InputChangeEventListener();
             button.addListener(listener);
 
+            // Loop until the button has been pressed 10 times
             while (listener.getNumberOfPresses() < 10) {
                 Thread.sleep(10);
             }
 
-            // Stop all GPIO activity/threads by shutting down the GPIO controller
-            // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
+            // Shut down the GPIO controller
             gpio.shutdown();
 
             System.out.println("Done");
