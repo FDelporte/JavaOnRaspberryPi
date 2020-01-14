@@ -11,9 +11,9 @@ import com.pi4j.io.gpio.RaspiPin;
  * Based on https://www.pi4j.com/1.2/example/control.html
  */
 public class App {
-    private static final Pin PIN_RED = RaspiPin.GPIO_27; // BCM 16
-    private static final Pin PIN_GREEN = RaspiPin.GPIO_16; // BCM 15
-    private static final Pin PIN_BLUE = RaspiPin.GPIO_15; // BCM 14
+    private static final Pin PIN_RED = RaspiPin.GPIO_23;    // BCM 13
+    private static final Pin PIN_GREEN = RaspiPin.GPIO_26;  // BCM 12
+    private static final Pin PIN_BLUE = RaspiPin.GPIO_14;   // BCM 11
 
     public static void main( String[] args ) {
         System.out.println("Starting output example...");
