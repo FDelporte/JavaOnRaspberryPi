@@ -6,7 +6,7 @@
   <artifactId>pi4j-digital-input-button</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Pi4J example: digital input with button</name>
+  <name>Pi4J example: Digital input with button</name>
   <url>http://maven.apache.org</url>
   
   <dependencies>
