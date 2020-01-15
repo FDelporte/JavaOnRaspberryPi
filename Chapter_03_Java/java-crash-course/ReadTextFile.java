@@ -1,10 +1,9 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Scanner;
 
 public class ReadTextFile {
     public static void main (String[] args) {
@@ -29,32 +28,28 @@ public class ReadTextFile {
     }
 
     public static int countFirstName(List<Person> persons, String firstName) {
-        return persons.stream()
+        return (int) persons.stream()
                 .filter(p -> p.getFirstName().equals(firstName))
-                .collect(Collectors.toList())
-                .size();
+                .count();
     }
 
     public static IntSummaryStatistics getAgeStats(List<Person> persons) {
         return persons.stream()
-                .mapToInt(p -> p.getAge())
+                .mapToInt(Person::getAge)
                 .summaryStatistics();
     }
 
     public static List<Person> loadPersons() {
         List<Person> list = new ArrayList<>();
 
-        try {
-            File file = new File("resources/testdata.csv");
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
+        File file = new File("resources/testdata.csv");
 
-            while ((line = br.readLine()) != null) {
-                list.add(new Person(line));
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                list.add(new Person(scanner.nextLine()));
             }
-        } catch (Exception ex) {
-            System.err.println("Error: " + ex.getMessage());
+        } catch (FileNotFoundException ex) {
+            System.err.println("Could not find the file to be loaded");
         }
 
         return list;

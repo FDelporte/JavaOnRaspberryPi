@@ -19,9 +19,10 @@ public class UsingObject {
     }
 
     public static class ShoppingCartItem {
-        private String name;
-        private int quantity;
-        private float price;
+        // These values are final as they should not be changed
+        private final String name;
+        private final int quantity;
+        private final float price;
 
         public ShoppingCartItem(String name, int quantity, float price) {
             this.name = name;

@@ -59,8 +59,7 @@ public class App {
 
             Thread.sleep(5000);
 
-            // Stop all GPIO activity/threads by shutting down the GPIO controller
-            // (this method will forcefully shut down all GPIO monitoring threads and scheduled tasks)
+            // Shut down the GPIO controller
             gpio.shutdown();
 
             System.out.println("Done");
