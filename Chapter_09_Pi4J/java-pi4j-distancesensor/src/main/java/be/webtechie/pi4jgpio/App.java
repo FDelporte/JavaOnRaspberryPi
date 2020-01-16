@@ -5,11 +5,10 @@ import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.Pin;
-import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.PinPullResistance;
+import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
-
-import be.webtechie.pi4jgpio.handler.InputChangeEventListener;
+import java.util.concurrent.TimeUnit;
 
 public class App {
 
@@ -18,11 +17,6 @@ public class App {
 
     private static GpioPinDigitalOutput trigger;
     private static GpioPinDigitalInput echo;
-
-    /**
-     * Reference to the listener, so we can read its values after initialization.
-     */
-    private static InputChangeEventListener listener;
 
     public static void main(String[] args) {
         System.out.println("Starting distance sensor example...");
@@ -34,10 +28,6 @@ public class App {
             // Initialize the pins
             trigger = gpio.provisionDigitalOutputPin(PIN_TRIGGER, "Trigger", PinState.LOW); 
             echo = gpio.provisionDigitalInputPin(PIN_ECHO, "Echo", PinPullResistance.PULL_UP); 
-
-            // Attach an event listener
-            listener = new InputChangeEventListener();
-            echo.addListener(listener);
 
             // Loop and measure the distance 5 times per second
             while (true) {
@@ -52,40 +42,32 @@ public class App {
 
     private static void measureDistance() {
         try {
-            // Trigger must be high to start measurement
-            trigger.high();
-            System.out.println(System.nanoTime() + " high");
+            // Set trigger high for 0.01ms
+            trigger.pulse(10, PinState.HIGH, true, TimeUnit.NANOSECONDS);
 
-            // Wait for 0.01ms and put trigger low
-            nanoSleep(1000);
-            trigger.low();
-            System.out.println(System.nanoTime() + " low");
+            // Start the measurement
+            while (echo.isLow()) {
+			    // Wait until the echo pin is high, indicating the ultrasound was sent
+		    }
+		    long measurementStart = System.nanoTime();
 
-            // Initialize times
-            listener.startMeasurement();
- 
-            // Wait till input is received
-            while (listener.getMeasurement() == 0) {
-                // Waiting...
-                Thread.sleep(10);
-            }
-
-            // Calculate distance based on the speed of sound = 343°° cm/s
-            float distance = listener.getMeasurement() * 34300F;
+            // Wait till measurement is finished
+		    while (echo.isHigh()) {
+                // Wait until the echo pin is low, indicating the ultrasound was received back
+		    }
+		    long measurementEnd = System.nanoTime(); 
+            
+            // Calculate distance based on the speed of sound = 34300 cm/s
+            float measuredSeconds = (measurementEnd - measurementStart) / 1000F / 1000F;
+            float distance = measuredSeconds * 34300;
 
             // Distance is till bounce and back
             distance = distance / 2;
 
-            System.out.println("Measured distance is: " + distance + "cm");
+            System.out.println("Measured distance is: " + distance + "cm"
+                + " for " + measuredSeconds + "s");
         } catch (Exception ex) {
             System.err.println("Error: " + ex.getMessage());
-        }
-    }
-
-    private static void nanoSleep(int nanos) {
-        long end = System.nanoTime() + nanos;
-        while (System.nanoTime() < end) { 
-            // Waiting... 
         }
     }
 }
