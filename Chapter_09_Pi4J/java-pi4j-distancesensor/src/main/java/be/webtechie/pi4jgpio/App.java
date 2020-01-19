@@ -1,5 +1,6 @@
 package be.webtechie.pi4jgpio;
 
+import be.webtechie.pi4jgpio.helper.Calculation;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -49,23 +50,20 @@ public class App {
             while (echo.isLow()) {
 			    // Wait until the echo pin is high, indicating the ultrasound was sent
 		    }
-		    long measurementStart = System.nanoTime();
+		    long start = System.nanoTime();
 
             // Wait till measurement is finished
 		    while (echo.isHigh()) {
                 // Wait until the echo pin is low, indicating the ultrasound was received back
 		    }
-		    long measurementEnd = System.nanoTime(); 
+		    long end = System.nanoTime();
             
             // Calculate distance based on the speed of sound = 34300 cm/s
-            float measuredSeconds = (measurementEnd - measurementStart) / 1000F / 1000F;
-            float distance = measuredSeconds * 34300;
+            float measuredSeconds = Calculation.getSecondsDifference(start, end);
 
-            // Distance is till bounce and back
-            distance = distance / 2;
-
-            System.out.println("Measured distance is: " + distance + "cm"
-                + " for " + measuredSeconds + "s");
+            System.out.println("Measured distance is: "
+                    + Calculation.getDistance(measuredSeconds, true) + "cm"
+                    + " for " + measuredSeconds + "s");
         } catch (Exception ex) {
             System.err.println("Error: " + ex.getMessage());
         }
