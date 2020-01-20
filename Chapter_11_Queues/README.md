@@ -1,4 +1,4 @@
-# Chapter 12: Message Queues
+# Chapter 11: Message Queues
 
 ## Contents
 * javafx-mosquitto: Getting started example to demonstrate the use of Mosquitto in Java

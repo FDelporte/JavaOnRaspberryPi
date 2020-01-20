@@ -1,4 +1,4 @@
-# Chapter 11: Spring
+# Chapter 10: Spring
 
 ## Read more
 * [What is Spring? Component-based development for Java](https://www.javaworld.com/article/3444936/what-is-spring-component-based-development-for-java.html)

@@ -23,8 +23,5 @@ Within each chapter you will find (but not always all of them):
 * 7: What is JavaFX and some sample applications
 * 8: Bits and bytes and how to use them
 * 9: Pi4J the perfect connector between Java and hardware
-* 10: Robo4J to go some steps further
-* 11: Spring to control the Pi via web services
-* 12: Queues allow you to control multiple Pi's and Arduinos
-* 13: Hardware suppliers where you can buy all this fun stuff
-* 14: More inspiration to go even further
+* 10: Spring to control the Pi via web services
+* 11: Queues allow you to control multiple Pi's and Arduinos
