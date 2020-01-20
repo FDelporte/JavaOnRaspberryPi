@@ -26,7 +26,6 @@ public class Calculation {
      * @param end End timestamp in nanoseconds
      */
     public static float getSecondsDifference(long start, long end) {
-        long measuredNanos = (end - start);
-        return TimeUnit.SECONDS.convert(measuredNanos, TimeUnit.NANOSECONDS);
+        return (end - start) / 1000000000F;
     }
 }

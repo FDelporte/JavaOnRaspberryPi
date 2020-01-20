@@ -58,9 +58,8 @@ public class App {
 		    }
 		    long end = System.nanoTime();
             
-            // Calculate distance based on the speed of sound = 34300 cm/s
+            // Output the distance
             float measuredSeconds = Calculation.getSecondsDifference(start, end);
-
             System.out.println("Measured distance is: "
                     + Calculation.getDistance(measuredSeconds, true) + "cm"
                     + " for " + measuredSeconds + "s");
