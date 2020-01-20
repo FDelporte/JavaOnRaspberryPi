@@ -20,7 +20,7 @@ public class DistanceController {
 
     @GetMapping(
             value = "/distance",
-            produces = MediaType.TEXT_EVENT_STREAM_VALUE
+            produces = MediaType.APPLICATION_STREAM_JSON_VALUE
     )
     public Flux<DistanceMeasurement> distance() {
         return this.distanceService.getDistances();
