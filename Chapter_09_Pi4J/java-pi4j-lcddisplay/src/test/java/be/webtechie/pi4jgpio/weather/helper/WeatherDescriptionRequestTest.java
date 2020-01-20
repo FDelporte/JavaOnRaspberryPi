@@ -11,7 +11,7 @@ public class WeatherDescriptionRequestTest {
 
     @Test
     public void testRequest() {
-        String result = WeatherRequest.getForecast("Ypres", APP_ID);
+        String result = WeatherRequest.getForecast("Passendale", APP_ID);
         assertNotNull(result);
 
         System.out.println(result);
