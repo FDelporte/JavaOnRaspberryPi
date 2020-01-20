@@ -1,7 +1,5 @@
 package be.webtechie.pi4jgpio.helper;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Helper class for duration and distance calculation.
  */
