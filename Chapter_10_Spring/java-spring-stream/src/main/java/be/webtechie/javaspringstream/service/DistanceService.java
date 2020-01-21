@@ -49,13 +49,15 @@ public class DistanceService {
 
             // Start the measurement
             while (this.echo.isLow()) {
-                // Wait until the echo pin is high, indicating the ultrasound was sent
+                // Wait until the echo pin is high,
+                // indicating the ultrasound was sent
             }
             long start = System.nanoTime();
 
             // Wait till measurement is finished
             while (this.echo.isHigh()) {
-                // Wait until the echo pin is low, indicating the ultrasound was received back
+                // Wait until the echo pin is low,
+                // indicating the ultrasound was received back
             }
             long end = System.nanoTime();
 
@@ -67,7 +69,7 @@ public class DistanceService {
 
             return new DistanceMeasurement(distance, measuredSeconds);
         } catch (Exception ex) {
-            System.err.println("Error: " + ex.getMessage());
+            logger.error("Error: {}", ex.getMessage());
         }
 
         return null;

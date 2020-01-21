@@ -23,7 +23,7 @@ public class LcdOutput implements Runnable {
         this.lcd = lcd;
     }
 
-    private void setForecast(Forecast forecast) {
+    public void setForecast(Forecast forecast) {
         this.forecast = forecast;
     }
 
