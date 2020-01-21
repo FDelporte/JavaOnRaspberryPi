@@ -16,7 +16,7 @@ public class App {
 
     // Create an app id by signing up on
     // https://home.openweathermap.org/users/sign_up
-    private static final String APP_ID = "9f72246c2183b3e577fb925fafa0cfbf";
+    private static final String APP_ID = "*** YOUR APP ID HERE ***";
     private static final String LOCATION = "Passendale";
     private static final int REQUEST_FORECAST_SECONDS = 10;
 
