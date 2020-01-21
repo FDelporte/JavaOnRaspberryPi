@@ -14,7 +14,7 @@ public class LcdOutput implements Runnable {
 
     private final GpioLcdDisplay lcd;
 
-    private boolean running = true;
+    private boolean running = false;
     private Forecast forecast = null;
     private long lastUpdate = 0;
     private int contentStep = 0;
@@ -40,7 +40,7 @@ public class LcdOutput implements Runnable {
                 this.showTemperatures();
                 break;
             case 2:
-                this.showForecast();
+                this.showDescription();
                 break;
             default:
                 System.err.println("Step not defined");
@@ -54,6 +54,8 @@ public class LcdOutput implements Runnable {
     }
 
     private void showTimestamp() {
+        System.out.println("Showing timestamp for " + forecast.name);
+
         try {
             lcd.clear();
             Thread.sleep(1000);
@@ -67,6 +69,8 @@ public class LcdOutput implements Runnable {
     }
 
     private void showTemperatures() {
+        System.out.println("Showing tempearature " + forecast.weatherInfo.temperature);
+
         try {
             lcd.clear();
             Thread.sleep(3000);
@@ -93,7 +97,9 @@ public class LcdOutput implements Runnable {
         }
     }
 
-    private void showForecast() {
+    private void showDescription() {
+        System.out.println("Showing description " + forecast.weatherDescription.get(0).description);
+
         try {
             lcd.clear();
             Thread.sleep(1000);
@@ -111,12 +117,26 @@ public class LcdOutput implements Runnable {
 
     @Override
     public void run() {
-        while (this.running) {
-            if (this.forecast != null
-                    && (System.currentTimeMillis() - this.lastUpdate) > CONTENT_INTERVAL) {
-                this.showContent();
-                this.lastUpdate = System.currentTimeMillis();
+        this.running = true;
+
+        try {
+            while (this.running) {
+                if (this.forecast != null
+                        && (System.currentTimeMillis() - this.lastUpdate) > CONTENT_INTERVAL) {
+                    this.showContent();
+                    this.lastUpdate = System.currentTimeMillis();
+                }
+
+                Thread.sleep(100);
             }
+        } catch (Exception ex) {
+            System.err.println("Error in LCD output thread: " + ex.getMessage());
+
+            this.running = false;
         }
+    }
+
+    public boolean isRunning() {
+        return this.running;
     }
 }
