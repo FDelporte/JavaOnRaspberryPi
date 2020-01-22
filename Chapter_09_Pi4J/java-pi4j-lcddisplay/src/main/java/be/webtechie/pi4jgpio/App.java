@@ -37,10 +37,10 @@ public class App {
                     LCD_COLUMNS,        // Nr of columns
                     RaspiPin.GPIO_06,   // BCM 25: RS pin
                     RaspiPin.GPIO_05,   // BCM 24: Strobe pin
-                    RaspiPin.GPIO_04,   // BCM 23: Data bit 1
-                    RaspiPin.GPIO_00,   // BCM 17: Data bit 2
-                    RaspiPin.GPIO_01,   // BCM 18: Data bit 3
-                    RaspiPin.GPIO_03    // BCM 22: Data bit 4
+                    RaspiPin.GPIO_04,   // BCM 23: D4
+                    RaspiPin.GPIO_00,   // BCM 17: D5
+                    RaspiPin.GPIO_01,   // BCM 18: D6
+                    RaspiPin.GPIO_03    // BCM 22: D7
             );
 
             // Initial output to check if the wiring is OK
