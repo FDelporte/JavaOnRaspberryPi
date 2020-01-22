@@ -1,7 +1,6 @@
 package be.webtechie.pi4jgpio;
 
 import be.webtechie.pi4jgpio.lcd.LcdOutput;
-import be.webtechie.pi4jgpio.weather.data.Forecast;
 import be.webtechie.pi4jgpio.weather.helper.WeatherMapper;
 import be.webtechie.pi4jgpio.weather.helper.WeatherRequest;
 import com.pi4j.component.lcd.impl.GpioLcdDisplay;
@@ -19,7 +18,7 @@ public class App {
     // https://home.openweathermap.org/users/sign_up
     private static final String APP_ID = "9f72246c2183b3e577fb925fafa0cfbf";
     private static final String LOCATION = "Passendale";
-    private static final int REQUEST_FORECAST_SECONDS = 10;
+    private static final int REQUEST_FORECAST_SECONDS = 60;
 
     public static final int LCD_ROWS = 2;
     public static final int LCD_COLUMNS = 16;
@@ -31,7 +30,7 @@ public class App {
             // Initialize the GPIO controller
             final GpioController gpio = GpioFactory.getInstance();
 
-            // initialize LCD
+            // Initialize the LCD
             final GpioLcdDisplay lcd = new GpioLcdDisplay(
                     LCD_ROWS,           // Nr of rows
                     LCD_COLUMNS,        // Nr of columns
@@ -66,7 +65,7 @@ public class App {
                     System.err.println("Could not get forecast");
                 }
 
-                Thread.sleep(REQUEST_FORECAST_SECONDS * 1000);
+                Thread.sleep(REQUEST_FORECAST_SECONDS * 1000L);
             }
 
             // Shut down the GPIO controller

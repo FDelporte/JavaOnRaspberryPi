@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
+/**
+ * Helper to convert the json received from OpenWeatherAPI to Java objects.
+ */
 public class WeatherMapper {
     public static Forecast getWeather(String jsonString) {
         try {

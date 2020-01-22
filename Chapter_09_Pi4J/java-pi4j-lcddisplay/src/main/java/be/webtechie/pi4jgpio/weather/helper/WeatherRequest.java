@@ -5,6 +5,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Helper to get the forecast from OpenWeatherAPI.
+ */
 public class WeatherRequest {
     public static String getForecast(String location, String appId) {
         StringBuilder rt = new StringBuilder();
