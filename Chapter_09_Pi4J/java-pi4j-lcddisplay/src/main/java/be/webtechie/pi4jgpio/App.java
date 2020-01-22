@@ -8,6 +8,7 @@ import com.pi4j.component.lcd.impl.GpioLcdDisplay;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.system.SystemInfo;
 
 /**
  * Based on https://github.com/Pi4J/pi4j/blob/master/pi4j-example/src/main/java/LcdExample.java
@@ -44,6 +45,7 @@ public class App {
 
             // Initial output to check if the wiring is OK
             lcd.write(1, "Started...");
+            lcd.write(2, "Java " + SystemInfo.getJavaVersion());
 
             // Initialize the LCD output and start it as a separate thread
             final LcdOutput lcdOutput = new LcdOutput(lcd);
