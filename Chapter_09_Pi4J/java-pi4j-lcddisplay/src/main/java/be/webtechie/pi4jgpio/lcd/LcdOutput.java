@@ -19,6 +19,8 @@ public class LcdOutput implements Runnable {
     private long lastUpdate = 0;
     private int contentStep = 0;
 
+    private SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+
     public LcdOutput(GpioLcdDisplay lcd) {
         this.lcd = lcd;
     }
@@ -60,38 +62,31 @@ public class LcdOutput implements Runnable {
             lcd.clear();
             Thread.sleep(1000);
 
-            lcd.write(LCD_ROW_1, "Weather for " + forecast.name);
-            lcd.write(LCD_ROW_2, "Received on " +
-                    new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
+            lcd.write(LCD_ROW_1, forecast.name, 
+                LCDTextAlignment.ALIGN_CENTER);
+            lcd.write(LCD_ROW_2, formatter.format(new Date()), 
+                LCDTextAlignment.ALIGN_CENTER);
         } catch (Exception ex) {
             System.err.println("Error while handling content for the LCD: " + ex.getMessage());
         }
     }
 
     private void showTemperatures() {
-        System.out.println("Showing tempearature " + forecast.weatherInfo.temperature);
+        System.out.println("Showing temperature " + forecast.weatherInfo.temperature);
 
         try {
             lcd.clear();
-            Thread.sleep(3000);
-
-            // left alignment, full line data
-            lcd.write(LCD_ROW_2, "----------------");
-            Thread.sleep(500);
-            lcd.writeln(LCD_ROW_2, "<< LEFT");
             Thread.sleep(1000);
 
-            // right alignment, full line data
-            lcd.write(LCD_ROW_2, "----------------");
-            Thread.sleep(500);
-            lcd.writeln(LCD_ROW_2, "RIGHT >>", LCDTextAlignment.ALIGN_RIGHT);
-            Thread.sleep(1000);
-
-            // center alignment, full line data
-            lcd.write(LCD_ROW_2, "----------------");
-            Thread.sleep(500);
-            lcd.writeln(LCD_ROW_2, "<< CENTER >>", LCDTextAlignment.ALIGN_CENTER);
-            Thread.sleep(1000);
+            lcd.write(LCD_ROW_1, "Temp", 
+                LCDTextAlignment.ALIGN_LEFT);
+            lcd.write(LCD_ROW_1, String.valueOf(forecast.weatherInfo.temperature), 
+                LCDTextAlignment.ALIGN_RIGHT);
+            lcd.write(LCD_ROW_2, "Min/Max " 
+                + String.valueOf(forecast.weatherInfo.temperatureMinimum)
+                + "/" 
+                + String.valueOf(forecast.weatherInfo.temperatureMaximum), 
+                LCDTextAlignment.ALIGN_CENTER);
         } catch (Exception ex) {
             System.err.println("Error while handling content for the LCD: " + ex.getMessage());
         }
@@ -103,13 +98,11 @@ public class LcdOutput implements Runnable {
         try {
             lcd.clear();
             Thread.sleep(1000);
-            // mixed alignments, partial line data
-            lcd.write(LCD_ROW_2, "----------------");
-            Thread.sleep(500);
-            lcd.write(LCD_ROW_2, "<L>", LCDTextAlignment.ALIGN_LEFT);
-            lcd.write(LCD_ROW_2, "<R>", LCDTextAlignment.ALIGN_RIGHT);
-            lcd.write(LCD_ROW_2, "CC", LCDTextAlignment.ALIGN_CENTER);
-            Thread.sleep(3000);
+
+            lcd.write(LCD_ROW_1, forecast.weatherDescription.get(0).main, 
+                LCDTextAlignment.ALIGN_CENTER);
+            lcd.write(LCD_ROW_2, "Humidity " + forecast.weatherInfo.humidity + "%", 
+                LCDTextAlignment.ALIGN_CENTER);
         } catch (Exception ex) {
             System.err.println("Error while handling content for the LCD: " + ex.getMessage());
         }

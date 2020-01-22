@@ -7,7 +7,7 @@ import org.junit.Test;
 public class WeatherDescriptionRequestTest {
     // Create an app id by signing up on
     // https://home.openweathermap.org/users/sign_up
-    private static final String APP_ID = "### FILL IN YOUR APP ID ###";
+    private static final String APP_ID = "9f72246c2183b3e577fb925fafa0cfbf";
 
     @Test
     public void testRequest() {
