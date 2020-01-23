@@ -25,6 +25,7 @@ public class App extends Application {
 
         var scene = new Scene(new ToggleSwitchScreen(), 640, 480);
         stage.setScene(scene);
+        stage.setTitle("I²C Relay controller");
         stage.show();
     }
 
