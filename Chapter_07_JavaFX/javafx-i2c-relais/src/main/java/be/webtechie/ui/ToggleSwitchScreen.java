@@ -1,8 +1,7 @@
 package be.webtechie.ui;
 
-import be.webtechie.pi4j.RelayController;
-import be.webtechie.pi4j.definition.Board;
-import be.webtechie.pi4j.definition.Relay;
+import be.webtechie.i2c.definition.Board;
+import be.webtechie.i2c.definition.Relay;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -11,6 +10,7 @@ import javafx.scene.layout.VBox;
  * Builder for a screen with two rows with four toggle switches.
  */
 public class ToggleSwitchScreen extends VBox {
+
     public ToggleSwitchScreen() {
         this.setSpacing(25);
         this.setPadding(new Insets(25));

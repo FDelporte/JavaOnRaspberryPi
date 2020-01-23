@@ -1,4 +1,4 @@
-package be.webtechie.pi4j.definition;
+package be.webtechie.i2c.definition;
 
 public enum Relay {
     RELAY_1((byte) 0x01),
