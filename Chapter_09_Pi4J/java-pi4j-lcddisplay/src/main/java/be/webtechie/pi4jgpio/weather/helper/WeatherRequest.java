@@ -18,13 +18,13 @@ public class WeatherRequest {
                     + "&q=" + location
                     + "&appid=" + appId);
 
-            HttpURLConnection conection = (HttpURLConnection) url.openConnection();
-            conection.setRequestMethod("GET");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
-            int responseCode = conection.getResponseCode();
+            int responseCode = conn.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader in = new BufferedReader(
-                        new InputStreamReader(conection.getInputStream()));
+                        new InputStreamReader(conn.getInputStream()));
                 String readLine;
                 while ((readLine = in.readLine()) != null) {
                     rt.append(readLine);

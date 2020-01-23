@@ -12,10 +12,13 @@ public class WeatherMapper {
     public static Forecast getWeather(String jsonString) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            mapper.configure(
+                    DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+                    false);
             return mapper.readValue(jsonString, Forecast.class);
         } catch (IOException ex) {
-            System.err.println("Unable to parse the given string to Forecast object: " + ex.getMessage());
+            System.err.println("Unable to parse the given string to Forecast object: "
+                    + ex.getMessage());
             return null;
         }
     }
