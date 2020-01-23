@@ -37,18 +37,15 @@ public class RelayController {
      * @param state Enum State
      */
     public static void setRelay(Board board, Relay relay, State state) {
-        String cmd = "";
-        String result = "";
-
-        cmd = "i2cset -y 1"
+        String cmd = "i2cset -y 1"
                 + " " + String.format("0x%02X", board.getAddress())
                 + " " + String.format("0x%02X", relay.getChannel())
                 + " " + String.format("0x%02X", state.getValue());
 
-        result = execute(cmd);
+        execute(cmd);
 
-        System.out.println("Setting relay on board with command: " + cmd
-                + ", result: " + result);
+        System.out.println(relay + " on " + board + " set to " + state
+                + " with command: " + cmd);
     }
 
     /**
@@ -56,7 +53,7 @@ public class RelayController {
      *
      * @param cmd String command to be executed.
      */
-    private static String execute(String cmd) {
+    private static void execute(String cmd) {
         try {
             // Get a process to be able to do native calls on the operating system.
             // You can compare this to opening a terminal window and running a command.
@@ -66,29 +63,21 @@ public class RelayController {
             // so we will now if something goes wrong.
             InputStream error = p.getErrorStream();
             for (int i = 0; i < error.available(); i++) {
-                System.out.println("" + error.read());
+                System.err.println("" + error.read());
             }
 
-            // Get the output stream, this is the result of the command we give.
+            // Get the output stream of the process and print it
             String line;
-            StringBuilder output = new StringBuilder();
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((line = input.readLine()) != null) {
-                output.append(line);
+                System.out.println(line);
             }
             input.close();
 
-            System.out.println(cmd);
-
             // We don't need the process anymore.
             p.destroy();
-
-            // Return the result of the command.
-            return output.toString();
         } catch (IOException e) {
             System.err.println(e.getMessage());
-
-            return "";
         }
     }
 

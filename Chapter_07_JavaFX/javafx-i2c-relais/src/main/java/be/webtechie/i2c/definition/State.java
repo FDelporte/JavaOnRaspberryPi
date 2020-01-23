@@ -1,8 +1,8 @@
 package be.webtechie.i2c.definition;
 
 public enum State {
-    RELAY_ON((byte) 0xFF),
-    RELAY_OFF((byte) 0x00);
+    STATE_ON((byte) 0xFF),
+    STATE_OFF((byte) 0x00);
 
     private final byte value;
 

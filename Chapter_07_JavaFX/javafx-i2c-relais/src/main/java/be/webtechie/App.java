@@ -17,11 +17,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+        System.out.println("Starting application");
+
         // Set all relays out
         RelayController.setRelays(
                 Arrays.asList(Board.BOARD_1, Board.BOARD_2),
                 Arrays.asList(Relay.RELAY_1, Relay.RELAY_2, Relay.RELAY_3, Relay.RELAY_4),
-                State.RELAY_OFF);
+                State.STATE_OFF);
+        System.out.println("All relays turned off");
 
         var scene = new Scene(new ToggleSwitchScreen(), 640, 480);
         stage.setScene(scene);

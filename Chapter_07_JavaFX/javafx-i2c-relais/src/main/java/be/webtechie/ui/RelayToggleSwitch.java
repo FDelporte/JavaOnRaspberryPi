@@ -15,6 +15,6 @@ public class RelayToggleSwitch extends ToggleSwitch {
         this.setText(text);
         this.selectedProperty().addListener((observable, oldValue, selected) ->
                 RelayController.setRelay(board, relay,
-                        selected ? State.RELAY_ON : State.RELAY_OFF));
+                        selected ? State.STATE_ON : State.STATE_OFF));
     }
 }

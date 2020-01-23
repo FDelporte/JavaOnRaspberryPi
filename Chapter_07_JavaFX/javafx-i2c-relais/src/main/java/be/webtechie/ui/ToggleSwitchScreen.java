@@ -40,5 +40,7 @@ public class ToggleSwitchScreen extends VBox {
                 Board.BOARD_2, Relay.RELAY_3));
         row2.getChildren().add(new RelayToggleSwitch("Relais 8",
                 Board.BOARD_2, Relay.RELAY_4));
+
+        System.out.println("Toggle switch screen created");
     }
 }
