@@ -13,7 +13,8 @@ public class WeatherRequest {
         StringBuilder rt = new StringBuilder();
 
         try {
-            URL url = new URL("http://api.openweathermap.org/data/2.5/weather?units=metric"
+            URL url = new URL("http://api.openweathermap.org/data/2.5/weather"
+                    + "?units=metric"
                     + "&q=" + location
                     + "&appid=" + appId);
 

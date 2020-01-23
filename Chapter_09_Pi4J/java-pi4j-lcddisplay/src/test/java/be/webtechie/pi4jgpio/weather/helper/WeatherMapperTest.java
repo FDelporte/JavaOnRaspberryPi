@@ -7,7 +7,7 @@ import be.webtechie.pi4jgpio.weather.data.Forecast;
 import org.junit.Before;
 import org.junit.Test;
 
-public class WeatherDescriptionMapperTest {
+public class WeatherMapperTest {
     private Forecast forecast;
 
     @Before
