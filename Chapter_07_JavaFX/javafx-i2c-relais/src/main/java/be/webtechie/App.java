@@ -10,9 +10,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Inspired by https://wiki.52pi.com/index.php/DockerPi_4_Channel_Relay_SKU:_EP-0099
- */
 public class App extends Application {
 
     @Override
