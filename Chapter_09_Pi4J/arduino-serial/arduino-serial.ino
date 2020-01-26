@@ -1,6 +1,8 @@
 int loopCounter = 0;
-int maxCounter = 1000;
+int maxCounter = 200;
 int messageCounter = 0;
+
+int analogPinLightSensor = 0;
 
 void setup() {
   Serial.begin(38400);
@@ -8,19 +10,21 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-     String received = Serial.readStringUntil('\n');
-     Serial.print("Echo: ");
-     Serial.println(received);
+    String received = Serial.readStringUntil('\n');
+
+    Serial.print("{\"type\":\"echo\",\"value\":\"");
+    Serial.print(received);
+    Serial.println("\"}");
   }
 
   loopCounter++;
 
   if (loopCounter > maxCounter) {
     messageCounter++;
-    
-    Serial.print("Message ");
-    Serial.print(messageCounter);
-    Serial.println(" from Arduino");
+
+    Serial.print("{\"type\":\"light\",\"value\":");
+    Serial.print(analogRead(analogPinLightSensor));
+    Serial.println("}");
     
     loopCounter = 0;
   }
