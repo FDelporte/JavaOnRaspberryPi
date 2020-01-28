@@ -3,21 +3,37 @@ package be.webtechie.pi4jgpio.listener;
 import com.pi4j.io.serial.SerialDataEvent;
 import com.pi4j.io.serial.SerialDataEventListener;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Listener which will print out the data received on the serial connection
  */
 public class SerialListener implements SerialDataEventListener {
+
+    private final DateFormat formatter;
+
+    /**
+     * Constructor which initializes the date formatter.
+     */
+    public SerialListener() {
+        this.formatter = new SimpleDateFormat("HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
+
+    /**
+     * Called by Serial when new data is received.
+     */
     @Override
     public void dataReceived(SerialDataEvent event) {
-        // NOTE! - It is extremely important to read the data received from the
-        // serial port.  If it does not get read from the receive buffer, the
-        // buffer will continue to grow and consume memory.
-
-        // Print out the data received to the console
         try {
-            System.out.println("[HEX DATA]   " + event.getHexByteString());
-            System.out.println("[ASCII DATA] " + event.getAsciiString());
+            String received = event.getAsciiString()
+                .replace("\t", "")
+                .replace("\n", "");
+            System.out.println(formatter.format(new Date())
+                + " - Received: " + received);
         } catch (IOException ex) {
             System.err.println("Serial error: " + ex.getMessage());
         }
