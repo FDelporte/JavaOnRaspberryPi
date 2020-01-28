@@ -1,6 +1,5 @@
 int loopCounter = 0;
-int maxCounter = 200;
-int messageCounter = 0;
+int maxLoopCounter = 200;
 
 int analogPinLightSensor = 0;
 
@@ -19,9 +18,7 @@ void loop() {
 
   loopCounter++;
 
-  if (loopCounter > maxCounter) {
-    messageCounter++;
-
+  if (loopCounter > maxLoopCounter) {
     Serial.print("{\"type\":\"light\",\"value\":");
     Serial.print(analogRead(analogPinLightSensor));
     Serial.println("}");

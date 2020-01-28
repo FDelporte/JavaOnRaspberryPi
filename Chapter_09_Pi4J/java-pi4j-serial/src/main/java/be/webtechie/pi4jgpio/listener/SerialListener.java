@@ -5,7 +5,7 @@ import com.pi4j.io.serial.SerialDataEventListener;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.TimeZone;
 
 /**
@@ -32,8 +32,8 @@ public class SerialListener implements SerialDataEventListener {
             String received = event.getAsciiString()
                 .replace("\t", "")
                 .replace("\n", "");
-            System.out.println(formatter.format(new Date())
-                + " - Received: " + received);
+            System.out.println(formatter.format(LocalTime.now())
+                    + " - Received: " + received);
         } catch (IOException ex) {
             System.err.println("Serial error: " + ex.getMessage());
         }
