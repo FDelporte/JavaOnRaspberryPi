@@ -6,10 +6,12 @@ import com.pi4j.component.lcd.impl.GpioLcdDisplay;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Runnable class to continuously update the LCD display with weather info.
+ */
 public class LcdOutput implements Runnable {
     private static final int LCD_ROW_1 = 0;
     private static final int LCD_ROW_2 = 1;
-    private static final int LCD_BITS = 4;
     private static final int CONTENT_INTERVAL = 2500;
 
     private final GpioLcdDisplay lcd;
@@ -21,18 +23,52 @@ public class LcdOutput implements Runnable {
 
     private SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 
+    /**
+     * Constructor
+     *
+     * @param lcd Link to the GpioLcdDisplay
+     */
     public LcdOutput(GpioLcdDisplay lcd) {
         this.lcd = lcd;
     }
 
+    /**
+     * Update the forecast used to show data on the LCD
+     *
+     * @param forecast The forecast
+     */
     public void setForecast(Forecast forecast) {
         this.forecast = forecast;
     }
 
-    private void stop() {
-        this.running = false;
+    /**
+     * Method started by the tread which keeps looping until an error happens.
+     * On predefined interval, showContent is called to update the LCD output.
+     */
+    @Override
+    public void run() {
+        this.running = true;
+
+        try {
+            while (this.running) {
+                if (this.forecast != null
+                        && (System.currentTimeMillis() - this.lastUpdate) > CONTENT_INTERVAL) {
+                    this.showContent();
+                    this.lastUpdate = System.currentTimeMillis();
+                }
+
+                Thread.sleep(100);
+            }
+        } catch (Exception ex) {
+            System.err.println("Error in LCD output thread: " + ex.getMessage());
+
+            this.running = false;
+        }
     }
 
+    /**
+     * Periodically change the content on the LCD in different steps.
+     */
     public void showContent() {
         switch (this.contentStep) {
             case 0:
@@ -55,6 +91,9 @@ public class LcdOutput implements Runnable {
         }
     }
 
+    /**
+     * Show the forecast location and time.
+     */
     private void showTimestamp() {
         System.out.println("Showing timestamp for " + forecast.name);
 
@@ -71,6 +110,9 @@ public class LcdOutput implements Runnable {
         }
     }
 
+    /**
+     * Show the forecast temperatures.
+     */
     private void showTemperatures() {
         System.out.println("Showing temperature " + forecast.weatherInfo.temperature);
 
@@ -92,6 +134,9 @@ public class LcdOutput implements Runnable {
         }
     }
 
+    /**
+     * Show the forecast description and humidity.
+     */
     private void showDescription() {
         System.out.println("Showing description " + forecast.weatherDescription.get(0).description);
 
@@ -108,27 +153,9 @@ public class LcdOutput implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        this.running = true;
-
-        try {
-            while (this.running) {
-                if (this.forecast != null
-                        && (System.currentTimeMillis() - this.lastUpdate) > CONTENT_INTERVAL) {
-                    this.showContent();
-                    this.lastUpdate = System.currentTimeMillis();
-                }
-
-                Thread.sleep(100);
-            }
-        } catch (Exception ex) {
-            System.err.println("Error in LCD output thread: " + ex.getMessage());
-
-            this.running = false;
-        }
-    }
-
+    /**
+     * @return The running state.
+     */
     public boolean isRunning() {
         return this.running;
     }

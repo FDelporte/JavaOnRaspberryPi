@@ -61,14 +61,18 @@ public class Gpio {
      * @param cmd String command to be executed.
      */
     private static String execute(String cmd) {
+        Process p = null;
+        InputStream error = null;
+        BufferedReader input = null;
+
         try {
             // Get a process to be able to do native calls on the operating system.
             // You can compare this to opening a terminal window and running a command.
-            Process p = Runtime.getRuntime().exec(cmd);
+            p = Runtime.getRuntime().exec(cmd);
 
             // Get the error stream of the process and print it 
             // so we will now if something goes wrong.
-            InputStream error = p.getErrorStream();
+            error = p.getErrorStream();
             for (int i = 0; i < error.available(); i++) {
                 System.out.println("" + error.read());
             }
@@ -76,7 +80,7 @@ public class Gpio {
             // Get the output stream, this is the result of the command we give.
             String line;
             StringBuilder output = new StringBuilder();
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((line = input.readLine()) != null) {
                 output.append(line);
             }
@@ -84,15 +88,32 @@ public class Gpio {
 
             System.out.println(cmd);
 
-            // We don't need the process anymore.
-            p.destroy();
-
             // Return the result of the command.
             return output.toString();
         } catch (IOException e) {
             System.err.println(e.getMessage());
 
             return "";
+        } finally {
+            if (p != null) {
+                p.destroy();
+            }
+
+            if (error != null) {
+                try {
+                    error.close();
+                } catch (IOException ex) {
+                    System.err.println("Error while closing the error stream");
+                }
+            }
+
+            if (input != null) {
+                try {
+                input.close();
+                } catch (IOException ex) {
+                    System.err.println("Error while closing the input stream");
+                }
+            }
         }
     }
 }
