@@ -35,7 +35,7 @@ public class ArduinoMapperTest {
         String json = "{\"type\":\"light\",\"value\":\"zrea\"}";
         ArduinoMessage arduinoMessage = ArduinoMessageMapper.map(json);
         assertEquals("light", arduinoMessage.type);
-        assertEquals(395, arduinoMessage.getIntValue(), 1);
+        assertNull(arduinoMessage.getIntValue());
     }
 
     @Test
