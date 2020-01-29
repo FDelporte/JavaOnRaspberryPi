@@ -1,6 +1,7 @@
-package be.webtechie.pi4jgpio;
+package be.webtechie.pi4j.serial;
 
-import be.webtechie.pi4jgpio.listener.SerialListener;
+import be.webtechie.pi4j.serial.listener.SerialListener;
+import be.webtechie.pi4j.serial.ui.MeasurementChart;
 import com.pi4j.io.serial.Baud;
 import com.pi4j.io.serial.DataBits;
 import com.pi4j.io.serial.FlowControl;
@@ -8,27 +9,40 @@ import com.pi4j.io.serial.Parity;
 import com.pi4j.io.serial.Serial;
 import com.pi4j.io.serial.SerialConfig;
 import com.pi4j.io.serial.SerialFactory;
-import com.pi4j.io.serial.SerialPort;
 import com.pi4j.io.serial.StopBits;
-import java.io.IOException;
-import java.util.Date;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 
 /**
  * Based on https://github.com/Pi4J/pi4j/blob/master/pi4j-example/src/main/java/SerialExample.java
  */
-public class App {
+public class App extends Application {
 
     private static String SERIAL_PORT = "/dev/ttyACM0";
     private static int INTERVAL_SEND_SECONDS = 5;
 
-    public static void main( String[] args ) {
+    private XYChart.Series<String, Integer> data;
+    private SerialListener serialListener;
+
+    @Override
+    public void start(Stage stage) {
         System.out.println("Starting serial communication example");
+
+        // Initialize the data holder for the chart
+        this.data = new XYChart.Series<>();
+        this.data.setName("Value");
+
+        // Initialize the chart UI
+        MeasurementChart chart = new MeasurementChart(this.data);
 
         // Create an instance of the serial communications class
         final Serial serial = SerialFactory.createInstance();
 
         // Create and register the serial data listener
-        serial.addListener(new SerialListener());
+        this.serialListener = new SerialListener(this.data);
+        serial.addListener(this.serialListener);
 
         try {
             // Create serial config object
@@ -46,13 +60,13 @@ public class App {
             // Open the serial port with the configuration
             serial.open(config);
 
-            // Keep looping until error occures
+            // Keep looping until error occurs
             boolean keepRunning = true;
             while (keepRunning) {
                 try {
                     // Write a text to the Arduino, as demo
                     serial.writeln("Timestamp: " + System.currentTimeMillis());
-                } catch(IllegalStateException ex){
+                } catch (IllegalStateException ex) {
                     System.err.println("Error: " + ex.getMessage());
                     keepRunning = false;
                 }
@@ -63,5 +77,15 @@ public class App {
         } catch (Exception ex) {
             System.err.println("Error: " + ex.getMessage());
         }
+
+        // Open the JavaFX UI
+        var scene = new Scene(chart, 640, 480);
+        stage.setScene(scene);
+        stage.setTitle("Light measurement");
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 }

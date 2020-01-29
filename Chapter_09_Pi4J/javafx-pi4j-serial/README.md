@@ -1,4 +1,4 @@
-
+# JavaFX example with Pi4J and serial communication
 
 ### Read more
 * [Serial Communication Example using Pi4J](https://pi4j.com/1.2/example/serial.html)
