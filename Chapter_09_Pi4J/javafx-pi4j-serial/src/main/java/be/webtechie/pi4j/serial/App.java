@@ -37,6 +37,12 @@ public class App extends Application {
         // Initialize the chart UI
         MeasurementChart chart = new MeasurementChart(this.data);
 
+        // Open the JavaFX UI
+        var scene = new Scene(chart, 640, 480);
+        stage.setScene(scene);
+        stage.setTitle("Light measurement");
+        stage.show();
+
         // Create an instance of the serial communications class
         final Serial serial = SerialFactory.createInstance();
 
@@ -77,12 +83,6 @@ public class App extends Application {
         } catch (Exception ex) {
             System.err.println("Error: " + ex.getMessage());
         }
-
-        // Open the JavaFX UI
-        var scene = new Scene(chart, 640, 480);
-        stage.setScene(scene);
-        stage.setTitle("Light measurement");
-        stage.show();
     }
 
     public static void main(String[] args) {
