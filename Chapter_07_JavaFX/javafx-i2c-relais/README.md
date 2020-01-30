@@ -4,7 +4,9 @@ Controls the relays with I²C with terminal command "i2cset -y 1" using ToggleSw
 
 ## Screenshot
 
-![](screenshots/relay-app-on-pi.png)
+![Raspberry Pi with two relay boards](pictures/relay-enabled.jpg)
+
+![Running JavaFX application with logging in terminal](pictures/relay-app-on-pi.png)
 
 ## Read more
 * [ControlsFX on GitHub](https://github.com/controlsfx/controlsfx)
