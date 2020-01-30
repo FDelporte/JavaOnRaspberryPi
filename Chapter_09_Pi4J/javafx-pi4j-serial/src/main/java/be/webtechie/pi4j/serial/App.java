@@ -10,17 +10,16 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    private static final String SERIAL_DEVICE = "/dev/ttyACM0";
+
     @Override
     public void start(Stage stage) {
         System.out.println("Starting serial communication example");
 
-        // Open the JavaFX UI
-        var scene = new Scene(new MeasurementChart(), 640, 480);
+        var scene = new Scene(new MeasurementChart(SERIAL_DEVICE), 640, 480);
         stage.setScene(scene);
         stage.setTitle("Light measurement");
         stage.show();
-
-        
     }
 
     public static void main(String[] args) {

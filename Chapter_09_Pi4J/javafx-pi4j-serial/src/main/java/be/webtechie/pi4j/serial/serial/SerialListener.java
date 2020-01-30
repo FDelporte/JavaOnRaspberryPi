@@ -20,6 +20,8 @@ public class SerialListener implements SerialDataEventListener {
 
     /**
      * Constructor which initializes the date formatter.
+     *
+     * @param data The data series to which the light values must be added
      */
     public SerialListener(XYChart.Series<String, Integer> data) {
         this.data = data;
@@ -39,7 +41,9 @@ public class SerialListener implements SerialDataEventListener {
             ArduinoMessage arduinoMessage = ArduinoMessageMapper.map(received);
             String timestamp = LocalTime.now().format(formatter);
 
-            if (arduinoMessage.getIntValue() != null) {
+            if (arduinoMessage.type.equals("light")) {
+                // We need to use the runLater approach as this data is handled
+                // in another thread as the UI-component
                 Platform.runLater(() -> {
                     data.getData().add(new XYChart.Data(timestamp, arduinoMessage.getIntValue()));
                 });
