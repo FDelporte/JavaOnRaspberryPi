@@ -1,6 +1,6 @@
 package be.webtechie.pi4jgpio.helper;
 
-import be.webtechie.pi4jgpio.characters.Image;
+import be.webtechie.pi4jgpio.definition.Image;
 import com.pi4j.io.spi.SpiDevice;
 
 public class ImageMode {

@@ -1,5 +1,8 @@
-package be.webtechie.pi4jgpio.helper;
+package be.webtechie.pi4jgpio.definition;
 
+/**
+ * Reserved byte values to send a command.
+ */
 public enum SpiCommand {
     TEST((byte) 0x0F),
     BRIGHTNESS((byte) 0x0A),

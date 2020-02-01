@@ -1,5 +1,6 @@
 package be.webtechie.pi4jgpio.helper;
 
+import be.webtechie.pi4jgpio.definition.SpiCommand;
 import com.pi4j.io.spi.SpiDevice;
 import java.util.Random;
 

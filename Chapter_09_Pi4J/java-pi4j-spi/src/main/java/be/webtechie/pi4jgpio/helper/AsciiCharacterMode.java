@@ -1,6 +1,6 @@
 package be.webtechie.pi4jgpio.helper;
 
-import be.webtechie.pi4jgpio.characters.AsciiCharacter;
+import be.webtechie.pi4jgpio.definition.AsciiCharacter;
 import com.pi4j.io.spi.SpiDevice;
 
 public class AsciiCharacterMode {

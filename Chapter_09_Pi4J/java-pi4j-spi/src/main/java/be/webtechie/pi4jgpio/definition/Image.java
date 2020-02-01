@@ -1,4 +1,4 @@
-package be.webtechie.pi4jgpio.characters;
+package be.webtechie.pi4jgpio.definition;
 
 import java.util.Arrays;
 import java.util.List;
