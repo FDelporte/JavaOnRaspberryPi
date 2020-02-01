@@ -2,7 +2,6 @@ package be.webtechie.pi4j.serial.ui;
 
 import be.webtechie.pi4j.serial.serial.SerialListener;
 import be.webtechie.pi4j.serial.serial.SerialSender;
-import be.webtechie.pi4j.serial.ui.MeasurementChart;
 import com.pi4j.io.serial.Baud;
 import com.pi4j.io.serial.DataBits;
 import com.pi4j.io.serial.FlowControl;
@@ -11,8 +10,6 @@ import com.pi4j.io.serial.Serial;
 import com.pi4j.io.serial.SerialConfig;
 import com.pi4j.io.serial.SerialFactory;
 import com.pi4j.io.serial.StopBits;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -21,15 +18,16 @@ import javafx.scene.layout.VBox;
 
 public class MeasurementChart extends VBox {
 
-    private static String SERIAL_PORT = "/dev/ttyACM0";
-
-    private XYChart.Series<String, Integer> data;
-    private SerialListener serialListener;
-
-    public MeasurementChart() {
+    /**
+     * Constructor which will build the UI with the chart
+     * and start the serial communication
+     *
+     * @param serialDevice the serial device
+     */
+    public MeasurementChart(String serialDevice) {
         // Initialize the data holder for the chart
-        this.data = new XYChart.Series<>();
-        this.data.setName("Value");
+        XYChart.Series<String, Integer> data = new XYChart.Series<>();
+        data.setName("Value");
 
         // Initialize the chart
         CategoryAxis xAxis = new CategoryAxis();
@@ -48,20 +46,26 @@ public class MeasurementChart extends VBox {
         final Serial serial = SerialFactory.createInstance();
         
         // Create and register the serial data listener
-        this.serialListener = new SerialListener(this.data);
-        serial.addListener(this.serialListener);
+        SerialListener serialListener = new SerialListener(data);
+        serial.addListener(serialListener);
 
-        this.startSerialCommunication(serial);
+        this.startSerialCommunication(serial, serialDevice);
 
         Thread t = new Thread(new SerialSender(serial));
         t.start();
     }
 
-    private void startSerialCommunication(Serial serial) {
+    /**
+     * Start the serial communication
+     *
+     * @param serial Pi4J serial factory
+     * @param serialDevice the serial device
+     */
+    private void startSerialCommunication(Serial serial, String serialDevice) {
         try {
             // Create serial config object
             SerialConfig config = new SerialConfig();
-            config.device(SERIAL_PORT)
+            config.device(serialDevice)
                     .baud(Baud._38400)
                     .dataBits(DataBits._8)
                     .parity(Parity.NONE)

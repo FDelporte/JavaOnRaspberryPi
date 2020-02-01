@@ -2,19 +2,27 @@ package be.webtechie.pi4j.serial.serial;
 
 import com.pi4j.io.serial.Serial;
 
+/**
+ * Runnable to send a timestamp to the Arduino board to demonstrate the echo function.
+ */
 public class SerialSender implements Runnable {
 
     private static int INTERVAL_SEND_SECONDS = 5;
 
     final Serial serial;
 
+    /**
+     * Constructor which gets the serial communication object to be used to send data.
+     *
+     * @param serial
+     */
     public SerialSender(Serial serial) {
         this.serial = serial;
     }
 
     @Override
     public void run() {
-        // Keep looping until error occurs
+        // Keep looping until an error occurs
         boolean keepRunning = true;
         while (keepRunning) {
             try {
