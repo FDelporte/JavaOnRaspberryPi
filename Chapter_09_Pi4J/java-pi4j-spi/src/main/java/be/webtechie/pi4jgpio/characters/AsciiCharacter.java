@@ -97,6 +97,6 @@ public enum AsciiCharacter {
     }
 
     public static AsciiCharacter getByChar(char character) {
-        return getByAscii((int) character);
+        return getByAscii(character);
     }
 }

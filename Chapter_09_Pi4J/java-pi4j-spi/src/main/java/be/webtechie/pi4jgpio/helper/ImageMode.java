@@ -4,6 +4,7 @@ import be.webtechie.pi4jgpio.characters.Image;
 import com.pi4j.io.spi.SpiDevice;
 
 public class ImageMode {
+
     /**
      * Show all the images as defined in the enum.
      *
