@@ -8,7 +8,7 @@ public enum SpiCommand {
     BRIGHTNESS((byte) 0x0A),
     SCAN_LIMIT((byte) 0x0B),
     DECODE_MODE((byte) 0x09),
-    ON_OFF((byte) 0x0C);
+    WAKE_UP((byte) 0x0C);
 
     private final byte value;
 
