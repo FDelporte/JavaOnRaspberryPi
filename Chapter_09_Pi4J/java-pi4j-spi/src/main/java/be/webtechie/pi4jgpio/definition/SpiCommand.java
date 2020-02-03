@@ -4,11 +4,11 @@ package be.webtechie.pi4jgpio.definition;
  * Reserved byte values to send a command.
  */
 public enum SpiCommand {
-    TEST((byte) 0x0F),
+    DECODE_MODE((byte) 0x09),
     BRIGHTNESS((byte) 0x0A),
     SCAN_LIMIT((byte) 0x0B),
-    DECODE_MODE((byte) 0x09),
-    SHUTDOWN_MODE((byte) 0x0C);
+    SHUTDOWN_MODE((byte) 0x0C),
+    TEST((byte) 0x0F);
 
     private final byte value;
 
