@@ -22,16 +22,16 @@ public class App {
                     SpiDevice.DEFAULT_SPI_SPEED, // default spi speed 1 MHz
                     SpiDevice.DEFAULT_SPI_MODE); // default spi mode 0
 
-            DemoMode.allOn(spi);
+            spi.write(SpiCommand.TEST.getValue(), (byte) 0x01);
             System.out.println("Test mode all on");
             Thread.sleep(1000);
 
-            DemoMode.allOff(spi);
+            spi.write(SpiCommand.TEST.getValue(), (byte) 0x00);
             System.out.println("Test mode all off");
             Thread.sleep(1000);
             
             spi.write(SpiCommand.DECODE_MODE.getValue(), (byte) 0x00);
-            System.out.println("Disabled BCD mode");
+            System.out.println("Use all bits");
 
             spi.write(SpiCommand.BRIGHTNESS.getValue(), (byte) 0x08);
             System.out.println("Changed brightness to medium level"
@@ -40,11 +40,8 @@ public class App {
             spi.write(SpiCommand.SCAN_LIMIT.getValue(), (byte) 0x0f);
             System.out.println("Configured to scan all digits");
             
-            spi.write(SpiCommand.WAKE_UP.getValue(), (byte) 0x01);    
+            spi.write(SpiCommand.SHUTDOWN_MODE.getValue(), (byte) 0x01);
             System.out.println("Woke up the MAX7219, is off on startup");
-
-            //spi.write(SpiCommand.DECODE_MODE.getValue(), (byte) 0x01);
-            //System.out.println("Disabled BCD mode");
 
             DemoMode.showRows(spi, 250);
             DemoMode.showCols(spi, 250);

@@ -7,34 +7,6 @@ import java.util.Random;
 public class DemoMode {
 
     /**
-     * All LEDs on.
-     *
-     * @param spi SpiDevice
-     */
-    public static void allOn(SpiDevice spi) {
-        try {
-            spi.write(SpiCommand.TEST.getValue(), (byte) 0x01);
-            System.out.println("All LEDs ON");
-        } catch (Exception ex) {
-            System.err.println("Error during all on: " + ex.getMessage());
-        }
-    }
-
-    /**
-     * All LEDs off.
-     *
-     * @param spi SpiDevice
-     */
-    public static void allOff(SpiDevice spi) {
-        try {
-            spi.write(SpiCommand.TEST.getValue(), (byte) 0x00);
-            System.out.println("All LEDs OFF");
-        } catch (Exception ex) {
-            System.err.println("Error during all off: " + ex.getMessage());
-        }
-    }
-
-    /**
      * Highlight all rows one by one.
      *
      * @param spi SpiDevice
