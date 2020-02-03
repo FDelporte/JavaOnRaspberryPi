@@ -38,3 +38,4 @@ https://dordnung.de/raspberrypi-ledstrip/
 * https://openjfx.io/openjfx-docs/
 * [OpenJFX examples for multiple IDE's](https://github.com/openjfx/samples )
 * [JavaFX Programming Tutorials](https://o7planning.org/en/11009/javafx)
+* https://github.com/openjfx/javafx-maven-archetypes/tree/master/javafx-archetype-fxml
