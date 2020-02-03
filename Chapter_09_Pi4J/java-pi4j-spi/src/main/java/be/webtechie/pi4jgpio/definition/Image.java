@@ -24,6 +24,16 @@ public enum Image {
             (byte) Integer.parseInt("01011010", 2),
             (byte) Integer.parseInt("00111100", 2)
     )),
+    SMILEY(Arrays.asList(
+            (byte) Integer.parseInt("00011000", 2),
+            (byte) Integer.parseInt("01100110", 2),
+            (byte) Integer.parseInt("10000001", 2),
+            (byte) Integer.parseInt("10100101", 2),
+            (byte) Integer.parseInt("10000001", 2),
+            (byte) Integer.parseInt("10011001", 2),
+            (byte) Integer.parseInt("01100110", 2),
+            (byte) Integer.parseInt("00011000", 2)
+    )),
     ARROW_LEFT(Arrays.asList(
             (byte) Integer.parseInt("00000011", 2),
             (byte) Integer.parseInt("00001100", 2),
