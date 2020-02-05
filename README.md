@@ -16,8 +16,8 @@ Within each chapter you will find (but not always all of them):
 ## Chapters
 * 1: Introduction
 * 2: Tools used in the book and example projects
-* 3: Info and history of Java and how to install on the Raspberry Pi
-* 4: Selecting an IDE for Java development
+* 3: Selecting an IDE for Java development
+* 4: Info and history of Java and how to install on the Raspberry Pi
 * 5: Information about the pins on a Raspberry Pi
 * 6: What is Maven and how we are going to use it
 * 7: What is JavaFX and some sample applications
