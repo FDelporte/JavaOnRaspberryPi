@@ -14,17 +14,21 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>11.0.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>11.0.2</version>
+            <scope>provided</scope>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/eu.hansolo/tilesfx -->
         <dependency>
             <groupId>eu.hansolo</groupId>
             <artifactId>tilesfx</artifactId>
             <version>11.13</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -37,6 +41,7 @@
                     <release>11</release>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>

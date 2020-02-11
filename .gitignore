@@ -4,11 +4,15 @@
 */*/.settings/
 */.vscode/
 */*/.vscode/
-*/target/
-*/*/target/
 */.mvn/
 */*/.mvn/
 *.classpath
 *.project
 *.iml
 *.lck
+*/*/target/classes/*
+*/*/target/maven-archiver/*
+*/*/target/maven-status/*
+*/*/target/test-classes/*
+*/*/target/surefire-reports/*
+*/*/target/*.original
