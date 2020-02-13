@@ -1,17 +1,19 @@
-# JavaForPiExamples
-In this project you can find all the sources and scripts described in the book ["Getting started with Java on the Raspberry Pi" available on Leanpub](https://leanpub.com/gettingstartedwithjavaontheraspberrypi/).
+# Getting started with Java on Raspberry Pi
+In this project you can find all the sources and scripts described in the book ["Getting started with Java on the Raspberry Pi" which is available on Leanpub](https://leanpub.com/gettingstartedwithjavaontheraspberrypi/).
 
 ## Content
 Everything is organized according to the chapters in the book.
 
 Within each chapter you will find (but not always all of them):
-* A README file like this on, with more info about the content of the chapter itself.
+
+* A README file like this on, with more info about the content of the chapter itself, links to related articles and more.
 * One "scripts" directory with scripts e.g. to install Java on the Pi.
-* One "schemes" directory with Fritzing files with the wiring of the projects in this chapter.
-* One or more "java-..." directories, depending on the content:
+* One "schemes" directory with Fritzing files with the wiring of the projects in the chapter.
+* "java-..." directories, depending on the content:
 	* Only .java-files: code you can run without the need to compile (with Java 11+).
 	* A new directory structure with a "pom.xml" in the root: a full Maven Java project.
-* One or more "javafx-..." directories: a full Mavan JavaFX project.
+* "javafx-..." directories: a full Mavan JavaFX project.
+* "arduino-..." directories: an Arduino project.
 
 ## Chapters
 * 1: Introduction
