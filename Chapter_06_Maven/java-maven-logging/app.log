@@ -1,0 +1,3 @@
+20200219 20:23:37,153 | INFO  | [App] | Info message
+20200219 20:23:37,154 | WARN  | [App] | Warn message
+20200219 20:23:37,154 | ERROR | [App] | Error message
