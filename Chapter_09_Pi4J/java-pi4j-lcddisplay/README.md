@@ -1,8 +1,14 @@
 # Pi4J example: show the weather forecast on an LCD screen
 
+![Running application](images/lcd-output.jpg)
+
 ## OpenWeatherMap API
 
 To be able to request a forecast from the API, you need to register to receive an AppID on [https://openweathermap.org/api](https://openweathermap.org/api).
+
+## Wiring
+
+![Wiring](images/lcd-wiring.png)
 
 ## Read more
 * [Specification for LCD Module](https://www.openhacks.com/uploadsproductos/eone-1602a1.pdf)
