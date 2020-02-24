@@ -59,6 +59,21 @@ public class RelayController {
             // You can compare this to opening a terminal window and running a command.
             Process p = Runtime.getRuntime().exec(cmd);
 
+            // Get the error stream of the process and print it
+            // so we will now if something goes wrong.
+            InputStream error = p.getErrorStream();
+            for (int i = 0; i < error.available(); i++) {
+                System.out.println("CMD error: " + error.read());
+            }
+
+            // Get the output stream of the process and print it
+            String line;
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            while ((line = input.readLine()) != null) {
+                System.out.println("CMD info: " + line);
+            }
+            input.close();
+
             // We don't need the process anymore.
             p.destroy();
         } catch (IOException e) {

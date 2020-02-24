@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Maps a database entity from the table SENSOR_VALUES to a Java object.
+ * Maps a database entity from the table MEASUREMENTS to a Java object.
  * The ID is marked as the unique identifier.
  */
 @Entity
