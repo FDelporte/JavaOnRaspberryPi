@@ -37,7 +37,9 @@ public enum DataSet {
             entry(2014, "Java SE 8 (LTS)\n "),
             entry(2017, "Java SE 9\n "),
             entry(2018, "Java SE 10 + 11 (LTS)\n "),
-            entry(2019, "Java SE 12 + 13 (RC) + 14 (EA)\n "))),
+            entry(2019, "Java SE 12 + 13 + 14 (EA)\n "),
+            entry(2020, "Java SE 14 + 15\n "),
+            entry(2021, "Java SE 16 + 17 (LTS)\n "))),
     JAVAFX_HISTORY(2005, 2024, Map.ofEntries(
             entry(2008, "JavaFX 1.0 released by Sun\n "),
             entry(2009, "JavaFX 1.1 & 1.2 mobile development, css, charts...\n "),
