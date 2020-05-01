@@ -1,9 +1,9 @@
 package be.webtechie.pi4jgpio;
 
+import be.webtechie.pi4jgpio.definition.SpiCommand;
 import be.webtechie.pi4jgpio.helper.AsciiCharacterMode;
 import be.webtechie.pi4jgpio.helper.DemoMode;
 import be.webtechie.pi4jgpio.helper.ImageMode;
-import be.webtechie.pi4jgpio.definition.SpiCommand;
 import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
 import com.pi4j.io.spi.SpiFactory;
