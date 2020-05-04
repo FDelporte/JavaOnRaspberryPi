@@ -9,7 +9,7 @@ Information about the pinning layout of a Raspberry Pi.
 
 ## Build and run
 
-´´´
+```
 $ mvn clean package
 $ java -jar target/pinning-info-0.0.1-jar-with-dependencies.jar 
-´´
+``` 
