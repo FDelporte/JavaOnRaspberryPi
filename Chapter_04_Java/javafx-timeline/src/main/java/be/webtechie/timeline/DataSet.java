@@ -50,7 +50,7 @@ public enum DataSet {
             entry(2017, "JavaFX 9 controls and css modularized\n "),
             entry(2018, "JavaFX 11\n "),
             entry(2019, "JavaFX 12 and JavaFX 13\n "),
-            entry(2020, "JavaFX 14\n "))),
+            entry(2020, "JavaFX 14 and JavaFX 15\n "))),
     RASPBERRYPI_BOARDS(2005, 2024, getPiBoards());
 
     private final int startYear;
