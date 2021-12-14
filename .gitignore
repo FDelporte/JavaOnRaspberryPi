@@ -16,3 +16,4 @@
 */*/target/test-classes/*
 */*/target/surefire-reports/*
 */*/target/*.original
+/.idea/
