@@ -24,6 +24,7 @@ public enum DataSet {
             entry(2010, "Oracle acquires the Java ecosystem\nas part of Sun Microsystems deal"),
             entry(2014, "Oracle releases Java 8 LTS,\nthe latest free public update"),
             entry(2018, "Latest free public release\nof Java 8 by Oracle"))),
+    // https://www.java.com/releases/
     JAVA_RELEASES(1990, 2024, Map.ofEntries(
             entry(1995, "JDK Beta\n "),
             entry(1996, "JDK 1.0\n "),
@@ -39,7 +40,11 @@ public enum DataSet {
             entry(2018, "Java SE 10 + 11 (LTS)\n "),
             entry(2019, "Java SE 12 + 13 + 14 (EA)\n "),
             entry(2020, "Java SE 14 + 15\n "),
-            entry(2021, "Java SE 16 + 17 (LTS)\n "))),
+            entry(2021, "Java SE 16 + 17 (LTS)\n "),
+            entry(2022, "Java SE 18 + 19\n "),
+            entry(2023, "Java SE 20 + 21 (LTS)\n "),
+            entry(2024, "Java SE 22 + 23\n "),
+            entry(2024, "Java SE 24 + 25 (LTS)\n "))),
     JAVAFX_HISTORY(2005, 2024, Map.ofEntries(
             entry(2008, "JavaFX 1.0 released by Sun\n "),
             entry(2009, "JavaFX 1.1 & 1.2 mobile development, css, charts...\n "),
@@ -51,7 +56,10 @@ public enum DataSet {
             entry(2018, "JavaFX 11\n "),
             entry(2019, "JavaFX 12 and JavaFX 13\n "),
             entry(2020, "JavaFX 14 and JavaFX 15\n "),
-            entry(2021, "JavaFX 16 and JavaFX 17\n "))),
+            entry(2021, "JavaFX 16 and JavaFX 17\n "),
+            entry(2022, "JavaFX 18 and JavaFX 19\n "),
+            entry(2023, "JavaFX 20 and JavaFX 21\n "),
+            entry(2024, "JavaFX 22 and JavaFX 23\n "))),
     RASPBERRYPI_BOARDS(2005, 2024, getPiBoards());
 
     private final int startYear;
