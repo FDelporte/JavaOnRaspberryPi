@@ -17,3 +17,5 @@
 */*/target/surefire-reports/*
 */*/target/*.original
 /.idea/
+/Chapter_09_Pi4J/fxgl-game/logs/
+/Chapter_09_Pi4J/fxgl-game/system/
