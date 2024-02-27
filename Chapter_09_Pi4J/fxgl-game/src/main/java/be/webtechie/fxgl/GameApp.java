@@ -55,7 +55,8 @@ public class GameApp extends GameApplication {
         settings.setHeight(screenHeight);
         settings.setWidth(screenWidth);
         settings.setFullScreenAllowed(true);
-        settings.setFullScreenFromStart(true);
+        // Be careful with fullscreen on Raspberry Pi as this needs more processing power depending on your screen size
+        // settings.setFullScreenFromStart(true);
         settings.setTitle("Oracle Java Magazine - FXGL");
 
         // We can use the Pi4J Console to log
