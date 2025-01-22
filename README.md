@@ -34,20 +34,20 @@ Everything is organized according to the chapters in the book. Within each chapt
 
 As Java, Raspberry Pi, and all related topics keep evolving, the book needs continuous updates. Below you can find the list of changes in this repository to keep the sources you find here, and the content of the ebook "in sync."
 
-## 2025
+### 2025
 
 * 20250122: Update Chapter 4 (javafx-timeline) and Chapter 5 (javafx-pinning-info) to use the Pi4J library to get the Raspberry Pi BoardModel and GPIO info.
 
-## 2024
+### 2024
 
 * 20240105: Added FXGL example to Chapter 09
 
-## 2021
+### 2021
 
 * 20211214: Bumped pi4j-version to 1.3 to add support for Raspberry Pi 4/400/CM4
 * 20211214: Bumped log4j-version to 2.16.0 because of security fix
 
-## 2020
+### 2020
 
 * 20200615: Added [FOOTNOTE_LINKS.md](FOOTNOTE_LINKS.md) with all the links which can be found in the footnotes of the book.
 * 20200422: Scheme image updated in Chapter 9 > distance sensor. Resistor needs to be connected to ground instead of power on the breadboard. Was correct on the picture, not the scheme.
