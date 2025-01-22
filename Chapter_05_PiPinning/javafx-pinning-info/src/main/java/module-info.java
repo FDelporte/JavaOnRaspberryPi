@@ -1,5 +1,5 @@
 module be.webtechie {
     requires javafx.controls;
-    requires be.webtechie.piheaders;
+    requires com.pi4j;
     opens be.webtechie to javafx.graphics;
 }

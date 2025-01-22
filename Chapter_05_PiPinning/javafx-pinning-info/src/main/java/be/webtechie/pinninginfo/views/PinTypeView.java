@@ -1,8 +1,7 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.piheaders.DemoApp;
-import be.webtechie.piheaders.definition.PinType;
 import be.webtechie.pinninginfo.util.Converter;
+import com.pi4j.boardinfo.definition.PinType;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;

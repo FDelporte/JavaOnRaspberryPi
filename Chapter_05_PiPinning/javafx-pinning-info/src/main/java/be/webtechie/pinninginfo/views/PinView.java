@@ -1,7 +1,6 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.piheaders.pin.HeaderPin;
-import be.webtechie.pinninginfo.util.Converter;
+import com.pi4j.boardinfo.model.HeaderPin;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
@@ -12,6 +11,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * Visualizes the {@link HeaderPin}.
@@ -104,7 +104,14 @@ class PinView extends HBox {
         color.setPrefWidth(25);
         color.setPrefHeight(25);
         color.setBackground(new Background(new BackgroundFill(
-                Converter.intToColor(pin.getPinType().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+                intToColor(pin.getPinType().getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
         this.getChildren().add(color);
+    }
+
+    public Color intToColor(int value) {
+        return Color.rgb(
+                (value & 0xFF0000) >> 16,
+                (value & 0x00FF00) >> 8,
+                (value & 0x0000FF));
     }
 }

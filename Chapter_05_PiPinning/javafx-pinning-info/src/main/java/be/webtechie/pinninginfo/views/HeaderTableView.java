@@ -1,9 +1,9 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.piheaders.definition.HeaderPins;
-import be.webtechie.piheaders.definition.PinType;
-import be.webtechie.piheaders.pin.HeaderPin;
 import be.webtechie.pinninginfo.util.Converter;
+import com.pi4j.boardinfo.definition.HeaderPins;
+import com.pi4j.boardinfo.definition.PinType;
+import com.pi4j.boardinfo.model.HeaderPin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableCell;

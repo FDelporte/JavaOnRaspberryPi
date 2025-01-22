@@ -2,7 +2,8 @@ package be.webtechie.timeline;
 
 import static java.util.Map.entry;
 
-import be.webtechie.piheaders.definition.PiBoardVersion;
+import com.pi4j.boardinfo.definition.BoardModel;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -60,7 +61,7 @@ public enum DataSet {
             entry(2022, "JavaFX 18 and JavaFX 19\n "),
             entry(2023, "JavaFX 20 and JavaFX 21\n "),
             entry(2024, "JavaFX 22 and JavaFX 23\n "))),
-    RASPBERRYPI_BOARDS(2005, 2024, getPiBoards());
+    RASPBERRYPI_BOARDS(2009, 2026, getPiBoards());
 
     private final int startYear;
     private final int endYear;
@@ -88,13 +89,14 @@ public enum DataSet {
         Map<Integer, String> entries = new HashMap<>();
 
         // Add entry for every unique year
-        for (PiBoardVersion pi : Arrays.stream(PiBoardVersion.values())
-                .sorted(Comparator.comparing(PiBoardVersion::getReleaseDate))
+        for (BoardModel boardModel : Arrays.stream(BoardModel.values())
+                .filter(bm -> bm.getReleaseDate() != null)
+                .sorted(Comparator.comparing(BoardModel::getReleaseDate))
                 .collect(Collectors.toList())) {
-            String alreadyAdded = entries.get(pi.getReleaseDate().getYear());
-            String name = pi.getLabel().replace("Module", "M.");
+            String alreadyAdded = entries.get(boardModel.getReleaseDate().getYear());
+            String name = boardModel.getLabel().replace("Module", "M.");
             entries.put(
-                    pi.getReleaseDate().getYear(),
+                    boardModel.getReleaseDate().getYear(),
                     alreadyAdded == null ? name : alreadyAdded + ", " + name
             );
         }

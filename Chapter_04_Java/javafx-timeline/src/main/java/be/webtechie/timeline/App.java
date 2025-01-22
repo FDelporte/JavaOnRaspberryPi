@@ -14,7 +14,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         int width = 900;
-        int height = 500;
+        int height = 900;
 
         var scene = new Scene(new JavaTimeline(width, height, 10, DataSet.RASPBERRYPI_BOARDS), width + 50, height);
         stage.setScene(scene);

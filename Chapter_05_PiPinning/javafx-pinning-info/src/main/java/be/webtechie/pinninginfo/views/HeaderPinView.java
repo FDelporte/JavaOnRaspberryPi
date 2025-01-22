@@ -1,9 +1,10 @@
 package be.webtechie.pinninginfo.views;
 
-import be.webtechie.piheaders.definition.HeaderPins;
-import be.webtechie.piheaders.definition.PinType;
-import be.webtechie.piheaders.pin.HeaderPin;
 import java.util.List;
+
+import com.pi4j.boardinfo.definition.HeaderPins;
+import com.pi4j.boardinfo.definition.PinType;
+import com.pi4j.boardinfo.model.HeaderPin;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
