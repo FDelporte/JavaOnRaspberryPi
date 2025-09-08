@@ -1,7 +1,6 @@
 package be.webtechie.javaspringrest.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +17,5 @@ public class MyErrorController implements ErrorController {
       return String.format("<html><body><h2>Error Page</h2><div>Status code: <b>%s</b></div>"
                       + "<div>Exception Message: <b>%s</b></div><body></html>",
               statusCode, exception==null? "N/A": exception.getMessage());
-  }
-
-  @Override
-  public String getErrorPath() {
-      return "/error";
   }
 }

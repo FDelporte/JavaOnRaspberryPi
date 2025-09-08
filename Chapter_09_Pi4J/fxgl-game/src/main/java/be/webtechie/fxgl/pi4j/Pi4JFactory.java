@@ -74,6 +74,5 @@ public class Pi4JFactory {
                 getExecutor().startAsyncFX(() -> getInput().mockKeyRelease(keyCode));
             }
         });
-
     }
 }
