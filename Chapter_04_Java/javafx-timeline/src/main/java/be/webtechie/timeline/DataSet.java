@@ -1,76 +1,124 @@
 package be.webtechie.timeline;
 
-import static java.util.Map.entry;
-
 import com.pi4j.boardinfo.definition.BoardModel;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public enum DataSet {
-    LANGUAGE_BIRTHDAYS(1990, 2024, Map.ofEntries(
-            entry(1990, "Ruby\n "),
-            entry(1991, "Python\n "),
-            entry(1995, "Java, JavaScript, PHP, Qt\n "),
-            entry(2000, "C#\n "),
-            entry(2009, "Go\n "),
-            entry(2014, "Swift\n "))),
-    JAVA_HISTORY(1990, 2024, Map.ofEntries(
-            entry(1995, "Initial Java platform released by\nSun Microsystems"),
-            entry(2007, "Sun relinces under the\nGNU General Public License"),
-            entry(2010, "Oracle acquires the Java ecosystem\nas part of Sun Microsystems deal"),
-            entry(2014, "Oracle releases Java 8 LTS,\nthe latest free public update"),
-            entry(2018, "Latest free public release\nof Java 8 by Oracle"))),
+    LANGUAGE_BIRTHDAYS(1990, 2016, true, List.of(
+            new Release(1991, 2, "Python"),
+            new Release(1995, 2, "Ruby"),
+            new Release(1995, 5, "Java, Qt"),
+            new Release(1995, 6, "PHP"),
+            new Release(1995, 9, "JavaScript"),
+            new Release(2000, 6, "C#"),
+            new Release(2009, 11, "Go"),
+            new Release(2014, 6, "Swift"))),
+    JAVA_HISTORY(1990, 2024, false, List.of(
+            new Release(1995, 5, "Initial Java platform released by\nSun Microsystems"),
+            new Release(2007, 5, "Sun - releases Java under the\nGNU General Public License"),
+            new Release(2010, 1, "Oracle acquires the Java ecosystem\nas part of Sun Microsystems deal"),
+            new Release(2014, 3, "Oracle releases Java 8 LTS"),
+            new Release(2018, 1, "Latest free public release\nof Java 8 by Oracle"))),
     // https://www.java.com/releases/
-    JAVA_RELEASES(1990, 2024, Map.ofEntries(
-            entry(1995, "JDK Beta\n "),
-            entry(1996, "JDK 1.0\n "),
-            entry(1997, "JDK 1.1\n "),
-            entry(1998, "J2SE 1.2\n "),
-            entry(2000, "J2SE 1.3\n "),
-            entry(2002, "J2SE 1.4\n "),
-            entry(2004, "J2SE 1.5\n "),
-            entry(2006, "Java SE 6\n "),
-            entry(2011, "Java SE 7\n "),
-            entry(2014, "Java SE 8 (LTS)\n "),
-            entry(2017, "Java SE 9\n "),
-            entry(2018, "Java SE 10 + 11 (LTS)\n "),
-            entry(2019, "Java SE 12 + 13 + 14 (EA)\n "),
-            entry(2020, "Java SE 14 + 15\n "),
-            entry(2021, "Java SE 16 + 17 (LTS)\n "),
-            entry(2022, "Java SE 18 + 19\n "),
-            entry(2023, "Java SE 20 + 21 (LTS)\n "),
-            entry(2024, "Java SE 22 + 23\n "),
-            entry(2025, "Java SE 24 + 25 (LTS)\n "))),
-    JAVAFX_HISTORY(2005, 2024, Map.ofEntries(
-            entry(2008, "JavaFX 1.0 released by Sun\n "),
-            entry(2009, "JavaFX 1.1 & 1.2 mobile development, css, charts...\n "),
-            entry(2010, "JavaFX 1.3 better performance, additional platforms\n "),
-            entry(2011, "JavaFX 2.0 platform specific runtime, open-sourced\n "),
-            entry(2012, "JavaFX 2.1 & 2.2 OSX, audio, video, touch events...\n "),
-            entry(2014, "JavaFX 8 part of Java8, 3D, sensor support\n "),
-            entry(2017, "JavaFX 9 controls and css modularized\n "),
-            entry(2018, "JavaFX 11\n "),
-            entry(2019, "JavaFX 12 and JavaFX 13\n "),
-            entry(2020, "JavaFX 14 and JavaFX 15\n "),
-            entry(2021, "JavaFX 16 and JavaFX 17\n "),
-            entry(2022, "JavaFX 18 and JavaFX 19\n "),
-            entry(2023, "JavaFX 20 and JavaFX 21\n "),
-            entry(2024, "JavaFX 22 and JavaFX 23\n "))),
-    RASPBERRYPI_BOARDS(2009, 2026, getPiBoards());
+    JAVA_RELEASES(1990, 2030, true, List.of(
+            new Release(1995, 5, "JDK Beta"),
+            new Release(1996, 1, "JDK 1.0"),
+            new Release(1997, 2, "JDK 1.1"),
+            new Release(1998, 12, "J2SE 1.2"),
+            new Release(2000, 5, "J2SE 1.3"),
+            new Release(2002, 2, "J2SE 1.4"),
+            new Release(2004, 9, "J2SE 1.5"),
+            new Release(2006, 12, "Java SE 6"),
+            new Release(2011, 7, "Java SE 7"),
+            new Release(2014, 3, "Java SE 8 (LTS)"),
+            new Release(2017, 9, "Java SE 9"),
+            new Release(2018, 3, "Java SE 10"),
+            new Release(2018, 9, "Java SE 11 (LTS)"),
+            new Release(2019, 3, "Java SE 12"),
+            new Release(2019, 9, "Java SE 13"),
+            new Release(2020, 3, "Java SE 14"),
+            new Release(2020, 9, "Java SE 15"),
+            new Release(2021, 3, "Java SE 16"),
+            new Release(2021, 9, "Java SE 17 (LTS)"),
+            new Release(2022, 3, "Java SE 18"),
+            new Release(2022, 9, "Java SE 19"),
+            new Release(2023, 3, "Java SE 20"),
+            new Release(2023, 9, "Java SE 21 (LTS)"),
+            new Release(2024, 3, "Java SE 22"),
+            new Release(2024, 9, "Java SE 23"),
+            new Release(2025, 3, "Java SE 24"),
+            new Release(2025, 9, "Java SE 25 (LTS)"),
+            new Release(2026, 3, "Java SE 26"),
+            new Release(2026, 9, "Java SE 27"),
+            new Release(2027, 3, "Java SE 28"),
+            new Release(2027, 9, "Java SE 29 (LTS)"),
+            new Release(2028, 3, "Java SE 30"),
+            new Release(2028, 9, "Java SE 31"),
+            new Release(2029, 3, "..."))),
+    JAVAFX_RELEASES(2005, 2030, true, List.of(
+            new Release(2008, 12, "JavaFX 1.0 released by Sun"),
+            new Release(2009, 2, "JavaFX 1.1 mobile development, css"),
+            new Release(2009, 6, "JavaFX 1.2 charts and additional features"),
+            new Release(2010, 4, "JavaFX 1.3 better performance, additional platforms"),
+            new Release(2011, 10, "JavaFX 2.0 platform specific runtime, open-sourced"),
+            new Release(2012, 2, "JavaFX 2.1 OSX support"),
+            new Release(2012, 8, "JavaFX 2.2 audio, video, touch events"),
+            new Release(2014, 3, "JavaFX 8 part of Java 8, 3D, sensor support"),
+            new Release(2017, 9, "JavaFX 9 controls and css modularized"),
+            new Release(2018, 9, "JavaFX 11"),
+            new Release(2019, 3, "JavaFX 12"),
+            new Release(2019, 9, "JavaFX 13"),
+            new Release(2020, 3, "JavaFX 14"),
+            new Release(2020, 9, "JavaFX 15"),
+            new Release(2021, 3, "JavaFX 16"),
+            new Release(2021, 9, "JavaFX 17"),
+            new Release(2022, 3, "JavaFX 18"),
+            new Release(2022, 9, "JavaFX 19"),
+            new Release(2023, 3, "JavaFX 20"),
+            new Release(2023, 9, "JavaFX 21"),
+            new Release(2024, 3, "JavaFX 22"),
+            new Release(2024, 9, "JavaFX 23"),
+            new Release(2025, 3, "JavaFX 24"),
+            new Release(2025, 9, "JavaFX 25"),
+            new Release(2026, 3, "JavaFX 26"),
+            new Release(2026, 9, "JavaFX 27"),
+            new Release(2027, 3, "JavaFX 28"),
+            new Release(2027, 9, "JavaFX 29"),
+            new Release(2028, 3, "JavaFX 30"),
+            new Release(2028, 9, "JavaFX 31"),
+            new Release(2029, 3, "..."))),
+    RASPBERRYPI_BOARDS(2010, getPiBoardsEndYear() + 1, true, getPiBoards());
 
     private final int startYear;
     private final int endYear;
-    private final Map<Integer, String> entries;
+    private final boolean alternate;
+    private final List<Release> releases;
 
-    DataSet(int startYear, int endYear, Map <Integer, String> entries) {
+    DataSet(int startYear, int endYear, boolean alternate, List<Release> releases) {
         this.startYear = startYear;
         this.endYear = endYear;
-        this.entries = entries;
+        this.alternate = alternate;
+        this.releases = releases;
+    }
+
+    private static List<Release> getPiBoards() {
+        return Arrays.stream(BoardModel.values())
+                .filter(bm -> bm.getReleaseDate() != null
+                        && !bm.getName().contains("GENERIC")
+                        && !bm.getName().contains("UNKNOWN"))
+                .sorted(Comparator.comparing(BoardModel::getReleaseDate))
+                .map(bm ->
+                        new Release(bm.getReleaseDate().getYear(),
+                                bm.getReleaseDate().getMonthValue(),
+                                bm.getLabel().replace("Module", "M.")))
+                .toList();
+    }
+
+    private static int getPiBoardsEndYear() {
+        return getPiBoards().getLast().year();
     }
 
     public int getStartYear() {
@@ -81,31 +129,14 @@ public enum DataSet {
         return endYear;
     }
 
-    public Map<Integer, String> getEntries() {
-        return this.entries;
+    public boolean isAlternate() {
+        return alternate;
     }
 
-    private static Map<Integer, String> getPiBoards() {
-        Map<Integer, String> entries = new HashMap<>();
+    public List<Release> getReleases() {
+        return releases;
+    }
 
-        // Add entry for every unique year
-        for (BoardModel boardModel : Arrays.stream(BoardModel.values())
-                .filter(bm -> bm.getReleaseDate() != null)
-                .sorted(Comparator.comparing(BoardModel::getReleaseDate))
-                .collect(Collectors.toList())) {
-            String alreadyAdded = entries.get(boardModel.getReleaseDate().getYear());
-            String name = boardModel.getLabel().replace("Module", "M.");
-            entries.put(
-                    boardModel.getReleaseDate().getYear(),
-                    alreadyAdded == null ? name : alreadyAdded + ", " + name
-            );
-        }
-
-        // Add new line to better align on the drawing
-        for (Entry<Integer, String> entry : entries.entrySet()) {
-            entry.setValue(entry.getValue() + "\n ");
-        }
-
-        return entries;
+    public record Release(int year, int month, String description) {
     }
 }
