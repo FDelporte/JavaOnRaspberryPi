@@ -90,7 +90,28 @@ public enum DataSet {
             new Release(2028, 3, "JavaFX 30"),
             new Release(2028, 9, "JavaFX 31"),
             new Release(2029, 3, "..."))),
-    RASPBERRYPI_BOARDS(2010, getPiBoardsEndYear() + 1, true, getPiBoards());
+    RASPBERRYPI_BOARDS(2010, getPiBoardsEndYear() + 1, true, getPiBoards()),
+    PI4J_RELEASES(2010, 2027, true, List.of(
+            new Release(2012, 1, "Project started"),
+            new Release(2015, 4, "V1.0 - Java 8"),
+            new Release(2016, 7, "V1.1"),
+            new Release(2019, 2, "V1.2"),
+            new Release(2021, 1, "V1.3"),
+            new Release(2021, 3, "V1.4 - Java 11"),
+            new Release(2021, 8, "V2.0.0 - Java 11"),
+            new Release(2021, 10, "V2.1.0"),
+            new Release(2021, 12, "V2.1.1"),
+            new Release(2022, 8, "V2.2.0"),
+            new Release(2023, 2, "V2.3.0"),
+            new Release(2023, 10, "V2.4.0"),
+            new Release(2024, 3, "V2.5.0 - RPi 5"),
+            new Release(2024, 4, "V2.6.0"),
+            new Release(2024, 7, "V2.6.1"),
+            new Release(2024, 10, "V2.7.0"),
+            new Release(2025, 1, "V2.8.0"),
+            new Release(2025, 3, "V3.0.1 - Java 21"),
+            new Release(2025, 5, "V3.0.2"),
+            new Release(2025, 12, "V4.0.0 - Java 25 + FFM API")));
 
     private final int startYear;
     private final int endYear;

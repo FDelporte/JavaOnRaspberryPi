@@ -18,7 +18,7 @@ public class App extends Application {
         int width = 1200;
         int height = 900;
 
-        var scene = new Scene(new JavaTimeline(width, height, 10, DataSet.JAVA_RELEASES), width + 50, height);
+        var scene = new Scene(new JavaTimeline(width, height, 10, DataSet.PI4J_RELEASES), width + 50, height);
         stage.setScene(scene);
         stage.show();
     }
