@@ -1,15 +1,15 @@
 package be.webtechie.javaspringrestdb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 /**
  * Maps a database entity from the table MEASUREMENTS to a Java object.
@@ -42,13 +42,13 @@ public class MeasurementEntity {
     /**
      * Key for the type of measurement, e.g. "temperature", "distance"...
      */
-    @Column(nullable = false)
+    @Column(name="measurement_key", nullable = false)
     private String key;
 
     /**
      * Value of the measurement
      */
-    @Column(nullable = false)
+    @Column(name="measurement_value", nullable = false)
     private double value;
 
     /**

@@ -38,7 +38,7 @@ As Java, Raspberry Pi, and all related topics keep evolving, the book needs cont
 
 * 202509
   * Chapter 10
-    * Bumped `java-spring-image-server` to newer Spring version and dependencies
+    * Bumped all to newer Spring and Pi4J version and dependencies (WORK-IN-PROGRESS!!!)
 * 20250122: Update Chapter 4 (javafx-timeline) and Chapter 5 (javafx-pinning-info) to use the Pi4J library to get the Raspberry Pi BoardModel and GPIO info.
 
 ### 2024

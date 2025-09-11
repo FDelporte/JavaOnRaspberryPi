@@ -1,9 +1,7 @@
 package be.webtechie.javaspringrestgpio.controller;
 
 import com.pi4j.platform.Platform;
-import com.pi4j.platform.PlatformManager;
-import com.pi4j.system.NetworkInfo;
-import com.pi4j.system.SystemInfo;
+
 import java.util.Map;
 import java.util.TreeMap;
 import org.slf4j.Logger;
