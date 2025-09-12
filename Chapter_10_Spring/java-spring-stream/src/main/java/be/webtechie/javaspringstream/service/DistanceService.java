@@ -1,51 +1,49 @@
 package be.webtechie.javaspringstream.service;
 
 import be.webtechie.javaspringstream.dto.DistanceMeasurement;
-import com.pi4j.io.gpio.GpioController;
-import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.GpioPinDigitalInput;
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.io.gpio.Pin;
-import com.pi4j.io.gpio.PinPullResistance;
-import com.pi4j.io.gpio.PinState;
-import com.pi4j.io.gpio.RaspiPin;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
+import com.pi4j.Pi4J;
+import com.pi4j.io.gpio.digital.DigitalInput;
+import com.pi4j.io.gpio.digital.DigitalOutput;
+import com.pi4j.io.gpio.digital.DigitalState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 @Service
 public class DistanceService {
 
     private static final Logger logger = LoggerFactory.getLogger(DistanceService.class);
 
-    private static final Pin PIN_TRIGGER = RaspiPin.GPIO_01;    // BCM 18
-    private static final Pin PIN_ECHO = RaspiPin.GPIO_05;       // BCM 24
+    private static final int PIN_TRIGGER = 18;    // BCM 18
+    private static final int PIN_ECHO = 24;       // BCM 24
 
-    private final GpioPinDigitalOutput trigger;
-    private final GpioPinDigitalInput echo;
+    private final DigitalOutput trigger;
+    private final DigitalInput echo;
 
     public DistanceService() {
-        // Initialize the GPIO controller
-        GpioController gpio = GpioFactory.getInstance();
+        // Initialize Pi4J
+        var pi4j = Pi4J.newAutoContext();
 
         // Initialize the pins
-        this.trigger = gpio.provisionDigitalOutputPin(PIN_TRIGGER, "Trigger", PinState.LOW);
-        this.echo = gpio.provisionDigitalInputPin(PIN_ECHO, "Echo", PinPullResistance.PULL_UP);
+        this.trigger = pi4j.digitalOutput().create(PIN_TRIGGER, "Trigger");
+        this.trigger.low();
+        this.echo = pi4j.digitalInput().create(PIN_ECHO, "Echo");
     }
 
     public Flux<DistanceMeasurement> getDistances() {
-        return Flux.fromStream(Stream.generate(() -> this.getDistanceMeasurement()))
+        return Flux.fromStream(Stream.generate(this::getDistanceMeasurement))
                 .delayElements(Duration.ofSeconds(1));
     }
 
     private DistanceMeasurement getDistanceMeasurement() {
         try {
             // Set trigger high for 0.01ms
-            this.trigger.pulse(10, PinState.HIGH, true, TimeUnit.NANOSECONDS);
+            this.trigger.pulse(10, TimeUnit.MILLISECONDS, DigitalState.HIGH);
 
             // Start the measurement
             while (this.echo.isLow()) {
