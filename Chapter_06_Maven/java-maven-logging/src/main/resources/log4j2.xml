@@ -1,16 +1,25 @@
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<log4j:configuration debug="true" xmlns:log4j='http://jakarta.apache.org/log4j/'>
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{dd/MM/yyyy HH:mm:ss.SSS} | %-20.20c{1} | %-20.20M | %-8.8level | %highlight{%msg%n}"/>
+        </Console>
 
-    <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="demoApplication.log"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
-        </layout>
-    </appender>
+        <RollingFile name="RollingFile" fileName="logs/app.log" filePattern="logs/app-%d{MM-dd-yy-HH-mm-ss}-%i.log.gz">
+            <PatternLayout
+                    pattern="%d{dd/MM/yyyy HH:mm:ss.SSS} | %-20.20c{1} | %-30.30M | %-8.8level | %msg %n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="25 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
 
-    <root>
-        <priority value ="debug"></priority>
-        <appender-ref ref="fileAppender"></appender-ref>
-    </root>
-
-</log4j:configuration>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
