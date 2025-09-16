@@ -1,30 +1,32 @@
 package be.webtechie.javaspringrestgpio.manager;
 
 import com.pi4j.Pi4J;
+import com.pi4j.boardinfo.model.BoardInfo;
 import com.pi4j.context.Context;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalState;
+import com.pi4j.platform.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service to interact with the GPIO pins, using the Pi4J library.
  */
 @Service
 public class Pi4JManager {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final Map<Integer, DigitalInput> inputs;
     private final Map<Integer, DigitalOutput> outputs;
     /**
      * The GPIO controller.
      */
     private final Context pi4j;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Constructor which initializes the Pi4J {@link Context}.
@@ -39,7 +41,7 @@ public class Pi4JManager {
      * Provision a GPIO as digital input pin.
      *
      * @param bcm The BCM number of the GPIO pin.
-     * @param id The ID of the GPIO pin.
+     * @param id  The ID of the GPIO pin.
      * @return True if successful.
      */
     public DigitalInput provisionDigitalInputPin(int bcm, String id) {
@@ -54,7 +56,7 @@ public class Pi4JManager {
      * Provision a GPIO as digital output pin.
      *
      * @param bcm The BCM number of the GPIO pin.
-     * @param id The ID of the GPIO pin.
+     * @param id  The ID of the GPIO pin.
      * @return True if successful.
      */
     public DigitalOutput provisionDigitalOutputPin(int bcm, String id) {
@@ -93,7 +95,7 @@ public class Pi4JManager {
     /**
      * Set the state of an output pin.
      *
-     * @param bcm The BCM number of the GPIO pin.
+     * @param bcm   The BCM number of the GPIO pin.
      * @param state {@link DigitalState}
      * @return True if successful.
      */
@@ -129,5 +131,21 @@ public class Pi4JManager {
 
             return "Error: " + ex.getMessage();
         }
+    }
+
+    public BoardInfo getBoardInfo() {
+        return pi4j.boardInfo();
+    }
+
+    public Platform getPlatform() {
+        return pi4j.platform();
+    }
+
+    public List<DigitalInput> getInputs() {
+        return List.copyOf(inputs.values());
+    }
+
+    public List<DigitalOutput> getOutputs() {
+        return List.copyOf(outputs.values());
     }
 }

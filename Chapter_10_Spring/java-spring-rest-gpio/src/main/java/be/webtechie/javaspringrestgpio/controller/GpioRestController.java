@@ -1,16 +1,14 @@
 package be.webtechie.javaspringrestgpio.controller;
 
 import be.webtechie.javaspringrestgpio.manager.Pi4JManager;
+import com.pi4j.io.gpio.digital.DigitalInput;
+import com.pi4j.io.gpio.digital.DigitalOutput;
+import com.pi4j.io.gpio.digital.DigitalState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("gpio")
@@ -27,11 +25,11 @@ public class GpioRestController {
      * Provision a GPIO as digital output pin.
      *
      * @param address The address of the GPIO pin.
-     * @param name The name of the GPIO pin.
+     * @param name    The name of the GPIO pin.
      * @return True if successful.
      */
-    @PostMapping(path = "provision/digital/input/{address}/{name}", produces = "application/json")
-    public boolean provisionDigitalInputPin(@PathVariable("address")  int address, @PathVariable("name")  String name) {
+    @PostMapping(path = "input/{address}/{name}", produces = "application/json")
+    public DigitalInput provisionDigitalInputPin(@PathVariable("address") int address, @PathVariable("name") String name) {
         // Use Pi4J Manager to provision digital input pin
         return pi4JManager.provisionDigitalInputPin(address, name);
     }
@@ -40,11 +38,11 @@ public class GpioRestController {
      * Provision a GPIO as digital output pin.
      *
      * @param address The address of the GPIO pin.
-     * @param name The name of the GPIO pin.
+     * @param name    The name of the GPIO pin.
      * @return True if successful.
      */
-    @PostMapping(path = "provision/digital/output/{address}/{name}", produces = "application/json")
-    public boolean provisionDigitalOutputPin(@PathVariable("address")  int address, @PathVariable("name")  String name) {
+    @PostMapping(path = "output/{address}/{name}", produces = "application/json")
+    public DigitalOutput provisionDigitalOutputPin(@PathVariable("address") int address, @PathVariable("name") String name) {
         // Use Pi4J Manager to provision digital output pin
         return pi4JManager.provisionDigitalOutputPin(address, name);
     }
@@ -52,33 +50,21 @@ public class GpioRestController {
     /**
      * Get the current state of the pins.
      *
-     * @return {@link Collection} of {@link GpioPin}.
+     * @return {@link List} of {@link DigitalInput}.
      */
-    @GetMapping(path = "provision/list", produces = "application/json")
-    public  Map<String, Map<String, String>> getProvisionList() {
-        final Map<Integer, Object> list = pi4JManager.getProvisionedPins();
+    @GetMapping(path = "input", produces = "application/json")
+    public List<DigitalInput> getInputs() {
+        return pi4JManager.getInputs();
+    }
 
-        final Map<String, Map<String, String>> map = new TreeMap<>();
-
-        for (final Map.Entry<Integer, Object> entry : list.entrySet()) {
-            final Map<String, String> innerMap = new TreeMap<>();
-
-            innerMap.put("address", String.valueOf(entry.getKey()));
-            innerMap.put("type", entry.getValue().getClass().getName());
-
-            if (entry.getValue() instanceof GpioPinDigitalOutput) {
-                final GpioPinDigitalOutput digitalPin = (GpioPinDigitalOutput) entry.getValue();
-
-                innerMap.put("name", digitalPin.getName());
-                innerMap.put("pinName", digitalPin.getPin().getName());
-                innerMap.put("mode", digitalPin.getMode().getName());
-                innerMap.put("state", String.valueOf(digitalPin.getState().getValue()));
-            }
-
-            map.put("ProvisionedPin_" + entry.getKey(), innerMap);
-        }
-
-        return map;
+    /**
+     * Get the current state of the pins.
+     *
+     * @return {@link List} of {@link DigitalOutput}.
+     */
+    @GetMapping(path = "output", produces = "application/json")
+    public List<DigitalOutput> getOutputs() {
+        return pi4JManager.getOutputs();
     }
 
     /**
@@ -90,7 +76,7 @@ public class GpioRestController {
     @GetMapping(path = "state/{address}", produces = "application/json")
     public String getState(@PathVariable("address") long address) {
         try {
-            return String.valueOf(pi4JManager.getState((int) address).getValue());
+            return String.valueOf(pi4JManager.getState((int) address));
         } catch (IllegalArgumentException ex) {
             logger.error(ex.getMessage());
 
@@ -102,13 +88,13 @@ public class GpioRestController {
      * Set the state of a pin.
      *
      * @param address The address of the GPIO pin.
-     * @param value Possible values: 1 (= PULL_DOWN), 2 (= PULL_UP), 0 and all other (= OFF).
+     * @param value   Possible values: 1 as HIGH, all else LOW.
      * @return True if successful.
      */
     @PostMapping(path = "digital/state/{address}/{value}", produces = "application/json")
     public String setPinDigitalState(@PathVariable("address") long address, @PathVariable("value") long value) {
         try {
-            return String.valueOf(pi4JManager.setPinDigitalState((int) address, (int) value));
+            return String.valueOf(pi4JManager.setPinDigitalState((int) address, value == 1 ? DigitalState.HIGH : DigitalState.LOW));
         } catch (IllegalArgumentException ex) {
             logger.error(ex.getMessage());
 
@@ -123,19 +109,8 @@ public class GpioRestController {
      * @return True if successful.
      */
     @PostMapping(path = "digital/toggle/{address}", produces = "application/json")
-    public boolean togglePin(@PathVariable("address") long address) {
+    public String togglePin(@PathVariable("address") long address) {
         return pi4JManager.togglePin((int) address);
     }
 
-    /**
-     * Pulse a pin.
-     *
-     * @param address The address of the GPIO pin.
-     * @param duration The duration in milliseconds.
-     * @return True if successful.
-     */
-    @PostMapping(path = "digital/pulse/{address}/{duration}", produces = "application/json")
-    public boolean pulsePin(@PathVariable("address") long address, @PathVariable("duration") long duration) {
-        return pi4JManager.pulsePin((int) address, duration);
-    }
 }

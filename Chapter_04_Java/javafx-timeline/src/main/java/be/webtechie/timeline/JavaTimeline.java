@@ -56,7 +56,7 @@ public class JavaTimeline extends Pane {
             yearLine.setStrokeWidth(currentYear % 10 == 0 ? 4 : 2);
             this.getChildren().add(yearLine);
 
-            // Add a label for every 10 year
+            // Add a label for every 5 years
             if (currentYear % 5 == 0) {
                 var yearLabel = new Label(String.valueOf(currentYear));
                 yearLabel.setLayoutX(yearLineX - 20);
