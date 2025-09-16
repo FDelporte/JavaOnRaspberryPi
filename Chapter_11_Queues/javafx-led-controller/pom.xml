@@ -17,7 +17,7 @@
     <description>JavaFX and Undertow application to control a LED strip via Arduino via Mosquitto</description>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <undertow.version>2.3.19.Final</undertow.version>
     </properties>
 
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>21.0.7</version>
+            <version>25</version>
         </dependency>
 
         <dependency>
@@ -65,7 +65,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <release>21</release>
+                    <release>${java.version}</release>
                 </configuration>
             </plugin>
 
