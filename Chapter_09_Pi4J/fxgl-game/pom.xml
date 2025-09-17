@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>be.webtechie</groupId>
@@ -17,7 +17,7 @@
 
         <!-- DEPENDENCIES VERSIONS -->
         <slf4j.version>1.7.32</slf4j.version>
-        <pi4j.version>2.4.0</pi4j.version>
+        <pi4j.version>3.0.2</pi4j.version>
         <fxgl.version>21</fxgl.version>
 
         <!-- BUILD PLUGIN VERSIONS -->

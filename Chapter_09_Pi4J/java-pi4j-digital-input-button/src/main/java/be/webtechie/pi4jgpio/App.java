@@ -1,48 +1,65 @@
 package be.webtechie.pi4jgpio;
 
-import com.pi4j.io.gpio.GpioController;
-import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.GpioPinDigitalInput;
-import com.pi4j.io.gpio.Pin;
-import com.pi4j.io.gpio.PinPullResistance;
-import com.pi4j.io.gpio.RaspiPin;
-
-import be.webtechie.pi4jgpio.handler.InputChangeEventListener;
+import com.pi4j.Pi4J;
+import com.pi4j.io.gpio.digital.DigitalInput;
+import com.pi4j.io.gpio.digital.DigitalState;
+import com.pi4j.io.gpio.digital.PullResistance;
+import com.pi4j.util.Console;
 
 /**
  * Based on https://www.pi4j.com/1.2/usage.html#Read_Pin_State
  */
 public class App {
 
-    private static final Pin PIN_BUTTON = RaspiPin.GPIO_05; // BCM 24
+    private static final int PIN_BUTTON = 24; // BCM 24
 
-    /**
-     * Reference to the listener, so we can read its values after initialization.
-     */
-    private static InputChangeEventListener listener;
+    private static int numberOfPresses = 0;
+    private static long lastPress = System.currentTimeMillis();
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         System.out.println("Starting input example...");
 
         try {
-            // Initialize the GPIO controller
-            final GpioController gpio = GpioFactory.getInstance();
+            // Create Pi4J console wrapper/helper
+            // (This is a utility class to abstract some of the boilerplate stdin/stdout code)
+            var console = new Console();
+
+            // Initialize Pi4J
+            var pi4j = Pi4J.newAutoContext();
 
             // Initialize the input pin with pull down resistor
-            GpioPinDigitalInput button = gpio.provisionDigitalInputPin(
-                PIN_BUTTON, "Button", PinPullResistance.PULL_DOWN); 
+            var buttonConfig = DigitalInput.newConfigBuilder(pi4j)
+                    .id("button")
+                    .name("Press button")
+                    .address(PIN_BUTTON)
+                    .pull(PullResistance.PULL_DOWN)
+                    .debounce(3000L);
 
-            // Attach an event listener
-            listener = new InputChangeEventListener();
-            button.addListener(listener);
+            var button = pi4j.create(buttonConfig);
+
+            button.addListener(e -> {
+                if (e.state() == DigitalState.LOW) {
+                    numberOfPresses++;
+
+                    long diff = System.currentTimeMillis() - lastPress;
+
+                    console.println("Button pressed for "
+                            + numberOfPresses + "th time, diff: "
+                            + diff + "millis");
+
+                    lastPress = System.currentTimeMillis();
+
+                    console.println("Button was pressed for the " + numberOfPresses + "th time");
+                }
+            });
 
             // Loop until the button has been pressed 10 times
-            while (listener.getNumberOfPresses() < 10) {
+            while (numberOfPresses < 10) {
                 Thread.sleep(10);
             }
 
-            // Shut down the GPIO controller
-            gpio.shutdown();
+            // Shutdown Pi4J
+            pi4j.shutdown();
 
             System.out.println("Done");
         } catch (Exception ex) {
