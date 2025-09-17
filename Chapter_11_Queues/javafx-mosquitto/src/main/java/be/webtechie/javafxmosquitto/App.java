@@ -13,6 +13,10 @@ public class App extends Application {
 
     private QueueClient queueClient;
 
+    static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) {
         this.queueClient = new QueueClient("192.168.0.213");
@@ -21,10 +25,4 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-    public static void main(String[] args) {
-        launch();
-    }
-
-
 }

@@ -10,7 +10,7 @@
 	</parent>
 
     <groupId>be.webtechie</groupId>
-	<artifactId>java-spring-rest</artifactId>
+	<artifactId>java-spring-rest-original</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>java-spring-rest</name>
 	<description>Demo project for Spring Boot</description>
