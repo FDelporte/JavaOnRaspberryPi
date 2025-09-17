@@ -16,9 +16,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         int width = 1200;
-        int height = 900;
+        int height = 1200;
 
-        var scene = new Scene(new JavaTimeline(width, height, 10, DataSet.PI4J_RELEASES), width + 50, height);
+        var scene = new Scene(new JavaTimeline(width, height, 10, DataSet.LANGUAGE_BIRTHDAYS), width + 50, height);
         stage.setScene(scene);
         stage.show();
     }

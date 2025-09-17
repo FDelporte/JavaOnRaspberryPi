@@ -1,12 +1,23 @@
 package be.webtechie.timeline;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class JavaTimeline extends Pane {
 
@@ -35,7 +46,46 @@ public class JavaTimeline extends Pane {
         drawAxis();
 
         if (dataSet == DataSet.JAVA_RELEASES) {
-            drawProjectPanama();
+            var buttons = new HBox();
+            buttons.setSpacing(10);
+            buttons.setAlignment(Pos.CENTER_LEFT);
+            buttons.setLayoutY(height - 100);
+            buttons.getChildren().add(new Label("Select a step to see the project Panama API: "));
+            this.getChildren().add(buttons);
+            for (int i = 1; i <= 5; i++) {
+                var bt = new Button("Step " + i);
+                int finalI = i;
+                bt.setOnAction(e -> drawProjectPanama(finalI));
+                buttons.getChildren().add(bt);
+            }
+            var save = new Button("Screenshot");
+            save.setOnAction(e -> saveScreenshot(width, TOP_SPACE + 300));
+            buttons.getChildren().add(save);
+        }
+    }
+
+    private void saveScreenshot(int width, int height) {
+        try {
+            // Create a WritableImage to capture the scene
+            WritableImage writableImage = new WritableImage(width, height);
+
+            // Take a snapshot of the scene
+            this.getScene().snapshot(writableImage);
+
+            // Convert JavaFX image to BufferedImage
+            var bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
+
+            // Generate filename with timestamp
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+            String filename = "history_panama_" + timestamp + ".png";
+
+            // Save the image
+            File outputFile = new File(filename);
+            ImageIO.write(bufferedImage, "png", outputFile);
+
+            System.out.println("Screenshot saved as: " + outputFile.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Error saving screenshot: " + e.getMessage());
         }
     }
 
@@ -84,8 +134,8 @@ public class JavaTimeline extends Pane {
         double yearLineX = getYearMonthPosition(release.year(), release.month());
 
         var notationLine = new Line(yearLineX, TOP_SPACE - (offset * 2), yearLineX, (offset * 8) + TOP_SPACE);
-        notationLine.setStroke(Color.RED);
-        notationLine.setStrokeWidth(3);
+        notationLine.setStroke(release.highlight() ? Color.RED : Color.BLUE);
+        notationLine.setStrokeWidth(release.highlight() ? 5 : 3);
         this.getChildren().add(notationLine);
 
         var notationLabel = new Label(release.year()
@@ -111,45 +161,55 @@ public class JavaTimeline extends Pane {
         this.getChildren().add(notationLabel);
     }
 
-    private void drawProjectPanama() {
-        addLabelBox("Project Panama", findRelease(8), findRelease(30), offset, 18, Color.LIGHTBLUE);
+    private void drawProjectPanama(int step) {
+        if (step == 1) {
+            addLabelBox("Project Panama", findRelease(8), findRelease(30), offset, 18, Color.LIGHTBLUE);
+        }
 
-        // Foreign Memory Access API
-        addLabelBox("Foreign Memory Access API", findRelease(8), findRelease(30), offset * 6, 14, Color.LIGHTGRAY);
-        addLabelBox("370", 14, offset * 6, Color.ORANGERED);
-        addLabelBox("383", 15, offset * 6, Color.ORANGERED);
-        addLabelBox("393", 16, offset * 6, Color.ORANGERED);
+        if (step == 2) {
+            // Foreign Memory Access API
+            addLabelBox("Foreign Memory Access API", findRelease(8), findRelease(30), offset * 6, 14, Color.LIGHTGRAY);
+            addLabelBox("370", 14, offset * 6, Color.ORANGERED);
+            addLabelBox("383", 15, offset * 6, Color.ORANGERED);
+            addLabelBox("393", 16, offset * 6, Color.ORANGERED);
+        }
 
-        // Foreign Linker API
-        addLabelBox("Foreign Linker API", findRelease(8), findRelease(30), offset * 9, 14, Color.LIGHTGRAY);
-        addLabelBox("389", 16, offset * 9, Color.MAGENTA);
+        if (step == 3) {
+            // Foreign Linker API
+            addLabelBox("Foreign Linker API", findRelease(8), findRelease(30), offset * 9, 14, Color.LIGHTGRAY);
+            addLabelBox("389", 16, offset * 9, Color.MAGENTA);
+        }
 
-        // Combined Foreign Function & Memory API
-        addLabelBox("Foreign Function & Memory API", findRelease(8), findRelease(30), offset * 12, 14, Color.LIGHTGRAY);
-        addLabelBox("412", 17, offset * 12, Color.TURQUOISE);
-        addLabelBox("419", 18, offset * 12, Color.TURQUOISE);
-        addLabelBox("424", 19, offset * 12, Color.TURQUOISE);
-        addLabelBox("434", 20, offset * 12, Color.TURQUOISE);
-        addLabelBox("442", 21, offset * 12, Color.TURQUOISE);
-        addLabelBox("454", 22, offset * 12, Color.GREEN);
+        if (step == 4) {
+            // Combined Foreign Function & Memory API
+            addLabelBox("Foreign Function & Memory API", findRelease(8), findRelease(30), offset * 12, 14, Color.LIGHTGRAY);
+            addLabelBox("412", 17, offset * 12, Color.TURQUOISE);
+            addLabelBox("419", 18, offset * 12, Color.TURQUOISE);
+            addLabelBox("424", 19, offset * 12, Color.TURQUOISE);
+            addLabelBox("434", 20, offset * 12, Color.TURQUOISE);
+            addLabelBox("442", 21, offset * 12, Color.TURQUOISE);
+            addLabelBox("454", 22, offset * 12, Color.GREEN);
+        }
 
-        // Vector API
-        addLabelBox("Vector API", findRelease(8), findRelease(30), offset * 15, 14, Color.LIGHTGRAY);
-        addLabelBox("338", 16, offset * 15, Color.ORANGE);
-        addLabelBox("414", 17, offset * 15, Color.ORANGE);
-        addLabelBox("417", 18, offset * 15, Color.ORANGE);
-        addLabelBox("426", 19, offset * 15, Color.ORANGE);
-        addLabelBox("438", 20, offset * 15, Color.ORANGE);
-        addLabelBox("448", 21, offset * 15, Color.ORANGE);
-        addLabelBox("460", 22, offset * 15, Color.ORANGE);
-        addLabelBox("469", 23, offset * 15, Color.ORANGE);
-        addLabelBox("489", 24, offset * 15, Color.ORANGE);
-        addLabelBox("508", 25, offset * 15, Color.ORANGE);
-        addLabelBox("???", 26, offset * 15, Color.ORANGE);
-        addLabelBox("???", 27, offset * 15, Color.ORANGE);
-        addLabelBox("???", 28, offset * 15, Color.ORANGE);
-        addLabelBox("???", 29, offset * 15, Color.ORANGE);
-        addLabelBox("???", 30, offset * 15, Color.ORANGE);
+        if (step == 5) {
+            // Vector API
+            addLabelBox("Vector API", findRelease(8), findRelease(30), offset * 15, 14, Color.LIGHTGRAY);
+            addLabelBox("338", 16, offset * 15, Color.ORANGE);
+            addLabelBox("414", 17, offset * 15, Color.ORANGE);
+            addLabelBox("417", 18, offset * 15, Color.ORANGE);
+            addLabelBox("426", 19, offset * 15, Color.ORANGE);
+            addLabelBox("438", 20, offset * 15, Color.ORANGE);
+            addLabelBox("448", 21, offset * 15, Color.ORANGE);
+            addLabelBox("460", 22, offset * 15, Color.ORANGE);
+            addLabelBox("469", 23, offset * 15, Color.ORANGE);
+            addLabelBox("489", 24, offset * 15, Color.ORANGE);
+            addLabelBox("508", 25, offset * 15, Color.ORANGE);
+            addLabelBox("???", 26, offset * 15, Color.ORANGE);
+            addLabelBox("???", 27, offset * 15, Color.ORANGE);
+            addLabelBox("???", 28, offset * 15, Color.ORANGE);
+            addLabelBox("???", 29, offset * 15, Color.ORANGE);
+            addLabelBox("???", 30, offset * 15, Color.ORANGE);
+        }
     }
 
     private DataSet.Release findRelease(int javaVersion) {
@@ -183,7 +243,7 @@ public class JavaTimeline extends Pane {
 
         // Create the label
         var lbl = new Label(label);
-        lbl.setLayoutX(yearXStart + 3);
+        lbl.setLayoutX(yearXStart + 8);
         lbl.setLayoutY(labelY + (fontSize / 2) - 3);
         lbl.setStyle("-fx-font-size: " + fontSize + "px;");
         this.getChildren().add(lbl);

@@ -10,7 +10,7 @@ public enum DataSet {
     LANGUAGE_BIRTHDAYS(1990, 2016, true, List.of(
             new Release(1991, 2, "Python"),
             new Release(1995, 2, "Ruby"),
-            new Release(1995, 5, "Java, Qt"),
+            new Release(1995, 5, "Java, Qt", true),
             new Release(1995, 6, "PHP"),
             new Release(1995, 9, "JavaScript"),
             new Release(2000, 6, "C#"),
@@ -23,7 +23,7 @@ public enum DataSet {
             new Release(2014, 3, "Oracle releases Java 8 LTS"),
             new Release(2018, 1, "Latest free public release\nof Java 8 by Oracle"))),
     // https://www.java.com/releases/
-    JAVA_RELEASES(1990, 2030, true, List.of(
+    JAVA_RELEASES(1994, 2030, true, List.of(
             new Release(1995, 5, "JDK Beta"),
             new Release(1996, 1, "JDK 1.0"),
             new Release(1997, 2, "JDK 1.1"),
@@ -33,28 +33,28 @@ public enum DataSet {
             new Release(2004, 9, "J2SE 1.5"),
             new Release(2006, 12, "Java SE 6"),
             new Release(2011, 7, "Java SE 7"),
-            new Release(2014, 3, "Java SE 8 (LTS)"),
+            new Release(2014, 3, "Java SE 8 (LTS)", true),
             new Release(2017, 9, "Java SE 9"),
             new Release(2018, 3, "Java SE 10"),
-            new Release(2018, 9, "Java SE 11 (LTS)"),
+            new Release(2018, 9, "Java SE 11 (LTS)", true),
             new Release(2019, 3, "Java SE 12"),
             new Release(2019, 9, "Java SE 13"),
             new Release(2020, 3, "Java SE 14"),
             new Release(2020, 9, "Java SE 15"),
             new Release(2021, 3, "Java SE 16"),
-            new Release(2021, 9, "Java SE 17 (LTS)"),
+            new Release(2021, 9, "Java SE 17 (LTS)", true),
             new Release(2022, 3, "Java SE 18"),
             new Release(2022, 9, "Java SE 19"),
             new Release(2023, 3, "Java SE 20"),
-            new Release(2023, 9, "Java SE 21 (LTS)"),
+            new Release(2023, 9, "Java SE 21 (LTS)", true),
             new Release(2024, 3, "Java SE 22"),
             new Release(2024, 9, "Java SE 23"),
             new Release(2025, 3, "Java SE 24"),
-            new Release(2025, 9, "Java SE 25 (LTS)"),
+            new Release(2025, 9, "Java SE 25 (LTS)", true),
             new Release(2026, 3, "Java SE 26"),
             new Release(2026, 9, "Java SE 27"),
             new Release(2027, 3, "Java SE 28"),
-            new Release(2027, 9, "Java SE 29 (LTS)"),
+            new Release(2027, 9, "Java SE 29 (LTS)", true),
             new Release(2028, 3, "Java SE 30"),
             new Release(2028, 9, "Java SE 31"),
             new Release(2029, 3, "..."))),
@@ -93,12 +93,12 @@ public enum DataSet {
     RASPBERRYPI_BOARDS(2010, getPiBoardsEndYear() + 1, true, getPiBoards()),
     PI4J_RELEASES(2010, 2027, true, List.of(
             new Release(2012, 1, "Project started"),
-            new Release(2015, 4, "V1.0 - Java 8"),
+            new Release(2015, 4, "V1.0 - Java 8", true),
             new Release(2016, 7, "V1.1"),
             new Release(2019, 2, "V1.2"),
             new Release(2021, 1, "V1.3"),
             new Release(2021, 3, "V1.4 - Java 11"),
-            new Release(2021, 8, "V2.0.0 - Java 11"),
+            new Release(2021, 8, "V2.0.0 - Java 11", true),
             new Release(2021, 10, "V2.1.0"),
             new Release(2021, 12, "V2.1.1"),
             new Release(2022, 8, "V2.2.0"),
@@ -109,9 +109,9 @@ public enum DataSet {
             new Release(2024, 7, "V2.6.1"),
             new Release(2024, 10, "V2.7.0"),
             new Release(2025, 1, "V2.8.0"),
-            new Release(2025, 3, "V3.0.1 - Java 21"),
+            new Release(2025, 3, "V3.0.1 - Java 21", true),
             new Release(2025, 5, "V3.0.2"),
-            new Release(2025, 12, "V4.0.0 - Java 25 + FFM API")));
+            new Release(2025, 12, "V4.0.0 - Java 25 + FFM API", true)));
 
     private final int startYear;
     private final int endYear;
@@ -158,6 +158,9 @@ public enum DataSet {
         return releases;
     }
 
-    public record Release(int year, int month, String description) {
+    public record Release(int year, int month, String description, boolean highlight) {
+        Release(int year, int month, String description) {
+            this(year, month, description, false);
+        }
     }
 }

@@ -16,6 +16,11 @@
             <artifactId>javafx-controls</artifactId>
             <version>25</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>21.0.7</version>
+        </dependency>
 
         <dependency>
             <groupId>com.pi4j</groupId>
