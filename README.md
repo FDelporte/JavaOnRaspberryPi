@@ -1,4 +1,4 @@
-# Getting started with Java on Raspberry Pi
+# Getting Started with Java on the Raspberry Pi
 
 In this project you can find all the sources and scripts described in the book ["Getting started with Java on the Raspberry Pi" which is available on Leanpub](https://leanpub.com/gettingstartedwithjavaontheraspberrypi/). For more info, check [webtechie.be/books/](https://webtechie.be/books/).
 
@@ -14,6 +14,8 @@ Everything is organized according to the chapters in the book. Within each chapt
 	* A new directory structure with a "pom.xml" in the root: a full Maven Java project.
 * "javafx-..." directories: a full Mavan JavaFX project.
 * "arduino-..." directories: an Arduino project.
+
+![](cover/cover_2025_java25.jpg)
 
 ## Chapters
 
@@ -36,9 +38,7 @@ As Java, Raspberry Pi, and all related topics keep evolving, the book needs cont
 
 ### 2025
 
-* 202509
-  * Chapter 10
-    * Bumped all to newer Spring and Pi4J version and dependencies (WORK-IN-PROGRESS!!!)
+* Bumping all examples to Java 25 and latest dependencies (WORK-IN-PROGRESS!!!)
 * 20250122: Update Chapter 4 (javafx-timeline) and Chapter 5 (javafx-pinning-info) to use the Pi4J library to get the Raspberry Pi BoardModel and GPIO info.
 
 ### 2024
