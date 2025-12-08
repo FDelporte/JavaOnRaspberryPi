@@ -39,7 +39,7 @@ public class RelayController {
     public static void setRelay(Board board, Relay relay, State state) {
         execute(new String[]{
                 "i2cset",
-                "-y, ",
+                "-y",
                 "1",
                 String.format("0x%02X", board.getAddress()),
                 String.format("0x%02X", relay.getChannel()),
