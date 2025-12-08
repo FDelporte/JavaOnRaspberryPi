@@ -72,7 +72,7 @@ public class Gpio {
             // Wait for the process to complete
             p.waitFor();
 
-            System.out.println(cmd);
+            System.out.println("'" + String.join(" ", cmd) + "' returned: " + output);
 
             // Return the result of the command.
             return output.toString();
