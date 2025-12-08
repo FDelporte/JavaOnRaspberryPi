@@ -1,6 +1,6 @@
 # coding=utf-8
 
-import RPi.GPIO as GPIO
+from gpiozero import OutputDevice
 import time
 import sys
 
@@ -10,14 +10,10 @@ PIN_SRCLK = 5
 PIN_RCLK_LATCH = 6
 WAIT_TIME = 0.01
 
-# Ignore GPIO warnings as we are re-using pins
-GPIO.setwarnings(False)
-
-# Initialize pins
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(PIN_DATA, GPIO.OUT)
-GPIO.setup(PIN_SRCLK, GPIO.OUT)
-GPIO.setup(PIN_RCLK_LATCH, GPIO.OUT)
+# Initialize pins as output devices
+data_pin = OutputDevice(PIN_DATA)
+clock_pin = OutputDevice(PIN_SRCLK)
+latch_pin = OutputDevice(PIN_RCLK_LATCH)
 
 # Get value from startup argument
 inputValue = 0xff
@@ -35,7 +31,7 @@ if len(sys.argv) > 1:
 print("Sending value: " + str(inputValue))
 
 # Set the RELEASE pin low so the values are stored in memory
-GPIO.output(PIN_RCLK_LATCH, 0)
+latch_pin.off()
 time.sleep(WAIT_TIME)
 
 for y in range(8):
@@ -44,20 +40,23 @@ for y in range(8):
   print("Sending bit value " + str(bit) + " to slot " + str(y))
 
   # Prepare for the next value by setting the CLOCK pin LOW
-  GPIO.output(PIN_SRCLK, 0)
-  time.sleep(WAIT_TIME)
+  clock_pin.off()
+  sleep(WAIT_TIME)
 
   # Set the data (high or low state) for the pin y
-  GPIO.output(PIN_DATA, bit)
-  time.sleep(WAIT_TIME)
+  if bit:
+      data_pin.on()
+  else:
+      data_pin.off()
+  sleep(WAIT_TIME)
 
   # Set the CLOCK pin HIGH to store the DATA value into memory
-  GPIO.output(PIN_SRCLK, 1)
-  time.sleep(WAIT_TIME)
+  clock_pin.on()
+  sleep(WAIT_TIME)
 
 # Loop is finished, so all 8 values are sent
 # Set the RELEASE pin high so the values from memory are sent to the outputs
-GPIO.output(PIN_RCLK_LATCH, 1)
-time.sleep(WAIT_TIME)
+latch_pin.on()
+sleep(WAIT_TIME)
 
 print("Done")
