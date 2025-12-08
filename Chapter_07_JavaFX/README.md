@@ -21,11 +21,9 @@ $ ./{SCRIPT_NAME}.sh
 
 Automatically generated minimal JavaFX application with the tools provided by GluonHQ.
 
-#### RGB led controller
+#### javafx-dashboard
 
-* [NeoPixels on Raspberry Pi](https://learn.adafruit.com/neopixels-on-raspberry-pi)
-* [RGB LED on Raspberry Pi using Java ](https://www.admfactory.com/rgb-led-on-raspberry-pi-using-java/)
-* [Raspberry Pi and RGB LED-Strips](https://dordnung.de/raspberrypi-ledstrip/) 
+![](schemes/dashboard-led-button.png)
 
 ## Read more
 
@@ -36,3 +34,6 @@ Automatically generated minimal JavaFX application with the tools provided by Gl
 * [Getting Started with JavaFX](https://openjfx.io/openjfx-docs/)
 * [OpenJFX examples for multiple IDE's](https://github.com/openjfx/samples)
 * [Maven Archetypes for JavaFX](https://github.com/openjfx/javafx-maven-archetypes/tree/master)
+* [NeoPixels on Raspberry Pi](https://learn.adafruit.com/neopixels-on-raspberry-pi)
+* [RGB LED on Raspberry Pi using Java ](https://www.admfactory.com/rgb-led-on-raspberry-pi-using-java/)
+* [Raspberry Pi and RGB LED-Strips](https://dordnung.de/raspberrypi-ledstrip/) 
