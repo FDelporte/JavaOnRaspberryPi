@@ -28,6 +28,10 @@
             <artifactId>tilesfx</artifactId>
             <version>21.0.9</version>
             <exclusions>
+                <!--
+                To avoid conflicts between the JavaFX included in TilesFX
+                and the one used in this project, we exclude them here.
+                -->
                 <exclusion>
                     <groupId>org.openjfx</groupId>
                     <artifactId>javafx-base</artifactId>

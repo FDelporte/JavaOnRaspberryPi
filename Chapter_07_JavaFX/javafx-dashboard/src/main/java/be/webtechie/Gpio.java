@@ -26,7 +26,7 @@ public class Gpio {
     public static void setPinState(final int pin, final boolean on) {
         System.out.println("Setting pin " + pin + " to " + on);
 
-        execute("gpioset -c gpiochip0 -t0 " + pin + "=" + (on ? " 1" : " 0"));
+        execute(new String[]{"gpioset", "-c", "gpiochip0", "-t0", pin + "=" + (on ? " 1" : " 0")});
     }
 
     /**
@@ -36,11 +36,11 @@ public class Gpio {
 	 * @return Flag if the pin is high (1 = true) or low (0 = false)
      */
     public static boolean getPinState(final int pin) {
-        final String result = execute("gpioget -c gpiochip0 " + pin);
+        final String result = execute(new String[]{"gpioget", "-c", "gpiochip0", String.valueOf(pin)});
 
         System.out.println("Getting pin state of " + pin + ", result: " + result);
 
-        return result.contains(pin + "=active");
+        return result.contains("=active");
     }
 
     /**
@@ -48,13 +48,10 @@ public class Gpio {
      *
      * @param cmd String command to be executed.
      */
-    private static String execute(String cmd) {
+    private static String execute(String[] cmd) {
         try {
-            // Split the command string into program and arguments
-            String[] cmdArray = cmd.split("\\s+");
-
             // Create a ProcessBuilder with the command and arguments
-            ProcessBuilder processBuilder = new ProcessBuilder(cmdArray);
+            ProcessBuilder processBuilder = new ProcessBuilder(cmd);
 
             // Redirect error stream to output stream for easier handling
             processBuilder.redirectErrorStream(true);
