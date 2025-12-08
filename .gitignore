@@ -17,6 +17,7 @@
 */*/target/surefire-reports/*
 */*/target/*.original
 /.idea/
+/Chapter_07_JavaFX/javafx-dashboard/target/
 /Chapter_09_Pi4J/fxgl-game/logs/
 /Chapter_09_Pi4J/fxgl-game/system/
 /Chapter_09_Pi4J/fxgl-game/target/

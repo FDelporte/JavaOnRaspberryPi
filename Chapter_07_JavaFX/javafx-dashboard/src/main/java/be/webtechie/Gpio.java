@@ -20,33 +20,30 @@ public class Gpio {
     /**
      * Set the state of the pin high or low.
      *
-     * @param pin The pin number according to the WiringPi numbering scheme
+     * @param pin The pin number according to the BCM numbering scheme
      * @param on True or False
      */
-    public static void setPinState(final int pin, final boolean on) {
+    public static void setPinState(int pin, boolean on) {
         System.out.println("Setting pin " + pin + " to " + on);
-
         execute(new String[]{"gpioset", "-c", "gpiochip0", "-t0", pin + "=" + (on ? "1" : "0")});
     }
 
     /**
      * Get the state of the pin.
      *
-     * @param pin The pin number according to the WiringPi numbering scheme
+     * @param pin The pin number according to the BCM numbering scheme
 	 * @return Flag if the pin is high (1 = true) or low (0 = false)
      */
-    public static boolean getPinState(final int pin) {
-        final String result = execute(new String[]{"gpioget", "-c", "gpiochip0", String.valueOf(pin)});
-
+    public static boolean getPinState(int pin) {
+        var result = execute(new String[]{"gpioget", "-c", "gpiochip0", String.valueOf(pin)});
         System.out.println("Getting pin state of " + pin + ", result: " + result);
-
         return result.contains("=active");
     }
 
     /**
      * Execute the given command, this is called by the public methods.
      *
-     * @param cmd String command to be executed.
+     * @param cmd String array command to be executed.
      */
     private static String execute(String[] cmd) {
         try {
