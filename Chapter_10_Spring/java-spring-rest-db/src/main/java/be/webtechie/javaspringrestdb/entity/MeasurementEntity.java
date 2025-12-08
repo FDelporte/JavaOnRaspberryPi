@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Maps a database entity from the table MEASUREMENTS to a Java object.
@@ -17,6 +18,7 @@ import jakarta.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "MEASUREMENTS", uniqueConstraints={@UniqueConstraint(name="UN_MEASUREMENT_ID", columnNames={"ID"})})
+@RepositoryRestResource(exported = false)
 public class MeasurementEntity {
 
     /**

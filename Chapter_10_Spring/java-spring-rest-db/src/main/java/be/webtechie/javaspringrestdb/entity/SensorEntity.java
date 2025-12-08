@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Maps a database entity from the table SENSORS to a Java object.
@@ -18,6 +19,7 @@ import jakarta.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "SENSORS", uniqueConstraints={@UniqueConstraint(name="UN_SENSOR_ID", columnNames={"ID"})})
+@RepositoryRestResource(exported = false)
 public class SensorEntity {
 
     /**

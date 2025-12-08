@@ -4,6 +4,7 @@ import be.webtechie.javaspringrestdb.entity.SensorEntity;
 import be.webtechie.javaspringrestdb.repository.SensorRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
