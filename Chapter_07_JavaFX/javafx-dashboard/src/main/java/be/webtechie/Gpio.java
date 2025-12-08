@@ -26,7 +26,7 @@ public class Gpio {
     public static void setPinState(final int pin, final boolean on) {
         System.out.println("Setting pin " + pin + " to " + on);
 
-        execute(new String[]{"gpioset", "-c", "gpiochip0", "-t0", pin + "=" + (on ? " 1" : " 0")});
+        execute(new String[]{"gpioset", "-c", "gpiochip0", "-t0", pin + "=" + (on ? "1" : "0")});
     }
 
     /**
