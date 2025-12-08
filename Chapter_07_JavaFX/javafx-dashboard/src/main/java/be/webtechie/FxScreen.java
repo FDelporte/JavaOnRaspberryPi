@@ -20,10 +20,10 @@ import javafx.scene.layout.VBox;
 public class FxScreen extends HBox {
 
     /**
-     * The pins we are using in our example.
+     * The BCMs we are using in our example.
      */
-    private static final int PIN_LED = 3;
-    private static final int PIN_BUTTON = 5;
+    private static final int BCM_BUTTON = 22;
+    private static final int BCM_LED = 23;
 
     /**
      * Data series used on the charts.
@@ -46,10 +46,6 @@ public class FxScreen extends HBox {
      * Constructor.
      */
     public FxScreen() {
-        // Initialize the pins
-        Gpio.initiatePin(PIN_LED, "out");
-        Gpio.initiatePin(PIN_BUTTON, "in");
-
         // Setup the line chart data series
         this.seriesTemperatureInside = new XYChart.Series();
         this.seriesTemperatureInside.setName("Inside temperature");
@@ -107,11 +103,11 @@ public class FxScreen extends HBox {
         var ledSwitchTile = TileBuilder.create()
                 .skinType(SkinType.SWITCH)
                 .prefSize(250, 200)
-                .title("Gpio " + PIN_LED)
+                .title("Gpio " + BCM_LED)
                 .roundedCorners(false)
                 .build();
 
-        ledSwitchTile.setOnSwitchReleased(e -> Gpio.setPinState(PIN_LED, ledSwitchTile.isActive()));
+        ledSwitchTile.setOnSwitchReleased(e -> Gpio.setPinState(BCM_LED, ledSwitchTile.isActive()));
 
         // Tile with an exit button to end the application
         var exitButton = new Button("Exit");
@@ -183,7 +179,7 @@ public class FxScreen extends HBox {
     private void startButtonRead() {
         Thread t = new Thread(() -> {
             while (running) {
-                var buttonPressed = Gpio.getPinState(PIN_BUTTON);
+                var buttonPressed = Gpio.getPinState(BCM_BUTTON);
 
                 if (buttonIsPressed != buttonPressed) {
                     buttonIsPressed = buttonPressed;

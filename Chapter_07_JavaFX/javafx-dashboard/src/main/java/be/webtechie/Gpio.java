@@ -6,8 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Change a pin state using WiringPi and command line calls
- * http://wiringpi.com/the-gpio-utility/
+ * Change and read a pin using gpioget and gpioset.
  */
 public class Gpio {
 
@@ -19,16 +18,6 @@ public class Gpio {
     private Gpio() {
         // NOP
     }
-
-    /**
-     * Initialize the pin so it can be toggled later.
-     *
-     * @param pin The pin number according to the WiringPi numbering scheme
-     */
-    public static void initiatePin(final int pin, final String mode) {
-        execute("gpio mode " + pin + " " + mode);
-    }
-
     /**
      * Set the state of the pin high or low.
      *
@@ -38,7 +27,7 @@ public class Gpio {
     public static void setPinState(final int pin, final boolean on) {
         System.out.println("Setting pin " + pin + " to " + on);
 
-        execute("gpio write " + pin + (on ? " 1" : " 0"));
+        execute("gpioset -c gpiochip0 -t0 " + pin + "=" + (on ? " 1" : " 0"));
     }
 
     /**
@@ -48,11 +37,11 @@ public class Gpio {
 	 * @return Flag if the pin is high (1 = true) or low (0 = false)
      */
     public static boolean getPinState(final int pin) {
-        final String result = execute("gpio read " + pin);
+        final String result = execute("gpioget -c gpiochip0 " + pin);
 
         System.out.println("Getting pin state of " + pin + ", result: " + result);
 
-        return result.equals("1");
+        return result.contains(pin + "=active");
     }
 
     /**
@@ -61,30 +50,31 @@ public class Gpio {
      * @param cmd String command to be executed.
      */
     private static String execute(String cmd) {
-        Process p = null;
-        InputStream error = null;
-        BufferedReader input = null;
-
         try {
-            // Get a process to be able to do native calls on the operating system.
-            // You can compare this to opening a terminal window and running a command.
-            p = Runtime.getRuntime().exec(cmd);
+            // Split the command string into program and arguments
+            String[] cmdArray = cmd.split("\\s+");
 
-            // Get the error stream of the process and print it 
-            // so we will now if something goes wrong.
-            error = p.getErrorStream();
-            for (int i = 0; i < error.available(); i++) {
-                System.out.println("" + error.read());
-            }
+            // Create a ProcessBuilder with the command and arguments
+            ProcessBuilder processBuilder = new ProcessBuilder(cmdArray);
+
+            // Redirect error stream to output stream for easier handling
+            processBuilder.redirectErrorStream(true);
+
+            // Start the process
+            Process p = processBuilder.start();
 
             // Get the output stream, this is the result of the command we give.
-            String line;
             StringBuilder output = new StringBuilder();
-            input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            while ((line = input.readLine()) != null) {
-                output.append(line);
+            try (BufferedReader input = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()))) {
+                String line;
+                while ((line = input.readLine()) != null) {
+                    output.append(line);
+                }
             }
-            input.close();
+
+            // Wait for the process to complete
+            p.waitFor();
 
             System.out.println(cmd);
 
@@ -92,28 +82,11 @@ public class Gpio {
             return output.toString();
         } catch (IOException e) {
             System.err.println(e.getMessage());
-
             return "";
-        } finally {
-            if (p != null) {
-                p.destroy();
-            }
-
-            if (error != null) {
-                try {
-                    error.close();
-                } catch (IOException ex) {
-                    System.err.println("Error while closing the error stream");
-                }
-            }
-
-            if (input != null) {
-                try {
-                input.close();
-                } catch (IOException ex) {
-                    System.err.println("Error while closing the input stream");
-                }
-            }
+        } catch (InterruptedException e) {
+            System.err.println("Process was interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            return "";
         }
     }
 }
