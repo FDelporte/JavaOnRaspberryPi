@@ -1,8 +1,11 @@
 # Chapter 3: Java
+
 Chapter describing the history and current state of Java and how to install on a Pi.
 
 ## History of programming languages
-First appearance or initial release of programming languages
+
+First appearance or initial release of programming languages:
+
 * https://en.wikipedia.org/wiki/Java_%28programming_language%29
 * https://en.wikipedia.org/wiki/Ruby_(programming_language)
 * https://en.wikipedia.org/wiki/Python_(programming_language)
@@ -14,13 +17,14 @@ First appearance or initial release of programming languages
 * https://en.wikipedia.org/wiki/Go_(programming_language)
 
 ## Links
-* [AdoptOpenJDK](https://adoptopenjdk.net/)
-* [BellSoft Liberica JDK](https://bell-sw.com/)
+* 
+* [Adoptium](https://adoptium.net/)
+* [Azul Zulu Downloads](https://www.azul.com/downloads/)
 * [Duke the Java Mascot, explained](https://jaxenter.com/duke-the-java-mascot-explained-118397.html)
 * [SDKMAN](https://sdkman.io/)
-* [SDKMAN on Windows](https://ngeor.com/2019/12/07/sdkman-windows.html)
 
 ## Scripts
+
 See the scripts directory to install specific Liberica SDK versions on the Pi.
 
 To check the installed java version run this command in the terminal:
