@@ -22,7 +22,7 @@ GPIO.setup(PIN_RCLK_LATCH, GPIO.OUT)
 # Get value from startup argument
 inputValue = 0xff
 
-print "Number of arguments: " + str(len(sys.argv))
+print("Number of arguments: " + str(len(sys.argv)))
 
 if len(sys.argv) > 1:
   if sys.argv[1].startswith('0x'):
@@ -32,7 +32,7 @@ if len(sys.argv) > 1:
     # Parsing other values to integer
     inputValue = int(sys.argv[1])
 
-print "Sending value: " + str(inputValue)
+print("Sending value: " + str(inputValue))
 
 # Set the RELEASE pin low so the values are stored in memory
 GPIO.output(PIN_RCLK_LATCH, 0)
@@ -41,7 +41,7 @@ time.sleep(WAIT_TIME)
 for y in range(8):
   # Set the DATA pin to the bit y of the given value
   bit = inputValue >> (7 - y) & 1
-  print "Sending bit value " + str(bit) + " to slot " + str(y)
+  print("Sending bit value " + str(bit) + " to slot " + str(y))
 
   # Prepare for the next value by setting the CLOCK pin LOW
   GPIO.output(PIN_SRCLK, 0)
@@ -60,4 +60,4 @@ for y in range(8):
 GPIO.output(PIN_RCLK_LATCH, 1)
 time.sleep(WAIT_TIME)
 
-print "Done"
+print("Done")
