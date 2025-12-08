@@ -10,7 +10,8 @@ public class HelloGpio {
 
             while (loopCounter < 10) {
                 System.out.println("Changing LED to " + (on ? "on" : "off"));
-                Runtime.getRuntime().exec("gpioset -c gpiochip0 -t0 23=" + (on ? "1" : "0"));
+                new ProcessBuilder("gpioset", "-c", "gpiochip0", "-t0", "23=" + (on ? "1" : "0"))
+                        .start();
 
                 on = !on;
 
