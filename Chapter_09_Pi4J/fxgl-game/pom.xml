@@ -22,7 +22,6 @@
 
         <!-- BUILD PLUGIN VERSIONS -->
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -69,7 +68,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
+                <version>3.14.1</version>
                 <configuration>
                     <release>${java.version}</release>
                     <showDeprecation>true</showDeprecation>
