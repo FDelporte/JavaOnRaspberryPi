@@ -184,7 +184,7 @@ public class SegmentSelection extends VBox {
                 + " = 0x" + padLeftZero(Integer.toHexString(value).toUpperCase(), 2)
                 + " = " + value);
 
-        Executor.execute("python " + this.scriptFilePath + " " + value);
+        Executor.execute(new String[]{"python", this.scriptFilePath, String.valueOf(value)});
     }
 
     /**

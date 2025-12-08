@@ -22,39 +22,43 @@ class Executor {
     /**
      * Execute the given command, this is called by the public methods.
      *
-     * @param cmd String command to be executed.
+     * @param cmd String array command to be executed.
      */
-    static void execute(String cmd) {
+    public static String execute(String[] cmd) {
         try {
-            // Get a process to be able to do native calls on the operating system.
-            // You can compare this to opening a terminal window and running a command.
-            Process p = Runtime.getRuntime().exec(cmd);
+            // Create a ProcessBuilder with the command and arguments
+            ProcessBuilder processBuilder = new ProcessBuilder(cmd);
 
-            // Get the error stream of the process and print it 
-            // so we will now if something goes wrong.
-            InputStream error = p.getErrorStream();
-            for (int i = 0; i < error.available(); i++) {
-                System.out.println("" + error.read());
-            }
+            // Redirect error stream to output stream for easier handling
+            processBuilder.redirectErrorStream(true);
+
+            // Start the process
+            Process p = processBuilder.start();
 
             // Get the output stream, this is the result of the command we give.
-            String line;
             StringBuilder output = new StringBuilder();
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            while ((line = input.readLine()) != null) {
-                output.append(line);
+            try (BufferedReader input = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()))) {
+                String line;
+                while ((line = input.readLine()) != null) {
+                    output.append(line);
+                }
             }
-            input.close();
 
-            System.out.println("Executed: " + cmd);
+            // Wait for the process to complete
+            p.waitFor();
 
-            // We don't need the process anymore.
-            p.destroy();
+            System.out.println("'" + String.join(" ", cmd) + "' returned: " + output);
 
             // Return the result of the command.
-            System.out.println(output.toString());
+            return output.toString();
         } catch (IOException e) {
             System.err.println(e.getMessage());
+            return "";
+        } catch (InterruptedException e) {
+            System.err.println("Process was interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            return "";
         }
     }
 }
