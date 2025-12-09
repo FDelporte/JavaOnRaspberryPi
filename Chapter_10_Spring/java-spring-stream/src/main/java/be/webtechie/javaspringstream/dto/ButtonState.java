@@ -4,7 +4,7 @@ import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalState;
 
 /**
- * Object containing a distance measurement.
+ * Object containing a button state.
  */
 public record ButtonState(
         long timestamp,
