@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
-import java.util.stream.Stream;
 
 @Service
 public class Pi4JService {
@@ -29,11 +28,12 @@ public class Pi4JService {
     }
 
     public Flux<ButtonState> getButtonStates() {
-        return Flux.fromStream(Stream.generate(this::getButtonState))
-                .delayElements(Duration.ofSeconds(1));
+        return Flux.interval(Duration.ofSeconds(1))
+                .map(_ -> getButtonState());
     }
 
     private ButtonState getButtonState() {
-       return new ButtonState(button);
+        logger.info("Button state: " + button.state());
+        return new ButtonState(button);
     }
 }
