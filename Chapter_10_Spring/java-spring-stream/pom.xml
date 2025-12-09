@@ -17,7 +17,6 @@
 
 	<properties>
 		<java.version>25</java.version>
-        <pi4j.version>3.0.2</pi4j.version>
 	</properties>
 
 	<dependencies>
@@ -30,31 +29,17 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
-        <!-- include Pi4J Core -->
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-core</artifactId>
-            <version>${pi4j.version}</version>
-        </dependency>
-
-        <!-- include Pi4J Plugins (Platforms and I/O Providers) -->
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-raspberrypi</artifactId>
-            <version>${pi4j.version}</version>
-        </dependency>
-        <!-- Pi4J plugin to use the GPIOs on the Raspberry Pi -->
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-gpiod</artifactId>
-            <version>${pi4j.version}</version>
-        </dependency>
-        <!-- Pi4J plugin to be able to test on Windows and MacOS -->
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-mock</artifactId>
-            <version>${pi4j.version}</version>
-        </dependency>
+        <!-- include Pi4J -->
+		<dependency>
+			<groupId>com.pi4j</groupId>
+			<artifactId>pi4j-core</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.pi4j</groupId>
+			<artifactId>pi4j-plugin-ffm</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,6 +53,17 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
+
+	<!-- TODO remove after release of V4 -->
+	<repositories>
+		<repository>
+			<id>Maven snapshots</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
