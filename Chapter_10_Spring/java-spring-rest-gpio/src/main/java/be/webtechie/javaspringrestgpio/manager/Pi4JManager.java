@@ -22,6 +22,7 @@ import java.util.Map;
 public class Pi4JManager {
     private final Map<Integer, DigitalInput> inputs;
     private final Map<Integer, DigitalOutput> outputs;
+
     /**
      * The GPIO controller.
      */

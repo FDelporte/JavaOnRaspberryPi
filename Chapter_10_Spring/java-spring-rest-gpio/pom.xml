@@ -34,8 +34,12 @@
 		<dependency>
 			<groupId>com.pi4j</groupId>
 			<artifactId>pi4j-core</artifactId>
-			<version>3.0.2</version>
-			<scope>compile</scope>
+			<version>4.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.pi4j</groupId>
+			<artifactId>pi4j-plugin-ffm</artifactId>
+			<version>4.0.0-SNAPSHOT</version>
 		</dependency>
 
         <dependency>
@@ -44,6 +48,17 @@
             <version>3.0.0</version>
         </dependency>
 	</dependencies>
+
+	<!-- TODO remove after release of V4 -->
+	<repositories>
+		<repository>
+			<id>Maven snapshots</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>

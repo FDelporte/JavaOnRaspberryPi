@@ -24,6 +24,25 @@ public class InfoRestController {
     }
 
     /**
+     * Get the hardware info.
+     */
+    @GetMapping(path = "board", produces = "application/json")
+    public Map<String, String> getBoardInfo() {
+        Map<String, String> map = new TreeMap<>();
+
+        var boardInfo = pi4JManager.getBoardInfo();
+        var boardModel = boardInfo.getBoardModel();
+
+        map.put("CPU", boardModel.getCpu().getLabel());
+        map.put("BoardModel", boardModel.getName());
+        map.put("JavaVersion", boardInfo.getJavaInfo().getVendorVersion());
+        map.put("OS", boardInfo.getOperatingSystem().getName());
+        map.put("OSArchitecture", boardInfo.getOperatingSystem().getArchitecture());
+
+        return map;
+    }
+
+    /**
      * Get the platform info.
      */
     @GetMapping(path = "platform", produces = "application/json")
@@ -40,25 +59,6 @@ public class InfoRestController {
 
         map.put("name", platform.name());
         map.put("description", platform.getDescription());
-
-        return map;
-    }
-
-    /**
-     * Get the hardware info.
-     */
-    @GetMapping(path = "board", produces = "application/json")
-    public Map<String, String> getBoardInfo() {
-        Map<String, String> map = new TreeMap<>();
-
-        var boardInfo = pi4JManager.getBoardInfo();
-        var boardModel = boardInfo.getBoardModel();
-
-        map.put("CPU", boardModel.getCpu().getLabel());
-        map.put("BoardModel", boardModel.getName());
-        map.put("JavaVersion", boardInfo.getJavaInfo().getVendorVersion());
-        map.put("OS", boardInfo.getOperatingSystem().getName());
-        map.put("OSArchitecture", boardInfo.getOperatingSystem().getArchitecture());
 
         return map;
     }
