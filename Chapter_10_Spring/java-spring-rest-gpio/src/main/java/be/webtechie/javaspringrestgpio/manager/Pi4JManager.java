@@ -85,7 +85,7 @@ public class Pi4JManager {
             return "Not available";
         }
         try {
-            return String.valueOf(outputs.get(bcm).state().getValue());
+            return String.valueOf(inputs.get(bcm).state().getValue());
         } catch (IllegalArgumentException ex) {
             logger.error(ex.getMessage());
 
