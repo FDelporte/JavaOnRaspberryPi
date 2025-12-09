@@ -43,22 +43,36 @@ public class InfoRestController {
     }
 
     /**
-     * Get the platform info.
+     * Get the Java info.
      */
-    @GetMapping(path = "platform", produces = "application/json")
-    public Map<String, String> getPlatform() {
+    @GetMapping(path = "java", produces = "application/json")
+    public Map<String, String> getJavaInfo() {
         Map<String, String> map = new TreeMap<>();
 
-        var platform = pi4JManager.getPlatform();
+        var boardInfo = pi4JManager.getBoardInfo();
+        var java = boardInfo.getJavaInfo();
 
-        try {
-            map.put("id", platform.getId());
-        } catch (NullPointerException ex) {
-            map.put("id", "UNKNOWN");
-        }
+        map.put("Version", java.getVersion());
+        map.put("Runtime", java.getRuntime());
+        map.put("Vendor", java.getVendor());
+        map.put("Vendor version", java.getVendorVersion());
 
-        map.put("name", platform.name());
-        map.put("description", platform.getDescription());
+        return map;
+    }
+
+    /**
+     * Get the Operating System info.
+     */
+    @GetMapping(path = "os", produces = "application/json")
+    public Map<String, String> getOsInfo() {
+        Map<String, String> map = new TreeMap<>();
+
+        var boardInfo = pi4JManager.getBoardInfo();
+        var os = boardInfo.getOperatingSystem();
+
+        map.put("Name", os.getName());
+        map.put("Architecture", os.getArchitecture());
+        map.put("Version", os.getVersion());
 
         return map;
     }
