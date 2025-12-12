@@ -16,9 +16,9 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- DEPENDENCIES VERSIONS -->
-        <slf4j.version>1.7.32</slf4j.version>
-        <pi4j.version>3.0.2</pi4j.version>
-        <fxgl.version>21</fxgl.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <pi4j.version>4.0.0-SNAPSHOT</pi4j.version>
+        <fxgl.version>21.1</fxgl.version>
 
         <!-- BUILD PLUGIN VERSIONS -->
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
@@ -45,12 +45,7 @@
         </dependency>
         <dependency>
             <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-raspberrypi</artifactId>
-            <version>${pi4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-pigpio</artifactId>
+            <artifactId>pi4j-plugin-ffm</artifactId>
             <version>${pi4j.version}</version>
         </dependency>
 
@@ -61,6 +56,17 @@
             <version>${fxgl.version}</version>
         </dependency>
     </dependencies>
+
+    <!-- TODO remove after release of V4 -->
+    <repositories>
+        <repository>
+            <id>Maven snapshots</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

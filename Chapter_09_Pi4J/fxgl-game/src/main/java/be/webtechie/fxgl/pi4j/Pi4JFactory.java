@@ -64,8 +64,7 @@ public class Pi4JFactory {
                 .id(id)
                 .address(bcm)
                 .pull(PullResistance.PULL_UP)
-                .debounce(3000L)
-                .provider("pigpio-digital-input"));
+                .debounce(3000L));
         input.addListener(e -> {
             if (e.state() == DigitalState.LOW) {
                 console.println("Input change for " + id);

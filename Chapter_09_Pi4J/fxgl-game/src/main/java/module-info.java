@@ -31,7 +31,7 @@
 open module be.webtechie.fxgl {
     // Pi4J MODULES
     requires com.pi4j;
-    requires com.pi4j.plugin.pigpio;
+    requires com.pi4j.plugin.ffm;
 
     // SLF4J MODULES
     requires org.slf4j;
