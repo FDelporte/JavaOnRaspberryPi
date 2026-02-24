@@ -28,13 +28,21 @@ Everything is organized according to the chapters in the book. Within each chapt
 * 7: What is JavaFX and some sample applications
 * 8: Bits and bytes and how to use them
 * 9: Pi4J the perfect connector between Java and hardware
-* 10: Spring to control the Pi via web services
-* 11: Queues allow you to control multiple Pi's and Arduinos
+* 10: Serial communication
+* 11: Spring to control the Pi via web services
+* 12: Queues allow you to control multiple Pi's and Arduinos
   This document describes all the changes in this sources-project since the book "Getting Started with Java on Rasperry Pi" was published.
 
 ## Changes
 
 As Java, Raspberry Pi, and all related topics keep evolving, the book needs continuous updates. Below you can find the list of changes in this repository to keep the sources you find here, and the content of the ebook "in sync."
+
+### 2026
+
+* Chapter 10: Serial communication
+  * Added chapter about serial communication as this is no longer included in Pi4J V4
+* Chapter 10 became Chapter 11 (Spring)
+* Chapter 11 became Chapter 12 (Queues)
 
 ### 2025
 
