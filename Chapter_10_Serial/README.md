@@ -1,5 +1,7 @@
 # Serial Communication
 
+The serial example of the book has been reworked to a JBang project and is available on [GitHub in the pi4j-jbang repository](https://github.com/Pi4J/pi4j-jbang/tree/main/serial).
+
 ## Reconfigure serial GPIO's 
 
 In case you want to use the serial communication GPIO's to be used for the serial link, you can find more info here:
